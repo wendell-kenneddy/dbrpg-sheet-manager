@@ -1,0 +1,40 @@
+#page-header {
+  background: var(--complemetary-color);
+  padding: 0.6rem;
+
+  color: #fff;
+
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.6rem;
+
+  h1 {
+    letter-spacing: 0.1rem;
+  }
+
+  nav ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+
+    a {
+      background: rgba($color: #000, $alpha: 0.15);
+      border: none;
+      border-radius: 0.25rem;
+      padding: 0.6rem;
+      transition: .3s ease-in-out;
+
+      display: block;
+
+      color: #fff;
+
+      &:hover {
+        background: rgba($color: #000, $alpha: 0.3);
+      }
+    }
+  }
+}

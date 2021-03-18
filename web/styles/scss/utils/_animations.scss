@@ -1,0 +1,54 @@
+.fadein {
+  transition: .3s;
+  animation: fadein .3s ease-in-out;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.critical-roll {
+  color: var(--primary-accent-color);
+  font-weight: 700;
+  animation: rainbow-text .6s ease-in-out infinite;
+}
+
+.critical-fail {
+  color: var(--cancel-action-bg);
+  font-weight: 700;
+}
+
+@keyframes rainbow-text {
+  0% {
+    color: #f5424b;
+  }
+
+  20% {
+    color: #ff7700;
+  }
+
+  40% {
+    color: #2f944a;
+  }
+
+  60% {
+    color: #15a3ad;
+  }
+
+  80% {
+    color: #0066ff;
+  }
+
+  100% {
+    color: #f5424b
+  }
+
+}

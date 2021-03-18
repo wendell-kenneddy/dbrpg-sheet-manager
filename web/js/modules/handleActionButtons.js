@@ -1,0 +1,43 @@
+import { toggleModal } from './handleModals.js'
+import { handleChar } from './handleChar.js'
+import { attributeForm } from './handleAttributesModify.js'
+import { Toast } from './handleToast.js'
+import { rollForm } from './handleAttributeRollForm.js'
+
+const watchDelete = e => {
+  const btnConfirm = document.getElementById('confirm-char-delete')
+  const btnCancel = document.getElementById('cancel-char-delete')
+
+  if (e.target == btnConfirm) {
+    toggleModal(2, 'hide')
+    handleChar.deleteChar()
+  }
+  if (e.target == btnCancel) {
+    toggleModal(2, 'hide')
+    document.getElementById('dialogue-box').removeEventListener('click', watchDelete)
+  }
+}
+
+export const watchClick = () => {
+  document.getElementById('player-actions').addEventListener('click', e => {
+
+    if (e.target == document.getElementById('char-attributes-modify')) {
+      toggleModal(1, 'show')
+      attributeForm.watchModify()
+    }
+
+    if (e.target == document.getElementById('char-delete')) {
+      toggleModal(2, 'show')
+      document.getElementById('dialogue-box').addEventListener('click', watchDelete)
+    }
+
+    if (e.target == document.getElementById('char-roll-test')) {
+      toggleModal(3, 'show')
+      rollForm.watchRoll()
+    }
+
+    if (e.target == document.getElementById('char-exp-modify')) {
+      Toast.open('Desculpe, a funcionalidade ainda não está pronta...')
+    }
+  })
+}

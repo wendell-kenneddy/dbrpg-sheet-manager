@@ -1,0 +1,82 @@
+.btn-group {
+  padding: 0.6rem 0;
+  overflow: auto;
+  width: 100%;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.block-large {
+  width: 100%;
+  display: block;
+  font-size: 1.3rem;
+}
+
+.large-button {
+  width: 45%;
+  font-size: 1.3rem;
+}
+
+.center-aligned {
+  display: block;
+  margin: 0.6rem auto 0;
+}
+
+.styled-button {
+  background: var(--accent-color);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.6rem;
+  transition: .3s ease-in-out;
+  box-shadow: 0 0 5px var(--accent-color);
+
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.styled-button:hover {
+  background: var(--accent-color-darker);
+  box-shadow: 0 0 5px var(--accent-color-darker);
+  cursor: pointer;
+}
+
+.confirm-button {
+  background: var(--confirm-action-bg);
+  box-shadow: 0 0 5px var(--confirm-action-bg);
+}
+
+.confirm-button:hover {
+  background: var(--confirm-action-bg-hover);
+  box-shadow: 0 0 5px var(--confirm-action-bg-hover);
+}
+
+.cancel-button {
+  background: var(--cancel-action-bg);
+  box-shadow: 0 0 5px var(--cancel-action-bg);
+}
+
+.cancel-button:hover {
+  background: var(--cancel-action-bg-hover);
+  box-shadow: 0 0 5px var(--cancel-action-bg-hover);
+}
+
+.radio-and-text {
+  margin: 0.6rem 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.6rem;
+
+  input {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

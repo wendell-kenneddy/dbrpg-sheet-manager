@@ -1,0 +1,31 @@
+#char-general-info {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.6rem;
+}
+
+#char-info {
+  background: var(--complemetary-color);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.6rem;
+  overflow: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+
+  p {
+    background: var(--accent-color);
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.6rem;
+    cursor: default;
+    white-space: nowrap;
+
+    text-align: center;
+    word-spacing: 0.6rem;
+    color: #fff;
+  }
+}

@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #000;
+  --complemetary-color: #242424;
+  --accent-color: #15a3ad;
+  --accent-color-darker: #11767e;
+  --cancel-action-bg: #f5424b;
+  --cancel-action-bg-hover: #d1373f;
+  --confirm-action-bg: #2f944a;
+  --confirm-action-bg-hover: #26753b;
+}
+ 
+body {
+  background: var(--bg-color);
+  font-family: 'Ubuntu', sans-serif;
+}
+
+html {
+  font-size: 87.5%;
+}
+
+.sr-only {
+  border-width: 0;
+  margin: 0;
+  padding: 0;
+  width: 1;
+  height: 1;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  position: absolute;
+}
+
+.container {
+  margin: 2rem auto;
+  width: 90vw;
+  max-width: 800px;
+}
+
+.hide {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.title-container {
+  background: var(--accent-color);
+  border: none;
+  border-radius: 0.25rem 0.25rem 0 0;
+  margin: -0.6rem -0.6rem 1rem;
+  padding: 0.6rem;
+  font-size: 1.5rem;
+}

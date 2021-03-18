@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="creator" content="Wendell Kenneddy">
+  <meta name="description" content="Gerencie a ficha do seu personagem de dbRPG
+  de maneira prática, rápida e intuitiva.">
+  <meta name="keywords" content="db, rpg, ficha, gerenciador">
+  <meta property="og:title" content="dbRPG Sheet Manager">
+  <meta property="site_name" content="dbRPG Sheet Manager">
+  <meta property="og:description" content="Gerencie a ficha do seu personagem de dbRPG
+  de maneira prática, rápida e intuitiva.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="twitter:title" content="dbRPG Sheet Manager">
+  <meta property="twitter:description" content="Gerencie a ficha do seu personagem de dbRPG
+  de maneira prática, rápida e intuitiva.">
+  <title>dbRPG Sheet Manager</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./styles/css/style.css">
+</head>
+
+<body>
+  <header id="page-header" role="banner">
+    <h1>DB RPG</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Como jogar</a></li>
+        <li><a href="#">Changelog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main role="main" class="container">
+
+    <section id="char-general-info" class="fadein">
+      <h2 class="sr-only">Informações gerais</h2>
+
+      <div id="char-info">
+        <p id="char-name">Nome: </p>
+        <p id="char-race">Raça: </p>
+        <p id="char-level">Nível: 1</p>
+      </div>
+
+      <div class="btn-group" id="player-actions">
+        <button id="char-delete" class="styled-button">Excluir
+          personagem</button>
+        <button id="char-roll-test" class="styled-button">Rolar
+          teste de
+          atributo</button>
+        <button id="char-attributes-modify" class="styled-button">Utilizar P.A
+          (Pontos de
+          Aptidão)</button>
+        <button id="char-exp-modify" class="styled-button">Modificar
+          experiência</button>
+      </div>
+
+      <div class=" table-container">
+
+        <table id="char-attributes" class="styled-table">
+          <summary class="sr-only">Tabela contendo os atributos primários do
+            jogador</summary>
+          <thead>
+            <tr>
+              <th>Atributos</th>
+              <th>Base</th>
+              <th>Raça</th>
+              <th>Bônus</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Força</td>
+              <td id="char-base-str-attribute">0</td>
+              <td id="char-race-str-attribute">0</td>
+              <td id="char-bonus-str-attribute">0</td>
+              <td id="char-total-str-attribute">0</td>
+            </tr>
+            <tr>
+              <td>Destreza</td>
+              <td id="char-base-dex-attribute">0</td>
+              <td id="char-race-dex-attribute">0</td>
+              <td id="char-bonus-dex-attribute">0</td>
+              <td id="char-total-dex-attribute">0</td>
+            </tr>
+            <tr>
+              <td>Ki</td>
+              <td id="char-base-ki-attribute">0</td>
+              <td id="char-race-ki-attribute">0</td>
+              <td id="char-bonus-ki-attribute">0</td>
+              <td id="char-total-ki-attribute">0</td>
+            </tr>
+            <tr>
+              <td>Inteligência</td>
+              <td id="char-base-int-attribute">0</td>
+              <td id="char-race-int-attribute">0</td>
+              <td id="char-bonus-int-attribute">0</td>
+              <td id="char-total-int-attribute">0</td>
+            </tr>
+            <tr>
+              <td>Resistência</td>
+              <td id="char-base-res-attribute">0</td>
+              <td id="char-race-res-attribute">0</td>
+              <td id="char-bonus-res-attribute">0</td>
+              <td id="char-total-res-attribute">0</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table id="char-stats" class="styled-table">
+          <summary class="sr-only">Tabela contendo os status do jogador.
+          </summary>
+
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Atualmente</th>
+              <th>MAX</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>PV</td>
+              <td id="char-actual-hp">0</td>
+              <td id="char-max-hp">0</td>
+            </tr>
+            <tr>
+              <td>Ki</td>
+              <td id="char-actual-ki">0</td>
+              <td id="char-max-ki">0</td>
+            </tr>
+            <tr>
+              <td>EXP</td>
+              <td id="char-actual-exp">1</td>
+              <td id="char-max-exp">10</td>
+            </tr>
+            <tr>
+              <td>Fôlego</td>
+              <td id="char-actual-sta">0</td>
+              <td id="char-max-sta">0</td>
+            </tr>
+            <tr>
+              <td>P.A</td>
+              <td id="char-actual-ap">0</td>
+              <td id="char-max-ap">12</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <table id="char-abilites" class="styled-table large-table">
+        <summary class="sr-only">Habilidades do jogador.</summary>
+
+        <thead>
+          <tr>
+            <th>Habilidades</th>
+            <th>LVL</th>
+            <th>LVL UP</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+      </table>
+
+      <div class="table-container">
+        <table id="char-advantages" class="styled-table centered-td-table">
+          <summary class="sr-only">Tabela contendo as vantagens do jogador
+          </summary>
+          <thead>
+            <tr>
+              <th>Vantagens</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+        <table id="char-disadvantages" class="styled-table centered-td-table">
+          <summary class="sr-only">Tabela contendo as desvantagens do jogador
+          </summary>
+          <thead>
+            <tr>
+              <th>Desvantagens</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <table id="char-items">
+        <summary class="sr-only">Itens e equipamentos</summary>
+
+        <thead>
+          <tr>
+            <th>Itens e equipamentos</th>
+            <th>Tipo</th>
+            <th>Raridade</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+      </table>
+
+    </section>
+  </main>
+
+  <div class="overlay hide">
+    <div class="modal">
+      <section id="char-creation">
+        <div class="title-container">
+          <h2>Crie seu personagem</h2>
+        </div>
+        <form action="#" id="creation-form">
+          <label for="char-name" class="block-large">Nome</label>
+          <input type="text" name="char-name" id="char-name"
+            class="block-large">
+          <label for="char-race" class="block-large">Raça</label>
+          <input list="races" name="char-race" id="char-race"
+            class="block-large">
+          <datalist id="races">
+            <option value="Saiyajin (Puro)"></option>
+            <option value="Saiyajin (Híbrido)"></option>
+            <option value="Humano"></option>
+            <option value="Konatsu-seijin (Espadachim)"></option>
+            <option value="Konatsu-seijin (Feitiçeiro)"></option>
+            <option value="Namekuseijin (Clã dos Guerreiros)"></option>
+            <option value="Namekuseijin (Clã do Dragão)"></option>
+            <option value="Andróide (Ciborgue)"></option>
+            <option value="Andróide (Artificial)"></option>
+            <option value="Andróide (Bioandróide)"></option>
+            <option value="Raça Freeza"></option>
+            <option value="Majin"></option>
+          </datalist>
+
+          <p>Distribua seus Pontos de Aptidão (PA) iniciais. Você possui 12, e
+            pode usar no máximo 3 em cada atributo.</p>
+
+          <label for="char-base-str" class="block-large">Força</label>
+          <input type="number" name="char-base-str" id="char-base-str" max="3"
+            step="1" class="block-large">
+
+          <label for="char-base-dex" class="block-large">Destreza</label>
+          <input type="number" name="char-base-dex" id="char-base-dex" max="3"
+            step="1" class="block-large">
+
+          <label for="char-base-ki" class="block-large">Ki</label>
+          <input type="number" name="char-base-ki" id="char-base-ki" max="3"
+            step="1" class="block-large">
+
+          <label for="char-base-int" class="block-large">Inteligência</label>
+          <input type="number" name="char-base-int" id="char-base-int" max="3"
+            step="1" class="block-large">
+
+          <label for="char-base-res" class="block-large">Resistência</label>
+          <input type="number" name="char-base-res" id="char-base-res" max="3"
+            step="1" class="block-large">
+
+          <button
+            class="styled-button large-button center-aligned">Criar</button>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <div class="overlay hide">
+    <div id="attribute-edit" class="modal">
+      <div class="title-container">
+        <h2>Modificar atributos</h2>
+      </div>
+
+      <form action="#" id="attribute-edit-form">
+        <p id="available-ap">P.A disponíveis: </p>
+
+        <label for="edit-str" class="block-large">Força</label>
+        <input type="number" name="edit-str" id="edit-str" step="1" max="12"
+          class="block-large">
+
+        <label for="edit-dex" class="block-large">Destreza</label>
+        <input type="number" name="edit-dex" id="edit-dex" step="1" max="12"
+          class="block-large">
+
+        <label for="edit-ki" class="block-large">Ki</label>
+        <input type="number" name="edit-ki" id="edit-ki" step="1" max="12"
+          class="block-large">
+
+        <label for="edit-int" class="block-large">Inteligência</label>
+        <input type="number" name="edit-int" id="edit-int" step="1" max="12"
+          class="block-large">
+
+        <label for="edit-res" class="block-large">Resistência</label>
+        <input type="number" name="edit-res" id="edit-res" step="1" max="12"
+          class="block-large">
+
+        <div class="btn-group" id="player-actions-modify">
+          <button id="confirm-modify"
+            class="styled-button large-button confirm-button">Confirmar</button>
+
+          <a href="#" id="cancel-modify"
+            class="styled-button large-button cancel-button">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="overlay hide">
+    <div id="dialogue-box" class="modal">
+      <div class="title-container">
+        <h2 id="warning">Aviso</h2>
+      </div>
+      <p id="warning-description">Esta ação é <strong>irreversível</strong>. O
+        personagem não
+        poderá ser recuperado, e <strong>todo o progresso será perdido</strong>.
+        Deseja realmente
+        seguir em frente e apagar o personagem?</p>
+      <div class="btn-group">
+        <button id="confirm-char-delete"
+          class="styled-button large-button confirm-button">Confirmar</button>
+        <button id="cancel-char-delete"
+          class="styled-button large-button cancel-button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay hide">
+    <div class="modal">
+      <div id="attribute-roll">
+        <div class="title-container">
+          <h2>Teste de atributo</h2>
+        </div>
+
+        <form action="#" id="attribute-roll-form">
+          <label for="attribute-to-roll" class="block-large">Selecione o
+            atributo para realizar o
+            teste</label>
+
+          <div class="radio-and-text">
+            <input type="radio" name="attribute-to-roll" id="attribute-to-roll"
+              value="str" checked>
+            <span>Força</span>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="attribute-to-roll" id="attribute-to-roll"
+              value="dex">
+            <span>Destreza</span>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="attribute-to-roll" id="attribute-to-roll"
+              value="ki">
+            <span>Ki</span>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="attribute-to-roll" id="attribute-to-roll"
+              value="int">
+            <span>Inteligência</span>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="attribute-to-roll" id="attribute-to-roll"
+              value="res">
+            <span>Resistência</span>
+          </div>
+
+          <label for="dices-amount" class="block-large">Quantidade de dados
+            (d20)</label>
+          <input type="number" name="dices-amount" id="dices-amount" step="1"
+            class="block-large">
+      </div>
+
+      <div class="btn-group">
+        <button id="confirm-roll-test"
+          class="styled-button large-button confirm-button">Rolar
+          Teste</button>
+        <a id="cancel-roll-test" href="#"
+          class="styled-button large-button cancel-button">Cancelar</a>
+      </div>
+      </form>
+      <div id="result-container">
+        <p id="roll-result">O resultado aparecerá aqui.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="toast hide" id="warning-toast">
+    <p>Por favor, digite valores válidos.</p>
+    <button class="styled-button large-button center-aligned">Ok</button>
+  </div>
+
+  <footer id="page-footer" role="contentinfo">
+    <p>Desenvolvido por Wendell Kenneddy</p>
+  </footer>
+
+  <script src="./js/App.js" type="module" charset="utf-8"></script>
+</body>
+
+</html>

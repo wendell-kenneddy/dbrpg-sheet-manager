@@ -1,0 +1,25 @@
+@media (min-width: 700px) {
+  html {
+    font-size: 93.75%;
+  }
+
+  #page-header {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 800px) {
+  html {
+    font-size: 100%;
+  }
+
+  .table-container {
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+
+  .styled-table {
+    width: 50%;
+  }
+}
