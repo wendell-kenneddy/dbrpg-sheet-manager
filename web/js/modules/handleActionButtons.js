@@ -17,7 +17,7 @@ export const watchDelete = e => {
     toggleModal(2, 'hide')
     document.getElementById('dialogue-box').removeEventListener('click', watchDelete)
   }
-},
+}
 
 export const watchClick = () => {
   document.getElementById('player-actions').addEventListener('click', e => {
