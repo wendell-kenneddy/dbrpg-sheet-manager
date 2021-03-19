@@ -7,6 +7,7 @@ export const Sheet = {
     this.updateAttributes()
     this.printAdvantagesOrDisadvantages('advantages')
     this.printAdvantagesOrDisadvantages('disadvantages')
+    this.printItems()
   },
 
   updateCharIdentity() {
@@ -178,8 +179,32 @@ export const Sheet = {
   clearTables() {
     const advantagesTable = document.querySelector('#char-advantages tbody')
     const disadvantagesTable = document.querySelector('#char-disadvantages tbody')
+    const itemsTable = document.querySelector('#char-items tbody')
 
     advantagesTable.innerHTML = ''
     disadvantagesTable.innerHTML = ''
+    itemsTable.innerHTML = ''
+  },
+
+  buildItemHtml(item) {
+    const html = `
+    <td>${item.name}</td>
+    <td>${item.type}</td>
+    <td>${item.rarity}</td>
+    <td><img src="./assets/x-circle.svg" alt="Ícone de remover item" width="32" height="32"</td>
+    `
+
+    return html
+  },
+
+  updateItems(item) {
+    const itemsTable = document.querySelector('#char-items tbody')
+    const tr = document.createElement('tr')
+    tr.innerHTML = Sheet.buildItemHtml(item)
+    itemsTable.appendChild(tr)
+  },
+
+  printItems() {
+    handleChar.char.items.forEach(Sheet.updateItems)
   }
 }
