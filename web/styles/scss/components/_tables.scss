@@ -43,10 +43,15 @@
 
 .table-container {
   overflow: auto;
+  width: 100%;
 
   display: flex;
   flex-flow: column wrap;
   gap: 0.6rem;
+}
+
+.no-wrap {
+  white-space: nowrap;
 }
 
 .centered-td-table {
