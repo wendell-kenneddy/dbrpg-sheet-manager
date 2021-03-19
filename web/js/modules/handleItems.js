@@ -3,7 +3,7 @@ import { handleChar } from "./handleChar.js"
 
 export const handleCharItems = {
   addItem(item) {
-    handleChar.char.push(item)
+    handleChar.char.items.push(item)
     App.reload()
   },
 
