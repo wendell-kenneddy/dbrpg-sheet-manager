@@ -1,6 +1,7 @@
 import { handleChar } from "./handleChar.js"
 
 export const handleRoll = {
+  diceFaces: 0,
   rolls: [],
   critRolls: 0,
   failedRolls: 0,
@@ -9,9 +10,13 @@ export const handleRoll = {
   attributesPlusRollsTotal: 0,
   output: '',
 
+  updateDiceFaces(facesAmount) {
+    this.diceFaces = facesAmount
+  },
+
   rollDice(times) {
     for (let i = 0; i < times; i++) {
-      const randomNum = Math.round(Math.random() * 20)
+      const randomNum = Math.round(Math.random() * this.diceFaces)
 
       this.rolls.push(randomNum)
       this.attributesPlusRollsTotal += randomNum
@@ -20,7 +25,7 @@ export const handleRoll = {
 
   checkCrits() {
     for (let i = 0; i < this.rolls.length; i++) {
-      if (this.rolls[i] == 20) {
+      if (this.rolls[i] == this.diceFaces) {
         this.critRolls += 1
       }
     }
@@ -37,13 +42,14 @@ export const handleRoll = {
   formatRolls() {
     const rolls = []
     for (let i = 0; i < this.rolls.length; i++) {
-      rolls.push(`${this.rolls[i]}(d20)`)
+      rolls.push(`${this.rolls[i]}(d${this.diceFaces})`)
     }
 
     return rolls
   },
 
   resetRoll() {
+    this.diceFaces = 0
     this.attributesPlusRollsTotal = 0
     this.rolledAttributeTotal = 0
     this.rolledAttribute = ''

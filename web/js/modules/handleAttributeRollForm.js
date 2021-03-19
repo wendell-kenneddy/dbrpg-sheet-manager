@@ -4,6 +4,7 @@ import { Toast } from "./handleToast.js"
 
 export const rollForm = {
   radios: document.getElementsByName('attribute-to-roll'),
+  diceFaces: document.getElementById('dice-faces-amount'),
   rollTimes: document.getElementById('dices-amount'),
 
   getAttributeToRoll() {
@@ -21,14 +22,17 @@ export const rollForm = {
 
   validateRoll() {
     if (`${this.rollTimes.value}`.match(/\D/g, "") ||
-      this.rollTimes.value == 0
+      this.rollTimes.value == 0 ||
+      `${this.diceFaces.value}`.match(/\D/g, "") ||
+      this.diceFaces.value == 0
     ) {
-      throw new Error('Por favor, especifique a quantidade de dados a serem rolados. Use somente números inteiros e positivos.')
+      throw new Error('Por favor, especifique valores válidos para  a quantidade de faces do dado e quantas vezes será rolado.')
     }
   },
 
   clearFields() {
     this.rollTimes.value = ''
+    this.diceFaces.value = ''
   },
 
   submit(e) {
@@ -37,6 +41,7 @@ export const rollForm = {
     try {
       rollForm.validateRoll()
       handleRoll.resetRoll()
+      handleRoll.updateDiceFaces(rollForm.diceFaces.value)
       handleRoll.rollDice(rollForm.rollTimes.value)
       handleRoll.getAttributeTotal(rollForm.getAttributeToRoll())
       handleRoll.checkCrits()
