@@ -190,9 +190,7 @@ export const Sheet = {
     const html = `
     <td>${item.name}</td>
     <td>${item.type}</td>
-    <td>${item.rarity}</td>
-    <td><img src="./assets/x-circle.svg" alt="Ícone de remover item" width="32" height="32"</td>
-    `
+    <td>${item.rarity}</td>`
 
     return html
   },
