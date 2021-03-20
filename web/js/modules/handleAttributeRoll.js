@@ -24,17 +24,21 @@ export const handleRoll = {
   },
 
   checkCrits() {
-    for (let i = 0; i < this.rolls.length; i++) {
-      if (this.rolls[i] == this.diceFaces) {
-        this.critRolls += 1
+    if (this.diceFaces == 20) {
+      for (let i = 0; i < this.rolls.length; i++) {
+        if (this.rolls[i] == 20) {
+          this.critRolls += 1
+        }
       }
     }
   },
 
   checkFails() {
-    for (let i = 0; i < this.rolls.length; i++) {
-      if (this.rolls[i] == 0) {
-        this.failedRolls += 1
+    if (this.diceFaces == 20) {
+      for (let i = 0; i < this.rolls.length; i++) {
+        if (this.rolls[i] == 0) {
+          this.failedRolls += 1
+        }
       }
     }
   },
