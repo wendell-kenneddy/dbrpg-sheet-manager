@@ -3,10 +3,9 @@
   overflow: auto;
   width: 100%;
 
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
   gap: 0.6rem;
 }
 
