@@ -4,6 +4,7 @@ import { attributeForm } from './handleAttributesModify.js'
 import { Toast } from './handleToast.js'
 import { rollForm } from './handleAttributeRollForm.js'
 import { addItemForm } from './handleItemAddItemForm.js'
+import { removeItemPrompt } from './handleItemRemove.js'
 
 export const watchDelete = e => {
   const btnConfirm = document.getElementById('confirm-char-delete')
@@ -48,6 +49,12 @@ export const watchClick = () => {
     else if (e.target == document.getElementById('char-add-item')) {
       toggleModal(4, 'show')
       addItemForm.watchItemAdd()
+      return
+    }
+
+    else if (e.target == document.getElementById('char-remove-item')) {
+      toggleModal(5, 'show')
+      removeItemPrompt.watchRemove()
       return
     }
   })
