@@ -47,6 +47,7 @@ export const addItemForm = {
       handleCharItems.addItem(addItemForm.getItemInfo())
       addItemForm.closeAddItemForm()
       App.reload()
+      Toast.open('Item adicionado com sucesso!')
     } catch (error) {
       Toast.open(error.message)
     }
