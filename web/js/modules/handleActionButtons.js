@@ -5,6 +5,7 @@ import { rollForm } from './handleAttributeRollForm.js'
 import { addItemForm } from './handleItemAddItemForm.js'
 import { removeItemPrompt } from './handleItemRemove.js'
 import { statusModifyForm } from './handleStatusModifyForm.js'
+import { Toast } from './handleToast.js'
 
 export const watchDelete = e => {
   const btnConfirm = document.getElementById('confirm-char-delete')
@@ -56,6 +57,11 @@ export const watchClick = () => {
     else if (e.target == document.getElementById('char-status-modify')) {
       toggleModal(6, 'show')
       statusModifyForm.watchStatusModify()
+      return
+    }
+
+    else if (e.target == document.getElementById('open-time-chamber')) {
+      Toast.open('Desculpe, a funcionalidade ainda não está pronta...')
       return
     }
   })
