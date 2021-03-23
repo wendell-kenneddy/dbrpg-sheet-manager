@@ -25,6 +25,10 @@
   font-size: 1.3rem;
 }
 
+.max-col{
+  grid-column: 1/-1;
+}
+
 .large-button {
   width: 45%;
   font-size: 1.3rem;
