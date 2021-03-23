@@ -467,6 +467,56 @@
     </div>
   </div>
 
+  <div class="overlay hide">
+    <div class="modal">
+      <div class="status-mofidy">
+        <div class="title-container">
+          <h2>Modificar status</h2>
+        </div>
+
+        <form action="#" id="status-modify-form">
+          <p class="block-large">Selecione o status que deseja modificar.</p>
+
+          <div class="radio-and-text">
+            <input type="radio" name="status-to-modify" id="modify-hp"
+              value="hp" checked>
+            <label for="modify-hp">HP</label>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="status-to-modify" id="modify-exp"
+              value="exp">
+            <label for="modify-exp">EXP</label>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="status-to-modify" id="modify-ki"
+              value="ki">
+            <label for="modify-ki">Ki</label>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="status-to-modify" id="modify-sta"
+              value="sta">
+            <label for="modify-sta">Fôlego</label>
+          </div>
+
+          <label for="modify-value" class="block-large">Valor (use o sinal de
+            menos para subtrações)</label>
+          <input type="number" name="modify-value" id="modify-value" step="0.01"
+            class="block-large">
+
+          <div class="btn-group">
+            <button class="styled-button confirm-button large-button"
+              id="confirm-status-modify">Confirmar</button>
+            <a href="#" class="styled-button cancel-button large-button"
+              id="cancel-status-modify">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="toast hide" id="warning-toast">
     <p>Por favor, digite valores válidos.</p>
     <button class="styled-button large-button center-aligned">Ok</button>
