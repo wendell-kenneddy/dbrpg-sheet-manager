@@ -1,10 +1,10 @@
 import { toggleModal } from './handleModals.js'
 import { handleChar } from './handleChar.js'
 import { attributeForm } from './handleAttributesModify.js'
-import { Toast } from './handleToast.js'
 import { rollForm } from './handleAttributeRollForm.js'
 import { addItemForm } from './handleItemAddItemForm.js'
 import { removeItemPrompt } from './handleItemRemove.js'
+import { statusModifyForm } from './handleStatusModifyForm.js'
 
 export const watchDelete = e => {
   const btnConfirm = document.getElementById('confirm-char-delete')
@@ -41,11 +41,6 @@ export const watchClick = () => {
       return
     }
 
-    else if (e.target == document.getElementById('char-exp-modify')) {
-      Toast.open('Desculpe, a funcionalidade ainda não está pronta...')
-      return
-    }
-
     else if (e.target == document.getElementById('char-add-item')) {
       toggleModal(4, 'show')
       addItemForm.watchItemAdd()
@@ -55,6 +50,12 @@ export const watchClick = () => {
     else if (e.target == document.getElementById('char-remove-item')) {
       toggleModal(5, 'show')
       removeItemPrompt.watchRemove()
+      return
+    }
+
+    else if (e.target == document.getElementById('char-status-modify')) {
+      toggleModal(6, 'show')
+      statusModifyForm.watchStatusModify()
       return
     }
   })
