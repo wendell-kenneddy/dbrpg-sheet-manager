@@ -1,5 +1,6 @@
 import { App } from '../App.js'
 import { Storage } from './handleStorage.js'
+import { Toast } from './handleToast.js'
 
 const handleChar = {
   char: Storage.get(),
@@ -154,33 +155,37 @@ const handleChar = {
   },
 
   updateCharActualHP(value) {
-    if (this.char.actualHP += value >= this.char.maxHP) {
+    if (this.char.actualHP + value >= this.char.maxHP) {
       this.char.actualHP = this.char.maxHP
-    } else if (this.char.actualHP += value <= 0) {
+      return
+    } else if (this.char.actualHP + value <= 0) {
       this.char.actualHP = 0
+      Toast.open('Fora de combate...')
+      return
     } else {
       this.char.actualHP += value
+      return
     }
   },
 
   updateCharActualKi(value) {
-    if (this.char.actualKi += value >= this.char.maxKi) {
+    if (this.char.actualKi + value >= this.char.maxKi) {
       this.char.actualKi = this.char.maxKi
       return
-    } else if (this.char.actualKi += value <= 0) {
+    } else if (this.char.actualKi + value <= 0) {
       this.char.actualKi = 0
       return
     } else {
-      this.char.actualHP += value
+      this.char.actualKi += value
       return
     }
   },
 
   updateCharActualSTA(value) {
-    if (this.char.actualSTA += value >= this.char.maxSTA) {
+    if (this.char.actualSTA + value >= this.char.maxSTA) {
       this.char.actualSTA = this.char.maxSTA
       return
-    } else if (this.char.actualHP += value <= 0) {
+    } else if (this.char.actualSTA + value <= 0) {
       this.char.actualSTA = 0
       return
     } else {
@@ -204,7 +209,13 @@ const handleChar = {
   },
 
   updateCharActualEXP(value) {
-    handleChar.char.exp += value
+    if (handleChar.char.exp + value >= 10) {
+      handleChar.levelUP()
+    } else if (handleChar.char.exp + value <= 0) {
+      handleChar.char.actualEXP = 0
+    } else {
+      handleChar.char.exp += value
+    }
   },
 
   updateRemainingPA(value) {
@@ -219,10 +230,12 @@ const handleChar = {
 
   levelUP() {
     this.char.level += 1
-    this.updateCharActualHP(999)
-    this.updateCharActualKi(999)
-    this.updateCharActualSTA(999)
+    this.char.remainingPA += 1
+    handleChar.char.actualHP = handleChar.char.maxHP
+    handleChar.char.actualKi = handleChar.char.maxKi
+    handleChar.char.actualSTA = handleChar.char.maxSTA
     this.char.exp = 0
+    Toast.open(`Parabéns, você alcançou o nível ${handleChar.char.level}! HP, Ki e Fôlego totalmente recuperados, e + 1 P.A disponível!`)
   },
 
   deleteChar() {
