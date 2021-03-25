@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="creator" content="Wendell Kenneddy">
+  <meta name="description" content="Manual do Sistema SSG.">
+  <meta name="keywords" content="ssg, rpg, sistema, manual">
+  <meta property="og:title" content="Sistema SSG - Manual">
+  <meta property="site_name" content="Sistema SSG - Manual">
+  <meta property="og:description" content="Manual do Sistema SSG.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url"
+    content="https://sistemassg.vercel.app//manual/attributes.html">
+  <meta property="og:img"
+    content="https://sistemassg.vercel.app//assets/preview.png">
+  <meta name="twitter:title" content="Sistema SSG - Manual">
+  <meta name="twitter:description" content="Manual do Sistema SSG.">
+  <meta name="twitter:url"
+    content="https://sistemassg.vercel.app//manual/attributes.html">
+  <meta name="twitter:image"
+    content="https://sistemassg.vercel.app//assets/preview.png">
+  <title>Sistema SSG - Manual</title>
+  <link rel="shortcut icon" href="../assets/icon.svg" type="image/svg + xml">
+  <link rel="canonical"
+    href="https://sistemassg.vercel.app//manual/attributes.html">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./styles/css/style.css">
+</head>
+
+<body>
+  <header id="page-header" role="banner">
+    <h1 class="logo">
+      <img src="../assets/logo.svg" alt="Logo" width="247" height="37">
+    </h1>
+
+    <nav>
+      <ul>
+        <li><a href="./manual.html" rel="prev">Manual</a></li>
+        <li><button id="open-modal">Seções</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="overlay hide">
+    <div class="modal">
+      <div class="title-container">
+        <h2>Seções</h2>
+      </div>
+
+      <nav id="page-sections">
+        <ul>
+          <li><a href="#str">Força</a></li>
+          <li><a href="#dex">Destreza</a></li>
+          <li><a href="#ki">Ki</a></li>
+          <li><a href="#int">Inteligência</a></li>
+          <li><a href="#res">Resistência</a></li>
+        </ul>
+      </nav>
+
+      <div class="btn-container">
+        <button id="close-modal" class="styled-button">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <article id="manual">
+      <header>
+        <h2>Atributos</h2>
+      </header>
+
+      <a href="#" class="anchor" id="str">Seção Força</a>
+      <section>
+        <h3>Força</h3>
+
+        <p>O atributo Força é utilizado em qualquer atividade que exija uso de
+          força bruta, como golpes físicos, empurrar, empurrar e afins. Sempre
+          que atacar ou defender-se usando este atributo, deverá fazer um
+          Teste
+          de Força (1d20 + total de Força). Caso supere o ataque ou defesa de
+          seu oponente, terá êxito em sua ação.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="dex">Seção Destreza</a>
+      <section>
+        <h3>Destreza</h3>
+
+        <p>O atributo Destreza é utilizado em toda atividade que exija
+          agilidade, velocidade ou esquiva. Sempre que realizar uma destas
+          ações, deverá fazer um Teste de Destreza (1d20 + total de Destreza).
+        </p>
+
+        <p>Cada ponto base em Destreza, isto é, os pontos distribuídos durante
+          a
+          criação da ficha, aumentam em 5 seu status Fôlego, enquanto que os
+          demais pontos aumentam apenas em 1.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="ki">Seção Ki</a>
+      <section>
+        <h3>Ki</h3>
+
+        <p>O atributo Ki é utilizado em toda atividade que exija uso de Ki,
+          como
+          usar um Kamehameha ou defender-se de um. Atacar utilizando-o ou
+          defender-se de um ataque como Kamehameha consumirá seus pontos de
+          Ki.
+          Nesses caso, deverá fazer um Teste de Ki (1d20 + total de Ki) para
+          calcular sua defesa.</p>
+
+        <p>Cada ponto base em Ki aumenta em 5 seu status Ki, enquanto que os
+          demais aumentam apenas em 1.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="int">Seção Inteligência</a>
+      <section>
+        <h3>Inteligência</h3>
+
+        <p>O atributo Inteligência é utilizado em qualquer ação que exija
+          raciocínio ou concentração, como pensar, sentir Ki, conversar e
+          afins.
+          Em situações relacionadas, deverá fazer um Teste de Inteligência
+          (1d20
+          + total de Inteligência). Personagens com pouca Inteligência podem
+          ter
+          dificuldade para conversar. O atributo pode, inclusive, ajudar numa
+          situação que exija lábia, ou para determinar a presença que está
+          sentindo.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="res">Seção Resistência</a>
+      <section>
+        <h3>Resistência</h3>
+
+        <p>O atributo Resistência é utilizado em toda atividade que exija
+          resistir a alguma ação, como controle mental, paralisia,
+          envenenamento
+          e afins. Ao realizar uma ação relacionada, deverá fazer um Teste de
+          Resistência (1d20 + total de Resistência).</p>
+
+        <p>Cada ponto base em Resistência aumenta em 5 seu status Pontos de
+          Vida
+          (PV), enquanto que os demais aumentam em apenas 1.</p>
+      </section>
+    </article>
+  </main>
+
+  <script src="../js/modules/handleManual.js" charset="utf-8"></script>
+</body>
+
+</html>
