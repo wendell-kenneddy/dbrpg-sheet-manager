@@ -271,7 +271,7 @@ const handleChar = {
 
   levelUP() {
     this.char.level += 1
-    this.char.remainingPA += 1
+    handleChar.updateRemainingPA(1)
     handleChar.char.actualHP = handleChar.char.maxHP
     handleChar.char.actualKi = handleChar.char.maxKi
     handleChar.char.actualSTA = handleChar.char.maxSTA
