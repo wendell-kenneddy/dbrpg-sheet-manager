@@ -249,20 +249,24 @@ const handleChar = {
     this.char.arbitraryKi += attributes.arbitraryKi
     this.char.arbitraryInt += attributes.arbitraryInt
     this.char.arbitraryRes += attributes.arbitraryRes
+    this.char.arbitraryBaseAtk += attributes.arbitraryBaseAtk
+    this.char.arbitraryBaseDef += attributes.arbitraryBaseDef
+    this.char.arbitrarySpAtk += attributes.arbitrarySpAtk
+    this.char.arbitrarySpDef += attributes.arbitrarySpDef
   },
 
   getCharBaseSecAttribute() {
-    const baseSecAttribute = this.char.baseStr + this.char.raceStr + this.char.bonusStr + this.char.arbitraryStr
+    const baseSecAttribute = this.char.baseStr + this.char.raceStr + this.char.bonusStr
 
     if (baseSecAttribute <= 0) return 0
     else return baseSecAttribute
   },
 
   getCharSpecialSecAttribute() {
-    const specialSecAttribute = this.char.baseKi + this.char.raceKi + this.char.bonusKi + this.char.arbitraryKi
+    const spSecAttribute = this.char.baseKi + this.char.raceKi + this.char.bonusKi
 
-    if (specialSecAttribute <= 0) return 0
-    else return specialSecAttribute
+    if (spSecAttribute <= 0) return 0
+    else return spSecAttribute
   },
 
   levelUP() {
