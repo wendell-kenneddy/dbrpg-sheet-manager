@@ -181,7 +181,7 @@ export const Sheet = {
           <td>${handleChar.getCharSpecialSecAttribute() + handleChar.char.arbitrarySpAtk}</td>
         </tr>
         <tr>
-        <td>Ataque Especial</td>
+        <td>Defesa Especial</td>
         <td>${handleChar.getCharSpecialSecAttribute()}</td>
         <td>${handleChar.char.arbitrarySpDef}</td>
         <td>${handleChar.getCharSpecialSecAttribute() + handleChar.char.arbitrarySpDef}</td>
