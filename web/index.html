@@ -534,6 +534,46 @@
     </div>
   </div>
 
+  <div class="overlay hide">
+    <div id="arbitrary-attribute" class="modal">
+      <div class="title-container">
+        <h2>Atributos Arbitrários</h2>
+      </div>
+
+      <p>Use o sinal de menos para valores negativos.</p>
+
+      <form action="#" id="arbitrary-attribute-form">
+        <label for="arbitrary-str" class="block-large">Força</label>
+        <input type="number" name="arbitrary-str" id="arbitrary-str" step="1"
+          class="block-large">
+
+        <label for="arbitrary-dex" class="block-large">Destreza</label>
+        <input type="number" name="arbitrary-dex" id="arbitrary-dex" step="1"
+          class="block-large">
+
+        <label for="arbitrary-ki" class="block-large">Ki</label>
+        <input type="number" name="arbitrary-ki" id="arbitrary-ki" step="1"
+          class="block-large">
+
+        <label for="arbitrary-int" class="block-large">Inteligência</label>
+        <input type="number" name="arbitrary-int" id="arbitrary-int" step="1"
+          class="block-large">
+
+        <label for="arbitrary-res" class="block-large">Resistência</label>
+        <input type="number" name="arbitrary-res" id="arbitrary-res" step="1"
+          class="block-large">
+
+        <div class="btn-group" id="arbitrary-attributes-modify">
+          <button id="confirm-arbitrary"
+            class="styled-button large-button confirm-button">Confirmar</button>
+
+          <a href="#" id="cancel-arbitrary"
+            class="styled-button large-button cancel-button">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div class="toast hide" id="warning-toast">
     <p>Por favor, digite valores válidos.</p>
     <button class="styled-button large-button center-aligned">Ok</button>
