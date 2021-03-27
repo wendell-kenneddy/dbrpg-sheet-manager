@@ -228,6 +228,14 @@ const handleChar = {
     }
   },
 
+  getCharBaseSecAttribute() {
+    return this.char.baseStr + this.char.raceStr + this.char.bonusStr
+  },
+
+  getCharSpecialSecAttribute() {
+    return this.char.baseKi + this.char.raceKi + this.char.bonusKi
+  },
+
   levelUP() {
     this.char.level += 1
     this.char.remainingPA += 1
