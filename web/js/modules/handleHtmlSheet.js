@@ -30,6 +30,7 @@ export const Sheet = {
     this.updateKiTableSection()
     this.updateIntTableSection()
     this.updateResTableSection()
+    this.updateSecAttributesTableSection()
   },
 
   updateCharName() {
@@ -146,6 +147,30 @@ export const Sheet = {
     totalResContainer.innerHTML = handleChar.char.baseRes + handleChar.char.raceRes + handleChar.char.bonusRes
   },
 
+  updateSecAttributesTableSection() {
+    const tableContaier = document.querySelector('#char-secondary-attributes tbody')
+
+    tableContaier.innerHTML =
+      `
+        <tr>
+          <td>Ataque</td>
+          <td>${handleChar.getCharBaseSecAttribute()}
+        </tr>
+        <tr>
+          <td>Defesa</td>
+          <td>${handleChar.getCharBaseSecAttribute()}
+        </tr>
+        <tr>
+          <td>Ataque Especial</td>
+          <td>${handleChar.getCharSpecialSecAttribute()}
+        </tr>
+        <tr>
+          <td>Defesa Especial</td>
+          <td>${handleChar.getCharSpecialSecAttribute()}
+        </tr>
+      `
+  },
+
   handleHtml(which, index) {
     const html = `<td>${which}</td>`
 
@@ -180,7 +205,9 @@ export const Sheet = {
     const advantagesTable = document.querySelector('#char-advantages tbody')
     const disadvantagesTable = document.querySelector('#char-disadvantages tbody')
     const itemsTable = document.querySelector('#char-items tbody')
+    const secAttributesTable = document.querySelector('#char-secondary-attributes tbody')
 
+    secAttributesTable.innerHTML = ''
     advantagesTable.innerHTML = ''
     disadvantagesTable.innerHTML = ''
     itemsTable.innerHTML = ''
