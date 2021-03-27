@@ -91,11 +91,13 @@ export const Sheet = {
     const baseStrContainer = document.querySelector('td#char-base-str-attribute')
     const raceStrContainer = document.querySelector('td#char-race-str-attribute')
     const bonusStrContainer = document.querySelector('td#char-bonus-str-attribute')
+    const arbitraryStrContainer = document.querySelector('td#char-arbitrary-str-attribute')
     const totalStrContainer = document.querySelector('td#char-total-str-attribute')
 
     baseStrContainer.innerHTML = handleChar.char.baseStr
     raceStrContainer.innerHTML = handleChar.char.raceStr
-    bonusStrContainer.innerHTML = `${handleChar.char.bonusStr}(${handleChar.char.arbitraryStr})`
+    bonusStrContainer.innerHTML = handleChar.char.bonusStr
+    arbitraryStrContainer.innerHTML = handleChar.char.arbitraryStr
     totalStrContainer.innerHTML = handleChar.char.baseStr + handleChar.char.raceStr + handleChar.char.bonusStr + handleChar.char.arbitraryStr
   },
 
@@ -103,11 +105,13 @@ export const Sheet = {
     const baseDexContainer = document.querySelector('td#char-base-dex-attribute')
     const raceDexContainer = document.querySelector('td#char-race-dex-attribute')
     const bonusDexContainer = document.querySelector('td#char-bonus-dex-attribute')
+    const arbitraryDexContainer = document.querySelector('td#char-arbitrary-dex-attribute')
     const totalDexContainer = document.querySelector('td#char-total-dex-attribute')
 
     baseDexContainer.innerHTML = handleChar.char.baseDex
     raceDexContainer.innerHTML = handleChar.char.raceDex
-    bonusDexContainer.innerHTML = `${handleChar.char.bonusDex}(${handleChar.char.arbitraryDex})`
+    bonusDexContainer.innerHTML = handleChar.char.bonusDex
+    arbitraryDexContainer.innerHTML = handleChar.char.arbitraryDex
     totalDexContainer.innerHTML = handleChar.char.baseDex + handleChar.char.raceDex + handleChar.char.bonusDex + handleChar.char.arbitraryDex
   },
 
@@ -115,11 +119,13 @@ export const Sheet = {
     const baseKiContainer = document.querySelector('td#char-base-ki-attribute')
     const raceKiContainer = document.querySelector('td#char-race-ki-attribute')
     const bonusKiContainer = document.querySelector('td#char-bonus-ki-attribute')
+    const arbitraryKiContainer = document.querySelector('td#char-arbitrary-ki-attribute')
     const totalKiContainer = document.querySelector('td#char-total-ki-attribute')
 
     baseKiContainer.innerHTML = handleChar.char.baseKi
     raceKiContainer.innerHTML = handleChar.char.raceKi
-    bonusKiContainer.innerHTML = `${handleChar.char.bonusKi}(${handleChar.char.arbitraryKi})`
+    bonusKiContainer.innerHTML = handleChar.char.bonusKi
+    arbitraryKiContainer.innerHTML = handleChar.char.arbitraryKi
     totalKiContainer.innerHTML = handleChar.char.baseKi + handleChar.char.raceKi + handleChar.char.bonusKi + handleChar.char.arbitraryKi
   },
 
@@ -127,11 +133,13 @@ export const Sheet = {
     const baseIntContainer = document.querySelector('td#char-base-int-attribute')
     const raceIntContainer = document.querySelector('td#char-race-int-attribute')
     const bonusIntContainer = document.querySelector('td#char-bonus-int-attribute')
+    const arbitraryIntContainer = document.querySelector('td#char-arbitrary-int-attribute')
     const totalIntContainer = document.querySelector('td#char-total-int-attribute')
 
     baseIntContainer.innerHTML = handleChar.char.baseInt
     raceIntContainer.innerHTML = handleChar.char.raceInt
-    bonusIntContainer.innerHTML = `${handleChar.char.bonusInt}(${handleChar.char.arbitraryInt})`
+    bonusIntContainer.innerHTML = handleChar.char.bonusInt
+    arbitraryIntContainer.innerHTML = handleChar.char.arbitraryInt
     totalIntContainer.innerHTML = handleChar.char.baseInt + handleChar.char.raceInt + handleChar.char.bonusInt + handleChar.char.arbitraryInt
   },
 
@@ -139,11 +147,13 @@ export const Sheet = {
     const baseResContainer = document.querySelector('td#char-base-res-attribute')
     const raceResContainer = document.querySelector('td#char-race-res-attribute')
     const bonusResContainer = document.querySelector('td#char-bonus-res-attribute')
+    const arbitraryResContainer = document.querySelector('td#char-arbitrary-res-attribute')
     const totalResContainer = document.querySelector('td#char-total-res-attribute')
 
     baseResContainer.innerHTML = handleChar.char.baseRes
     raceResContainer.innerHTML = handleChar.char.raceRes
-    bonusResContainer.innerHTML = `${handleChar.char.bonusRes}(${handleChar.char.arbitraryRes})`
+    bonusResContainer.innerHTML = handleChar.char.bonusRes
+    arbitraryResContainer.innerHTML = handleChar.char.arbitraryRes
     totalResContainer.innerHTML = handleChar.char.baseRes + handleChar.char.raceRes + handleChar.char.bonusRes + handleChar.char.arbitraryRes
   },
 
@@ -154,19 +164,27 @@ export const Sheet = {
       `
         <tr>
           <td>Ataque</td>
-          <td>${handleChar.getCharBaseSecAttribute()}
+          <td>${handleChar.getCharBaseSecAttribute()}</td>
+          <td>${handleChar.char.arbitraryBaseAtk}</td>
+          <td>${handleChar.getCharBaseSecAttribute() + handleChar.char.arbitraryBaseAtk}</td>
         </tr>
         <tr>
           <td>Defesa</td>
-          <td>${handleChar.getCharBaseSecAttribute()}
+          <td>${handleChar.getCharBaseSecAttribute()}</td>
+          <td>${handleChar.char.arbitraryBaseDef}</td>
+          <td>${handleChar.getCharBaseSecAttribute() + handleChar.char.arbitraryBaseDef}</td>
         </tr>
         <tr>
           <td>Ataque Especial</td>
-          <td>${handleChar.getCharSpecialSecAttribute()}
+          <td>${handleChar.getCharSpecialSecAttribute()}</td>
+          <td>${handleChar.char.arbitrarySpAtk}</td>
+          <td>${handleChar.getCharSpecialSecAttribute() + handleChar.char.arbitrarySpAtk}</td>
         </tr>
         <tr>
-          <td>Defesa Especial</td>
-          <td>${handleChar.getCharSpecialSecAttribute()}
+        <td>Ataque Especial</td>
+        <td>${handleChar.getCharSpecialSecAttribute()}</td>
+        <td>${handleChar.char.arbitrarySpDef}</td>
+        <td>${handleChar.getCharSpecialSecAttribute() + handleChar.char.arbitrarySpDef}</td>
         </tr>
       `
   },
