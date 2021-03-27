@@ -13,7 +13,7 @@ const handleChar = {
       raceKi: 0,
       raceInt: 0,
       raceRes: 2,
-      advantages: ['Criar lua', 'Forma gigante', 'Memória', 'Zenkai'],
+      advantages: ['Criar lua', 'Forma Gigante', 'Memória', 'Zenkai'],
       disadvantages: ['Apetite Insaciável', 'Cauda']
     },
 
@@ -24,7 +24,7 @@ const handleChar = {
       raceKi: 0,
       raceInt: 1,
       raceRes: 2,
-      advantages: ['Forma gigante', 'Zenkai'],
+      advantages: ['Forma gigante', 'Memória', 'Zenkai', 'Desenvolvimento Aprimorado'],
       disadvantages: ['Apetite Insaciável', 'Cauda']
     },
 
@@ -46,8 +46,8 @@ const handleChar = {
       raceKi: 2,
       raceInt: 1,
       raceRes: 1,
-      advantages: ['Alongar membros', 'Regeneração', 'Absover oponentes', 'Dividir seu corpo e controlar suas partes', 'Usar magia de cura'],
-      disadvantages: ['Preguiçoso', 'Pouca Inteligência']
+      advantages: ['Alongar membros', 'Regeneração', 'Absorção (Majin)', 'Desmembrar', 'Usar Magia de Cura'],
+      disadvantages: ['Preguiçoso', 'Primitivo']
     },
 
     {
@@ -57,8 +57,8 @@ const handleChar = {
       raceKi: 0,
       raceInt: 0,
       raceRes: 2,
-      advantages: ['Aumentar velocidade', 'Sobreviver a feridas mortais', 'Sobreviver no espaço', 'Transformação'],
-      disadvantages: ['Aparência monstruosa', 'Má fama']
+      advantages: ['Aumentar Velocidade', 'Sobreviver a Feridas Mortais', 'Sobreviver no espaço', 'Transformação'],
+      disadvantages: ['Aparência Monstruosa', 'Má Fama (Raça Freeza)']
     },
 
     {
@@ -68,8 +68,8 @@ const handleChar = {
       raceKi: 0,
       raceInt: 2,
       raceRes: 0,
-      advantages: ['Imune a veneno', 'Imune a controle mental'],
-      disadvantages: ['Necessidade de drenar energia']
+      advantages: ['Imune a Veneno', 'Imune a Controle Mental'],
+      disadvantages: ['Necessidade de Drenar Energia']
     },
 
     {
@@ -79,8 +79,8 @@ const handleChar = {
       raceKi: 0,
       raceInt: 1,
       raceRes: 1,
-      advantages: ['Absorção de energia (parcial ou por assimilação)'],
-      disadvantages: ['Chance de perda de assimilação', 'Perfeccionista']
+      advantages: ['Absorção de Energia (parcial ou por assimilação)'],
+      disadvantages: ['Chance de Perda de Assimilação', 'Perfeccionista']
     },
 
     {
@@ -90,8 +90,8 @@ const handleChar = {
       raceKi: 0,
       raceInt: 0,
       raceRes: 2,
-      advantages: ['Imune a veneno', 'Imune a controle mental', 'Energia ilimitada'],
-      disadvantages: ['Incapaz de sentir ki', 'Necessidade de hidratar-se']
+      advantages: ['Energia Ilimitada', 'Imune a Veneno', 'Imune a Controle Mental'],
+      disadvantages: ['Incapaz de Sentir Ki', 'Necessidade de Hidratar-se']
     },
 
     {
@@ -101,7 +101,7 @@ const handleChar = {
       raceKi: 0,
       raceInt: 0,
       raceRes: 2,
-      advantages: ['Forma gigante', 'Membros elásticos', 'Assimilação', 'Audição aguçada', 'Detecção natural de ki', 'Capacidade de avaliar índole', 'Regeneração de membros'],
+      advantages: ['Forma Gigante (Namek)', 'Alongar Membros (Namek)', 'Assimilação', 'Audição Aguçada', 'Detecção Natural de Ki', 'Capacidade de Avaliar Índole', 'Regenerar Membros'],
       disadvantages: []
     },
 
@@ -112,7 +112,7 @@ const handleChar = {
       raceKi: 2,
       raceInt: 2,
       raceRes: 0,
-      advantages: ['Curar feridas leves', 'Forma gigante', 'Membros elásticos', 'Assimilação', 'Audição aguçada', 'Deteccção natural de ki', 'Magia', 'Capacidade de avaliar índole', 'Regeneração de membros'],
+      advantages: ['Usar Magias Avançadas', 'Forma Gigante (Namek)', 'Alongar Membros (Namek)', 'Assimilação', 'Audição Aguçada', 'Deteccção Natural de Ki', 'Capacidade de Avaliar Índole', 'Regenerar Membros'],
       disadvantages: []
     },
 
@@ -123,8 +123,8 @@ const handleChar = {
       raceKi: 0,
       raceInt: 2,
       raceRes: 1,
-      advantages: ['Rolagem de dano +1', 'Usar magias menores'],
-      disadvantages: ['Necessidade de carregar uma arma branca a todo momento']
+      advantages: ['Perícia Inigualável +1', 'Usar Magias Menores'],
+      disadvantages: ['Item Essencial - Arma de Corte']
     },
 
     {
@@ -135,7 +135,7 @@ const handleChar = {
       raceInt: 2,
       raceRes: 0,
       advantages: ['Usar magia'],
-      disadvantages: ['Necessidade de descansar demasiadamente']
+      disadvantages: ['Necessidade de Descansar Demasiadamente']
     }
   ],
 
