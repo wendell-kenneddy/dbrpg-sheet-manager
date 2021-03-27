@@ -5,7 +5,7 @@ import { rollForm } from './handleAttributeRollForm.js'
 import { addItemForm } from './handleItemAddItemForm.js'
 import { removeItemPrompt } from './handleItemRemove.js'
 import { statusModifyForm } from './handleStatusModifyForm.js'
-import { Toast } from './handleToast.js'
+import { arbitraryAttributesForm } from './handleArbitraryAttributesForm.js';
 
 export const watchDelete = e => {
   const btnConfirm = document.getElementById('confirm-char-delete')
@@ -60,8 +60,9 @@ export const watchClick = () => {
       return
     }
 
-    else if (e.target == document.getElementById('open-time-chamber')) {
-      Toast.open('Desculpe, a funcionalidade ainda não está pronta...')
+    else if (e.target == document.getElementById('char-arbitrary-attributes')) {
+      toggleModal(7, 'show')
+      arbitraryAttributesForm.watchArbitraryModify()
       return
     }
   })
