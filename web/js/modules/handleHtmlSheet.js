@@ -95,8 +95,8 @@ export const Sheet = {
 
     baseStrContainer.innerHTML = handleChar.char.baseStr
     raceStrContainer.innerHTML = handleChar.char.raceStr
-    bonusStrContainer.innerHTML = handleChar.char.bonusStr
-    totalStrContainer.innerHTML = handleChar.char.baseStr + handleChar.char.raceStr + handleChar.char.bonusStr
+    bonusStrContainer.innerHTML = `${handleChar.char.bonusStr}(${handleChar.char.arbitraryStr})`
+    totalStrContainer.innerHTML = handleChar.char.baseStr + handleChar.char.raceStr + handleChar.char.bonusStr + handleChar.char.arbitraryStr
   },
 
   updateDexTableSection() {
@@ -107,8 +107,8 @@ export const Sheet = {
 
     baseDexContainer.innerHTML = handleChar.char.baseDex
     raceDexContainer.innerHTML = handleChar.char.raceDex
-    bonusDexContainer.innerHTML = handleChar.char.bonusDex
-    totalDexContainer.innerHTML = handleChar.char.baseDex + handleChar.char.raceDex + handleChar.char.bonusDex
+    bonusDexContainer.innerHTML = `${handleChar.char.bonusDex}(${handleChar.char.arbitraryDex})`
+    totalDexContainer.innerHTML = handleChar.char.baseDex + handleChar.char.raceDex + handleChar.char.bonusDex + handleChar.char.arbitraryDex
   },
 
   updateKiTableSection() {
@@ -119,8 +119,8 @@ export const Sheet = {
 
     baseKiContainer.innerHTML = handleChar.char.baseKi
     raceKiContainer.innerHTML = handleChar.char.raceKi
-    bonusKiContainer.innerHTML = handleChar.char.bonusKi
-    totalKiContainer.innerHTML = handleChar.char.baseKi + handleChar.char.raceKi + handleChar.char.bonusKi
+    bonusKiContainer.innerHTML = `${handleChar.char.bonusKi}(${handleChar.char.arbitraryKi})`
+    totalKiContainer.innerHTML = handleChar.char.baseKi + handleChar.char.raceKi + handleChar.char.bonusKi + handleChar.char.arbitraryKi
   },
 
   updateIntTableSection() {
@@ -131,8 +131,8 @@ export const Sheet = {
 
     baseIntContainer.innerHTML = handleChar.char.baseInt
     raceIntContainer.innerHTML = handleChar.char.raceInt
-    bonusIntContainer.innerHTML = handleChar.char.bonusInt
-    totalIntContainer.innerHTML = handleChar.char.baseInt + handleChar.char.raceInt + handleChar.char.bonusInt
+    bonusIntContainer.innerHTML = `${handleChar.char.bonusInt}(${handleChar.char.arbitraryInt})`
+    totalIntContainer.innerHTML = handleChar.char.baseInt + handleChar.char.raceInt + handleChar.char.bonusInt + handleChar.char.arbitraryInt
   },
 
   updateResTableSection() {
@@ -143,8 +143,8 @@ export const Sheet = {
 
     baseResContainer.innerHTML = handleChar.char.baseRes
     raceResContainer.innerHTML = handleChar.char.raceRes
-    bonusResContainer.innerHTML = handleChar.char.bonusRes
-    totalResContainer.innerHTML = handleChar.char.baseRes + handleChar.char.raceRes + handleChar.char.bonusRes
+    bonusResContainer.innerHTML = `${handleChar.char.bonusRes}(${handleChar.char.arbitraryRes})`
+    totalResContainer.innerHTML = handleChar.char.baseRes + handleChar.char.raceRes + handleChar.char.bonusRes + handleChar.char.arbitraryRes
   },
 
   updateSecAttributesTableSection() {
