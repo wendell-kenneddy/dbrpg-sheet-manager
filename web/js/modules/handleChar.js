@@ -249,12 +249,6 @@ const handleChar = {
     this.char.arbitraryKi += attributes.arbitraryKi
     this.char.arbitraryInt += attributes.arbitraryInt
     this.char.arbitraryRes += attributes.arbitraryRes
-
-    if (this.char.arbitraryStr < 0) this.char.arbitraryStr = 0
-    if (this.char.arbitraryDex < 0) this.char.arbitraryDex = 0
-    if (this.char.arbitraryKi < 0) this.char.arbitraryKi = 0
-    if (this.char.arbitraryInt < 0) this.char.arbitraryInt = 0
-    if (this.char.arbitraryRes < 0) this.char.arbitraryRes = 0
   },
 
   getCharBaseSecAttribute() {
