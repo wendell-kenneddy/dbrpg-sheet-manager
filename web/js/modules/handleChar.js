@@ -194,17 +194,32 @@ const handleChar = {
   },
 
   updateCharMaxHP() {
-    this.char.maxHP = this.char.baseRes * 5 + this.char.raceRes + this.char.bonusRes
+    this.char.maxHP = this.char.baseRes * 5 + this.char.raceRes + this.char.bonusRes + this.char.arbitraryRes
+
+    if (this.char.maxHP <= 0) this.char.maxHP = 0
+
+    if (this.char.actualHP > this.char.maxHP) handleChar.updateCharActualHP(this.char.maxHP)
+
     return
   },
 
   updateCharMaxKi() {
-    this.char.maxKi = this.char.baseKi * 5 + this.char.raceKi + this.char.bonusKi
+    this.char.maxKi = this.char.baseKi * 5 + this.char.raceKi + this.char.bonusKi + this.char.arbitraryKi
+
+    if (this.char.maxKi <= 0) this.char.maxKi = 0
+
+    if (this.char.actualKi > this.char.maxKi) handleChar.updateCharActualKi(this.char.maxKi)
+
     return
   },
 
   updateCharMaxSTA() {
-    this.char.maxSTA = this.char.baseDex * 5 + this.char.raceDex + this.char.bonusDex
+    this.char.maxSTA = this.char.baseDex * 5 + this.char.raceDex + this.char.bonusDex + this.char.arbitraryDex
+
+    if (this.char.maxSTA <= 0) this.char.maxSTA = 0
+
+    if (this.char.actualSTA > this.char.maxSTA) handleChar.updateCharActualSTA(this.char.maxSTA)
+
     return
   },
 
@@ -228,12 +243,32 @@ const handleChar = {
     }
   },
 
+  updateArbitraryAttributes(attributes) {
+    this.char.arbitraryStr += attributes.arbitraryStr
+    this.char.arbitraryDex += attributes.arbitraryDex
+    this.char.arbitraryKi += attributes.arbitraryKi
+    this.char.arbitraryInt += attributes.arbitraryInt
+    this.char.arbitraryRes += attributes.arbitraryRes
+
+    if (this.char.arbitraryStr < 0) this.char.arbitraryStr = 0
+    if (this.char.arbitraryDex < 0) this.char.arbitraryDex = 0
+    if (this.char.arbitraryKi < 0) this.char.arbitraryKi = 0
+    if (this.char.arbitraryInt < 0) this.char.arbitraryInt = 0
+    if (this.char.arbitraryRes < 0) this.char.arbitraryRes = 0
+  },
+
   getCharBaseSecAttribute() {
-    return this.char.baseStr + this.char.raceStr + this.char.bonusStr
+    const baseSecAttribute = this.char.baseStr + this.char.raceStr + this.char.bonusStr + this.char.arbitraryStr
+
+    if (baseSecAttribute <= 0) return 0
+    else return baseSecAttribute
   },
 
   getCharSpecialSecAttribute() {
-    return this.char.baseKi + this.char.raceKi + this.char.bonusKi
+    const specialSecAttribute = this.char.baseKi + this.char.raceKi + this.char.bonusKi + this.char.arbitraryKi
+
+    if (specialSecAttribute <= 0) return 0
+    else return specialSecAttribute
   },
 
   levelUP() {
