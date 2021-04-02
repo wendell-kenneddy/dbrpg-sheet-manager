@@ -600,6 +600,85 @@
     </div>
   </div>
 
+  <div class="overlay hide">
+    <div class="modal">
+      <div class="time-chamber">
+        <div class="title-container">
+          <h2>Sala do Tempo</h2>
+        </div>
+
+        <div class="filter-container">
+          <label for="filter">Filtrar por:</label>
+          <select name="filter" id="filter">Filtrar por
+            <option value="advantages">Vantagens</option>
+            <option value="disadvantages">Desvantagens</option>
+          </select>
+          <button class="styled-button" id="apply-filter">Aplicar
+            Filtro</button>
+        </div>
+
+        <p>Disponíveis:</p>
+
+        <div class="overflowed-content">
+          <ul class="available-characteristics">
+            <li></li>
+          </ul>
+        </div>
+
+        <p>Descrição (clique na vantagem ou desvantagem para ver sua descrição
+          aqui): </p>
+        <p id="characteristic-description"></p>
+
+        <div class="btn-group">
+          <button class="styled-button large-button confirm-button"
+            id="confirm-buy-characteristic">Confirmar</button>
+          <a href="#" class="styled-button large-button cancel-button"
+            id="cancel-buy-characteristic">Cancelar</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay hide">
+    <div class="modal">
+      <div class="choose-rival">
+        <div class="title-container">
+          <h2>Escolha a raça desejada</h2>
+        </div>
+
+        <label for="desired-racel" class="sr-only">Raças</label>
+        <select name="desired-race" id="desired-race" class="block-large">
+          <option value="Saiyajin (Puro)">Saiyajin (Puro)</option>
+          <option value="Saiyajin (Híbrido)">Saiyajin (Híbrido)</option>
+          <option value="Humano">Humano</option>
+          <option value="Konatsu-seijin (Espadachim)">Konatsu-seijin
+            (Espadachim)</option>
+          <option value="Konatsu-seijin (Feitiçeiro)">Konatsu-seijin
+            (Feitiçeiro)</option>
+          <option value="Namekuseijin (Clã dos Guerreiros)">Namekuseijin (Clã
+            dos Guerreiros)</option>
+          <option value="Namekuseijin (Clã do Dragão)">Namekuseijin (Clã do
+            Dragão)</option>
+          <option value="Andróide (Ciborgue)">Andróide (Ciborgue)</option>
+          <option value="Andróide (Artificial)">Andróide (Artificial)</option>
+          <option value="Andróide (Bioandróide)">Andróide (Bioandróide)
+          </option>
+          <option value="Majin">Majin</option>
+          <option value="Raça Freeza">Raça Freeza</option>
+        </select>
+
+        <div class="btn-group">
+          <button class="styled-button confirm-button large-button"
+            id="confirm-desired-race">Confirmar</button>
+          <button class="styled-button cancel-button large-button"
+            id="cancel-desired-race">Cancelar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <div class="toast hide" id="warning-toast">
     <p>Por favor, digite valores válidos.</p>
     <button class="styled-button large-button center-aligned">Ok</button>
