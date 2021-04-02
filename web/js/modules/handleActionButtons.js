@@ -6,6 +6,7 @@ import { addItemForm } from './handleItemAddItemForm.js'
 import { removeItemPrompt } from './handleItemRemove.js'
 import { statusModifyForm } from './handleStatusModifyForm.js'
 import { arbitraryAttributesForm } from './handleArbitraryAttributesForm.js';
+import { timeChamber } from './handleTimeChamber.js'
 
 export const watchDelete = e => {
   const btnConfirm = document.getElementById('confirm-char-delete')
@@ -63,6 +64,12 @@ export const watchClick = () => {
     else if (e.target == document.getElementById('char-arbitrary-attributes')) {
       toggleModal(7, 'show')
       arbitraryAttributesForm.watchArbitraryModify()
+      return
+    }
+
+    else if (e.target == document.getElementById('open-time-chamber')) {
+      toggleModal(8, 'show')
+      timeChamber.watchCharacteristics()
       return
     }
   })
