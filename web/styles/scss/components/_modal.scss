@@ -38,3 +38,33 @@
     box-sizing: border-box;
   }
 }
+
+.filter-container {
+  margin: 0.6rem 0;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 0.6rem;
+
+  select {
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.6rem;
+
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+  }
+}
+
+.available-characteristics {
+  padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.overflowed-content {
+  width: 100%;
+  overflow: auto;
+}
