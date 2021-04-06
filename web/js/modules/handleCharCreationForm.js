@@ -50,7 +50,8 @@ export const handleForm = {
       remainingPA: 12 - Number(this.baseStr.value) - Number(this.baseDex.value) - Number(this.baseKi.value) - Number(this.baseInt.value) - Number(this.baseRes.value),
       advantages: handleChar.raceSpecs[handleChar.findRaceSpecs(this.race.value)].advantages,
       disadvantages: handleChar.raceSpecs[handleChar.findRaceSpecs(this.race.value)].disadvantages,
-      items: []
+      items: [],
+      techniques: []
     }
   },
 
