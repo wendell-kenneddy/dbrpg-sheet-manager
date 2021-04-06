@@ -2124,3 +2124,105 @@ export const timeChamberItems = {
     },
   ]
 }
+
+export const attributeRealocateHandler = {
+  getNewAttributeValues() {
+    return {
+      newStr: Number(document.getElementById('new-bonus-str').value),
+      newDex: Number(document.getElementById('new-bonus-dex').value),
+      newKi: Number(document.getElementById('new-bonus-ki').value),
+      newInt: Number(document.getElementById('new-bonus-int').value),
+      newRes: Number(document.getElementById('new-bonus-res').value),
+    }
+  },
+
+  validateAttributes() {
+    const { newStr, newDex, newKi, newInt, newRes } = attributeRealocateHandler.getNewAttributeValues()
+
+    if (newStr == '' &&
+      newDex == '' &&
+      newKi == '' &&
+      newInt == '' &&
+      newRes == '') {
+      throw new Error('Por favor, digite valores válidos.')
+    }
+
+    if (!Number.isInteger(newStr) ||
+      !Number.isInteger(newDex) ||
+      !Number.isInteger(newKi) ||
+      !Number.isInteger(newInt) ||
+      !Number.isInteger(newRes)) {
+      throw new Error('Por favor, digite valores válidos.')
+    }
+
+    if (newStr + handleChar.char.bonusStr + newDex + handleChar.char.bonusDex + newKi + handleChar.char.bonusKi + newInt + handleChar.char.bonusInt + newRes + handleChar.char.bonusRes != handleChar.char.bonusStr + handleChar.char.bonusDex + handleChar.char.bonusKi + handleChar.char.bonusInt + handleChar.char.bonusRes
+    ) {
+      throw new Error('Os total de pontos realocados não pode modificar o total original de pontos bônus.')
+    }
+
+    return
+  },
+
+  watchButtonAction() {
+    const confirmBtn = document.getElementById('confirm-attribute-realocate')
+    const cancelBtn = document.getElementById('cancel-attribute-realocate')
+
+    confirmBtn.addEventListener('click', attributeRealocateHandler.confirmAttributeRealocate)
+    cancelBtn.addEventListener('click', attributeRealocateHandler.closeAttributeRealocateModal)
+  },
+
+  closeAttributeRealocateModal() {
+    const confirmBtn = document.getElementById('confirm-attribute-realocate')
+    const cancelBtn = document.getElementById('cancel-attribute-realocate')
+
+    toggleModal(10, 'hide')
+    confirmBtn.removeEventListener('click', attributeRealocateHandler.confirmAttributeRealocate)
+    cancelBtn.removeEventListener('click', attributeRealocateHandler.closeAttributeRealocateModal)
+    attributeRealocateHandler.clearFields()
+  },
+
+  updateCharBonusAttributes() {
+    const { newStr, newDex, newKi, newInt, newRes } = attributeRealocateHandler.getNewAttributeValues()
+
+    handleChar.char.bonusStr += newStr
+    handleChar.char.bonusDex += newDex
+    handleChar.char.bonusKi += newKi
+    handleChar.char.bonusInt += newInt
+    handleChar.char.bonusRes += newRes
+    return
+  },
+
+  clearFields() {
+    const newStr = document.getElementById('new-bonus-str')
+    const newDex = document.getElementById('new-bonus-dex')
+    const newKi = document.getElementById('new-bonus-ki')
+    const newInt = document.getElementById('new-bonus-int')
+    const newRes = document.getElementById('new-bonus-res')
+
+    newStr.value = ''
+    newDex.value = ''
+    newKi.value = ''
+    newInt.value = ''
+    newRes.value = ''
+
+    return
+  },
+
+  confirmAttributeRealocate(e) {
+    e.preventDefault()
+
+    try {
+      attributeRealocateHandler.validateAttributes()
+      attributeRealocateHandler.updateCharBonusAttributes()
+      handleChar.updateCharMaxHP()
+      handleChar.updateCharMaxSTA()
+      handleChar.updateCharMaxKi()
+      handleChar.updateRemainingPA(-1)
+      attributeRealocateHandler.closeAttributeRealocateModal()
+      timeChamber.closeTimeChamber()
+      App.reload()
+    } catch (error) {
+      Toast.open(error.message)
+    }
+  }
+}
