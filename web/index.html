@@ -679,6 +679,46 @@
     </div>
   </div>
 
+  <div class="overlay hide">
+    <div class="modal">
+      <div class="mech-parts-add">
+        <div class="title-container">
+          <h2>Realocar atributos</h2>
+        </div>
+
+        <p>Você pode realocar no máximo 3 pontos de atributos (seus pontos
+          bônus).</p>
+
+        <p>Use o sinal de menos para valores negativos.</p>
+
+        <form action="#" id="char-attributes-realocate">
+          <label for="new-bonus-str" class="block-large">Força</label>
+          <input type="number" class="block-large" id="new-bonus-str"
+            name="new-bonus-str">
+          <label for="new-bonus-dex" class="block-large">Destreza</label>
+          <input type="number" class="block-large" id="new-bonus-dex"
+            name="new-bonus-dex">
+          <label for="new-bonus-ki" class="block-large">Ki</label>
+          <input type="number" class="block-large" id="new-bonus-ki"
+            name="new-bonuskir">
+          <label for="new-bonus-int" class="block-large">Inteligência</label>
+          <input type="number" class="block-large" id="new-bonus-int"
+            name="new-bonus-int">
+          <label for="new-bonus-res" class="block-large">Resistência</label>
+          <input type="number" class="block-large" id="new-bonus-res"
+            name="new-bonus-res">
+
+          <div class="btn-group">
+            <button class="styled-button large-button confirm-button"
+              id="confirm-attribute-realocate">Confirmar</button>
+            <a href="#" class="styled-button large-button cancel-button"
+              id="cancel-attribute-realocate">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="toast hide" id="warning-toast">
     <p>Por favor, digite valores válidos.</p>
     <button class="styled-button large-button center-aligned">Ok</button>
