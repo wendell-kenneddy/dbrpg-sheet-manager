@@ -13,13 +13,38 @@ export const timeChamber = {
     return filter.value
   },
 
+  getTimeChamberTargetArray() {
+    if (timeChamber.getFilterValue() == 'advantages') {
+      return timeChamberItems.advantages
+    }
+
+    if (timeChamber.getFilterValue() == 'disadvantages') {
+      return timeChamberItems.disadvantages
+    }
+
+    if (timeChamber.getFilterValue() == 'techniques') {
+      return timeChamberItems.techniques
+    }
+  },
+
+  getCharTargetArray() {
+    if (timeChamber.getFilterValue() == 'advantages') {
+      return handleChar.char.advantages
+    }
+
+    if (timeChamber.getFilterValue() == 'disadvantages') {
+      return handleChar.char.disadvantages
+    }
+
+    if (timeChamber.getFilterValue() == 'techniques') {
+      return handleChar.char.techniques
+    }
+  },
+
   filterCharacteristics() {
     timeChamber.clearCharacteristicsList()
     timeChamber.clearDescriptionContainer()
-
-    const targetArray = timeChamber.getFilterValue() == 'advantages'
-      ? timeChamber.advantages
-      : timeChamber.disadvantages
+    const targetArray = timeChamber.getTimeChamberTargetArray()
 
     targetArray.forEach((e, i) => {
       timeChamber.printCharacteristic(timeChamber.buildCharacteristicButton(e)
@@ -67,9 +92,7 @@ export const timeChamber = {
   },
 
   updateOnFocusSkillInfo(e) {
-    const targetArray = timeChamber.getFilterValue() == 'advantages'
-      ? timeChamber.advantages
-      : timeChamber.disadvantages
+    const targetArray = timeChamber.getTimeChamberTargetArray()
 
     const index = e.currentTarget.dataset.index
     const name = targetArray[index].name
@@ -82,10 +105,17 @@ export const timeChamber = {
     const descriptionContainer = document.getElementById('characteristic-description')
 
     if (timeChamber.getFilterValue() == 'advantages') {
-      descriptionContainer.innerHTML = timeChamber.advantages[e.currentTarget.dataset.index].description
+      descriptionContainer.innerHTML = timeChamberItems.advantages[e.currentTarget.dataset.index].description
       return
-    } else {
-      descriptionContainer.innerHTML = timeChamber.disadvantages[e.currentTarget.dataset.index].description
+    }
+
+    if (timeChamber.getFilterValue() == 'disadvantages') {
+      descriptionContainer.innerHTML = timeChamberItems.disadvantages[e.currentTarget.dataset.index].description
+      return
+    }
+
+    if (timeChamber.getFilterValue() == 'techniques') {
+      descriptionContainer.innerHTML = timeChamberItems.techniques[e.currentTarget.dataset.index].description
       return
     }
   },
@@ -111,30 +141,22 @@ export const timeChamber = {
   },
 
   validateCharacteristic() {
-    const targetArray = timeChamber.getFilterValue() == 'advantages'
-      ? handleChar.char.advantages
-      : handleChar.char.disadvantages
-
-    const targetSkillArray = timeChamber.getFilterValue() == 'advantages'
-      ? timeChamber.advantages
-      : timeChamber.disadvantages
-
-    if (targetSkillArray[timeChamber.onFocusSkillIndex].needCheck) {
-      if (targetArray.indexOf(timeChamber.onFocusSkillName) != -1) {
-        throw new Error(`Você já possui ${timeChamber.onFocusSkillName}.`)
-      }
-    }
+    const targetArray = timeChamber.getTimeChamberTargetArray()
+    const targetSkillArray = timeChamber.getCharTargetArray()
 
     if (timeChamber.onFocusSkillIndex == null && timeChamber.onFocusSkillName == '') {
-      throw new Error('Por favor, selecione uma vantagem ou desvantagem.')
+      throw new Error('Por favor, selecione uma vantagem/desvantagem ou técnica.')
+    }
+
+    if (targetArray[timeChamber.onFocusSkillIndex].needCheck) {
+      if (targetSkillArray.indexOf(timeChamber.onFocusSkillName) != -1) {
+        throw new Error(`Você já possui ${timeChamber.onFocusSkillName}.`)
+      }
     }
   },
 
   buySkill() {
-    const targetArray = timeChamber.getFilterValue() == 'advantages'
-      ? timeChamber.advantages
-      : timeChamber.disadvantages
-
+    const targetArray = timeChamber.getTimeChamberTargetArray()
 
     targetArray[timeChamber.onFocusSkillIndex].sideEffet()
   },
