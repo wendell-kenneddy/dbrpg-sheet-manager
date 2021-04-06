@@ -7,6 +7,7 @@ export const Sheet = {
     this.updateAttributes()
     this.printAdvantagesOrDisadvantages('advantages')
     this.printAdvantagesOrDisadvantages('disadvantages')
+    this.printTechniques()
     this.printItems()
   },
 
@@ -195,6 +196,19 @@ export const Sheet = {
     return html
   },
 
+  buildTechniqueHtml(technique) {
+    const techniquesTable = document.querySelector('#char-abilities tbody')
+    const tr = document.createElement('tr')
+    tr.innerHTML = Sheet.handleHtml(technique)
+
+    techniquesTable.appendChild(tr)
+    return
+  },
+
+  printTechniques() {
+    handleChar.char.techniques.forEach(Sheet.buildTechniqueHtml)
+  },
+
   addAdvantage(advantage, index) {
     const advantagesTable = document.querySelector('#char-advantages tbody')
     const tr = document.createElement('tr')
@@ -224,11 +238,13 @@ export const Sheet = {
     const disadvantagesTable = document.querySelector('#char-disadvantages tbody')
     const itemsTable = document.querySelector('#char-items tbody')
     const secAttributesTable = document.querySelector('#char-secondary-attributes tbody')
+    const techniquesTable = document.querySelector('#char-abilities tbody')
 
     secAttributesTable.innerHTML = ''
     advantagesTable.innerHTML = ''
     disadvantagesTable.innerHTML = ''
     itemsTable.innerHTML = ''
+    techniquesTable.innerHTML = ''
   },
 
   buildItemHtml(item) {
