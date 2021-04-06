@@ -843,6 +843,10 @@ export const timeChamberItems = {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
+        if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
+          throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
+        }
+
         handleChar.char.techniques.push(this.name)
         handleChar.updateRemainingPA(-this.cost)
         timeChamber.closeTimeChamber()
@@ -862,6 +866,10 @@ export const timeChamberItems = {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
+        if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
+          throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
+        }
+
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
           throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
         }
@@ -875,7 +883,7 @@ export const timeChamberItems = {
 
     {
       name: 'Super Saiyajin 2',
-      description: 'Versão aprimorada do Super Saiyajin. É necessário ter aprendido Ultra Super Saiyajin para aprender Super Saiyajin 2. Custo de P.A: 2.',
+      description: 'Versão aprimorada do Super Saiyajin. É necessário ter aprendido Super Saiyajin para aprender Super Saiyajin 2. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       requirement: 'Super Saiyajin',
@@ -883,6 +891,10 @@ export const timeChamberItems = {
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
+          throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
@@ -908,6 +920,10 @@ export const timeChamberItems = {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
+        if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
+          throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
+        }
+
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
           throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
         }
@@ -921,7 +937,7 @@ export const timeChamberItems = {
 
     {
       name: 'Super Saiyajin 4',
-      description: 'A forma de um saiyajin que utiliza o máximo de seu poder nato. É necessário ter aprendido Super Saiyajin 3 para aprender Super Saiyajin 4. Custo de P.A: 4.',
+      description: 'A forma de um saiyajin que utiliza o máximo de seu poder nato. É necessário ter aprendido Super Saiyajin 3 e possuir uma cauda - este último requisito fica à bom senso do jogador, penalidades por burlar os requisitos serão aplicadas à critério do mestre - para aprender Super Saiyajin 4. Custo de P.A: 4.',
       cost: 4,
       needCheck: true,
       requirement: 'Super Saiyajin 3',
@@ -929,6 +945,10 @@ export const timeChamberItems = {
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
+          throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
@@ -944,14 +964,18 @@ export const timeChamberItems = {
 
     {
       name: 'Super Saiyajin Deus',
-      description: 'A forma de um saiyajin que atingiu o poder de um deus. É necessário ter aprendido Super Saiyajin 4 para aprender Super Saiyajin Deus. Custo de P.A: 6.',
+      description: 'A forma de um saiyajin que atingiu o poder de um deus. É necessário ter aprendido Super Saiyajin 3 para aprender Super Saiyajin Deus. Custo de P.A: 6.',
       cost: 6,
       needCheck: true,
-      requirement: 'Super Saiyajin 4',
+      requirement: 'Super Saiyajin 3',
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
+          throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
@@ -975,6 +999,10 @@ export const timeChamberItems = {
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
+          throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
