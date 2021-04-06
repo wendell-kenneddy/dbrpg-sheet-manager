@@ -342,6 +342,10 @@ export const timeChamberItems = {
           return
         }
 
+        const removeCharTechniques = () => {
+          handleChar.char.techniques = []
+        }
+
         const updateRace = () => {
           const race = document.getElementById('desired-race').value
           handleChar.char.race = race
@@ -407,6 +411,7 @@ export const timeChamberItems = {
             updateReencarnatedRaces()
             addNewRaceAttributes()
             resetCharSpecs()
+            removeCharTechniques()
             updateCharAdvantagesAndDisadvantages()
             updateCharStatus()
             handleChar.updateRemainingPA(-this.cost)
