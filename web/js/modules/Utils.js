@@ -1,6 +1,8 @@
 import { timeChamber } from './handleTimeChamber.js';
 import { handleChar } from './handleChar.js';
 import { App } from '../App.js'
+import { Toast } from './handleToast.js';
+import { toggleModal } from './handleModals.js';
 
 export const timeChamberItems = {
   advantages: [
@@ -219,16 +221,16 @@ export const timeChamberItems = {
       name: 'Partes Mecânicas',
       description: 'Você recebe a capacidade de reconstruir um ou mais membros perdidos consultando um especialista. Cada membro reconstruído dá a possibilidade de realocar 3 pontos de atributos. Custo: 1 P.A.',
       cost: 1,
+      needCheck: false,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        handleChar.char.advantages.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
+        toggleModal(10, 'show')
+        attributeRealocateHandler.watchButtonAction()
+        return
       }
     },
 
