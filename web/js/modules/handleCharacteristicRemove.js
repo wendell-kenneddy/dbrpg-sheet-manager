@@ -12,6 +12,7 @@ export const handleCharacteristicRemove = {
   validateCharacteristicRemove() {
     const characteristicName = document.getElementById('characteristic-name').value
     const targetArray = handleCharacteristicRemove.getTargetArray()
+    const targeRaceSpecArray = handleCharacteristicRemove.getTargetRaceSpecArray()
 
     if (characteristicName.replace(/\s/g, "") == '') {
       throw new Error('Por favor, indique um nome válido.')
@@ -19,6 +20,10 @@ export const handleCharacteristicRemove = {
 
     if (targetArray.indexOf(characteristicName) == -1) {
       throw new Error(`Você não possui ${characteristicName}.`)
+    }
+
+    if (targeRaceSpecArray.indexOf(characteristicName) != -1) {
+      throw new Error('Você não pode remover as características de sua raça.')
     }
 
     return
@@ -73,6 +78,16 @@ export const handleCharacteristicRemove = {
 
     if (handleCharacteristicRemove.getFilterValue() == 'technique') {
       return timeChamberItems.techniques
+    }
+  },
+
+  getTargetRaceSpecArray() {
+    if (handleCharacteristicRemove.getFilterValue() == 'advantage') {
+      return handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].advantages
+    }
+
+    if (handleCharacteristicRemove.getFilterValue() == 'disadvantage') {
+      return handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].disadvantages
     }
   },
 
