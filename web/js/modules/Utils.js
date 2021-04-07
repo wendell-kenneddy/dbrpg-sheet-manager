@@ -11,6 +11,7 @@ export const timeChamberItems = {
       description: 'Em virtude de sua boa genética, você é capaz de se mover um pouco mais rápido que os demais. Isto lhe garante vantagem em situações de perseguição, fuga e esquiva. Além disso, você recebe uma ação extra durante seu turno de ação, podendo mover-se duas vezes antes de agir, ou mover-se três vezes. Usar esta vantagem durante o combate consumirá 1 ponto de Fôlego e durará até o fim do combate. Garante um bônus de +1 em Destreza. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -31,6 +32,7 @@ export const timeChamberItems = {
       description: 'Você recebe a capacidade de criar sua pŕopria técnica, com características únicas. Consulte seu mestre para decidir os efeitos causados pela técnica. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -49,6 +51,7 @@ export const timeChamberItems = {
       description: 'Você recebe a capacidade de blefar, uma habilidade que lhe permite vencer lutas mesmo que não possua a força para tal. Tudo que a força não puder resolver, blefar irá. Garente um bônus de +2 em Inteligênia. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -68,6 +71,7 @@ export const timeChamberItems = {
       description: 'Você é admirado por todos, seja por sua perícia em combate, aparência, estilo ou mesmo uma única luta marcante. De qualquer forma, você é famoso, admirado e temido. Ser famoso pode trazer vantagens em algumas ocasiões, mas também desvantagens. Será mais difícil passar agir com furtividade, e se você tiver um ponto fraco, será mais fácil de descobrir. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -86,6 +90,7 @@ export const timeChamberItems = {
       description: 'Você recebe a capacidade de desviar completamente de um ataque, sem sofrer quase nenhum dano. Para isso, você pode gastar 2 pontos de Fôlego para cada tentativa e aumentar sua Destreza em 2 pontos contra um único ataque. O número de vezes que você pode tentar por turno é igual ao seu total de Destreza. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -104,6 +109,7 @@ export const timeChamberItems = {
       description: 'Você recebe a capacidade de invocar sua força interior, recuperando seus Pontos de Vida. Para tal, você deve gastar 2 pontos do status Ki, recuperando completamente seus Pontos de Vida. Usar esta vantagem leva um turno inteiro, e enquanto estiver concentrando-se, será considerado indefeso. Ao sofrer dano, sua concentração é perdida. A vantagem possui dois níveis: 1 - você só poderá usar Energia Extra em situações de quase morte; 2 - Você poderá usar Energia Extra quando quiser. Custo: 1-2 P.A.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       baseLevel: 'Energia Extra (Base)',
       maxLevel: 'Energia Extra (Aprimorado)',
 
@@ -137,6 +143,7 @@ export const timeChamberItems = {
       description: 'Você recebe a capacidade de enganar seus oponentes, parecendo fraco, covarde, pequeno ou qualquer outro motivo que preferir. Além de maior facilidade ao agir com furtividade, sua aparência inofensiva também o auxiliará em combate. Desse modo, você ganha a iniciativa, recebendo uma ação extra antes mesmo do primeiro turno de combate iniciar. Não funciona com quem já o tenha visto lutar, e o mesmo truque não engana a mesma pessoa duas vezes. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -154,6 +161,8 @@ export const timeChamberItems = {
       name: 'Rivalidade',
       description: 'Você recebe um treinamento especial, ou passa a nutrir certa rivalidade com determinadas raças, conhecendo bem suas fraquezas e habilidades. Escolha entre as raças disponíveis. Garante um bônus de +2 em Inteligência e Resistência. Custo: 1 P.A.',
       cost: 1,
+      needCheck: false,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -206,6 +215,8 @@ export const timeChamberItems = {
       name: 'Memória Expandida',
       description: 'Você recebe uma dádiva que melhora consideravelmente sua memória, possibilitando que lembre de tudo relacionado aos cinco sentidos. Desse modo, você se torna capaz de gravar perícias simplesmente ao ver uma pessoa utilizá-la. Contudo, você não pode manter mais de uma perícia ao mesmo tempo. Para gravar uma nova, deve apagar uma já existente. Personagens com esta vantagem não necessitam realizar testes para aprender novas magias. Custo: 1 P.A.',
       cost: 1,
+      needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -238,6 +249,8 @@ export const timeChamberItems = {
       name: 'Poder Oculto',
       description: 'Você recebe a capacidade de manifestar seu verdadeiro poder em situações de combate ou emergenciais (à critério do mestre). Você pode gastar um ponto de seu status Ki para aumentar em +1 qualquer atributo, um máximo de + 5. Como alternativa, seu Poder Oculto pode afetar apenas uma característica, escolhida durante sua criação de personagem (consulte seu mestre). Neste caso, Poder Oculto irá aumentar em +2 o atributo selecionado, até um máximo de +10. Poder Oculto não pode ser ativado em situações que não envolvam perigo, o que significa que não pode ser ativado fora de combate. Para Poder Oculto ser ativado, levará um turno para cada aumento de atributo - 5 turnos se quiser elevar seu atributo Força em +3 e seu atributo Inteligência em +2, por exemplo. Enquanto concentra-se para ativar seu Poder Oculto, ficará totalmente indefeso. Receber ataques enquanto se concentra lhe fará perder completamente a concentração. Uma vez ativado, Poder Oculto durará até o fim do combate. Contudo, se seus Pontos de Vida chegarem a 0, Poder Oculto será desativado. Custo: 1 P.A.',
       cost: 1,
+      needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -437,6 +450,7 @@ export const timeChamberItems = {
       description: 'Similar a Deflexão, porém melhor. Além de desviar do ataque, você recebe a capacidade de desferí-lo de volta ao atacante. Para tal, você pode gastar 2 pontos de seu status Ki e duplicar seu total de Força ou Ki para calcular sua defesa total contra um único ataque. Caso consiga deter completamente o ataque, não sofrerá dano algum, e lançará o ataque de volta para o agressor. Reflexão é considerada esquiva, o que significa que o total de vezes que pode ser usada em combate é igual ao seu total de defesa. Custo: 2 P.A.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -489,6 +503,7 @@ export const timeChamberItems = {
       description: 'Você recebe uma tormenta, que pode ser uma lembrança perturbadora ou algum espírito maligno. Ninguém pode sentir a Tormenta além de você mesmo, e além disso, Tormenta o deixará em paz apenas quando você estiver satisfeito ou cansado. Não importa o que seja, sempre que entrar em combate, o mestre realizará um teste, e caso o resultado esteja entre 4 e 6, Tormenta o afetará, e reduzirá em -1 todos os seus atributos. À critério do mestre, Tormenta pode aparecer também em outras ocasiões. Bônus de P.A: 2',
       bonus: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.char.disadvantages.push(this.name)
@@ -537,6 +552,7 @@ export const timeChamberItems = {
       description: 'Você subitamente passa a achar que não foi feito para o combate. Mesmo quando precisar salvar sua própria vida, sofrerá uma penalidade de -2 no seu total de defesa. Bônus de P.A: 1.',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -551,6 +567,7 @@ export const timeChamberItems = {
       description: 'Você subitamente perde parte de sua audição, sofrendo uma penalidade de -1 para notar inimigos escondidos. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -565,6 +582,7 @@ export const timeChamberItems = {
       description: 'Você subitamente perde parte de sua visão, vendo o mundo ao seu redor de maneira turva. Desse modo, sofrerá sempre uma penalidade de -1 em Força para ataques corporais, -3 em Força para ataques à distância e -3 em Destreza para esquivas. Além disso, sofrerá um redutor de -1 para notar inimigos escondidos, utilizando apenas seus outros sentidos (em situações onde você não possa usar nem mesmo o tato ou o olfato, o teste será negado). Bônus de P.A: 2',
       bonus: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -579,6 +597,7 @@ export const timeChamberItems = {
       description: 'Você subitamente perde consideravelmente sua capacidade de se comunicar, exceto com personagens que possam utilizar telepatia. Testes que envolvam ações sociais serão sempre considerados difíceis. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -593,6 +612,7 @@ export const timeChamberItems = {
       description: 'Você subitamente perde consideravelmente seu olfato, sendo incapaz de sentir até mesmo seu próprio cheiro. Você não pode, por exemplo, distinguir somente pela aparência se um alimento está estragado. Bônus de P.A: 1.',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -607,6 +627,7 @@ export const timeChamberItems = {
       description: 'Você subitamente perde consideravelmente seu paladar, sendo incapaz de distinguir se um alimento está estragado somente pelo gosto, por exemplo. Contudo, você não sente tanta fome, visto que será capaz de comer pratos que revirariam o estômago de um avestruz. Bônus de P.A: 1.',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -621,6 +642,7 @@ export const timeChamberItems = {
       description: 'Você subitamente passa a perder facilmente o foco, perdendo a vontade de lutar ou ficando desatento mais facilmente, não importando a gravidade da situação. Vale para qualquer tipo de situação, desde lutas à testes. Bônus de P.A: 2.',
       bonus: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -635,6 +657,7 @@ export const timeChamberItems = {
       description: 'Você subitamente sente sua mentalidade mudar. De agora em diante, será impossível controlar sua fúria. Sempre que receber dano ou irritar-se (à critério do mestre), deverá realizar um Teste de Resistência. Se falhar, entrará em um estado de Fúria, atacando automaticamente o alvo da Fúria. Durante a Fúria, sua mente se tornará uma tempestade, impedindo-o de esquivar, usar Ki ou qualquer Habilidade de Ki. A Fúria cessará quando você ou o seu oponente forem derrotados, ou se seu oponente fugir e, após isso, você ficará completamente esgotado. Devido ao cansaço extremo, sofrerá uma penalidade de -1 em todas as suas características. As penalidades acumulam para cada vez que entrar em Fúria. Garante um bônus de +2 em Força e Resistência. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -651,6 +674,7 @@ export const timeChamberItems = {
       description: 'Você subitamente perde os costumes de comunicação e vivência em sociedade. Seu modo de agir se tornará primitivo, o que significa que não saberá mais ler ou terá extrema dificuldade para tal, além de grande dificuldade para se comunicar com as pessoas. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -665,6 +689,7 @@ export const timeChamberItems = {
       description: 'Você subitamente perde qualquer credibilidade que tenha adquirido em vida, tornando-se completamente infame. Talvez por uma má experiência em combate, uma humilhação em público ou seja lá qual for o motivo. A partir de agora, será muito mais difícil adquirir a confiança das pessoas, que te olharão sempre com olhos turvos. Além disso, sua presença em um grupo tornará todos os membros suspeitos também. Ademais, caso seja constatado algum crime, muito provavelmente você será perseguido, mesmo que seja inocente. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -679,6 +704,7 @@ export const timeChamberItems = {
       description: 'Você subitamente perde um de seus braços ou de suas mãos, curiosamente não sentindo dor alguma. A partir de agora, será mais difícil manipular objetos com a mesma destreza, e você sofrerá uma penalidade de -1 em qualquer teste que envolva Ataque ou Defesa. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -693,6 +719,7 @@ export const timeChamberItems = {
       description: 'Você subitamente sente sua força de vontade para qualquer ação ser consumida por preguiça, não importando quão devoto à ou honrosa fosse a ação. A partir de agora, deverá realizar um teste a tudo que resolver fazer. Se quiser arrombar uma porte usando um chute, por exemplo, deverá realizar um Teste de Força, e se falhar, não terá êxito. Além disso, a dificuldade do teste aumentará conforme você falhar. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -707,6 +734,7 @@ export const timeChamberItems = {
       description: 'Você subitamente se sente mais desleixado, abrindo brecha para que seus oponentes encontrem seu Ponto Fraco. A partir de agora, qualquer oponente que conhecer seu Ponto Fraco receberá um bônus de +1 em Destreza ao lutar com você. Seu Ponto Fraco só poderá ser descoberto por pessoas que o tenham visto lutar ao menos uma vez. Você pode tentar descobrir o Ponto Fraco de um oponente realizando um teste de Destreza + Inteligência enquanto o assiste lutar, e se tiver êxito, receberá um bônus de +1 em Destreza sempre que lutar com ele. Caso possua Boa Fama ou Má Fama, automaticamente quase todo mundo saberá seu Ponto Fraco. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -721,6 +749,7 @@ export const timeChamberItems = {
       description: 'Você subitamente declara sua rivalidade à uma pessoa, cuja lembrança o enche de ódio (diferente de Rivalidade). Durante a aventura, deverá escolher um NPC (personagem do mestre) ou jogador, e declará-lo como seu Rival Definitivo. Sempre que encontrar seu Rival Definitvo, deverá travar uma batalha com ele, e caso perca, sofrerá uma penalidade de -5 em EXP. Se não houver EXP disponível no momento, assim que atingir 5 pontos, sua EXP será reduzida a 0. Sua ficha não poderá ser evolúida até que pague a penalidade. Além disso, se andar ao lado de seu Rival Definitvo, deverá travar uma batalha com ele a cada 15 dias. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         handleChar.updateRemainingPA(this.bonus)
@@ -736,6 +765,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Son Goku. Não necessita de nenhuma outra técnica para ser adquirida. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
 
@@ -755,6 +785,7 @@ export const timeChamberItems = {
       description: 'Versão aprimorada  do Kamehameha. É necessário ter aprendido Kamehameha para adquirir Super Kamehameha. Custo de P.A: 2.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Kamehameha',
 
       sideEffet() {
@@ -778,6 +809,7 @@ export const timeChamberItems = {
       description: 'Uma técnica com potencial destrutivo esmagador. Não necessita de nenhuma outra técnica para ser adquirida. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -796,6 +828,7 @@ export const timeChamberItems = {
       description: 'Versão aprimorada da Genki Dama. É necessário ter aprendido Genki Dama para adquirir Super Genkidama. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Genki Dama',
 
       sideEffet() {
@@ -819,6 +852,7 @@ export const timeChamberItems = {
       description: 'Uma técnica que eleva suas capacidades corporais. Não necessita de nenhuma outra técnica para ser adquirida. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -837,6 +871,7 @@ export const timeChamberItems = {
       description: 'Uma técnica que eleva suas capacidades como Saiyajin. Não necessita de nenhuma outra técnica para ser adquirida. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -860,6 +895,7 @@ export const timeChamberItems = {
       cost: 1,
       needCheck: true,
       requirement: 'Super Saiyajin',
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -887,6 +923,7 @@ export const timeChamberItems = {
       cost: 2,
       needCheck: true,
       requirement: 'Super Saiyajin',
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -914,6 +951,7 @@ export const timeChamberItems = {
       cost: 3,
       needCheck: true,
       requirement: 'Super Saiyajin 2',
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -941,6 +979,7 @@ export const timeChamberItems = {
       cost: 4,
       needCheck: true,
       requirement: 'Super Saiyajin 3',
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -968,6 +1007,7 @@ export const timeChamberItems = {
       cost: 6,
       needCheck: true,
       requirement: 'Super Saiyajin 3',
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -995,6 +1035,7 @@ export const timeChamberItems = {
       cost: 8,
       needCheck: true,
       requirement: 'Super Saiyajin Deus',
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1021,6 +1062,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Vegeta. Não necessita de nenhuma outra técnica para aprender Galick Ho. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1039,6 +1081,7 @@ export const timeChamberItems = {
       description: 'A capacidade de controlar a forma primitiva e esmagadora de um Saiyajin. Não necessita de nenhuma outra técnica para aprender Galick Ho. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1057,6 +1100,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Vegeta. Não necessita de nenhuma outra técnica para aprender Ataque Big Bang. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1075,6 +1119,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Vegeta. Não necessita de nenhuma outra técnica para aprender Resplendor Final. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1093,6 +1138,7 @@ export const timeChamberItems = {
       description: 'Versão aprimorada de Resplendor Final. É necessário ter aprendido Resplendor Final para adquirir Ataque Resplendor Final. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Resplendor Final',
 
       sideEffet() {
@@ -1116,6 +1162,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Majin Vegeta. Não é necessária nenhuma outra técnica para aprender Dark Impact. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1134,6 +1181,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Majin Vegeta. É necessário ter aprendido Dark Impact para adquirir Impacto Final. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Dark Impact',
 
       sideEffet() {
@@ -1157,6 +1205,7 @@ export const timeChamberItems = {
       description: 'Técnica definitiva de Majin Vegeta. É necessário ter aprendido Impacto Final para adquirir Explosão Final. Custo de P.A: 4.',
       cost: 4,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Impacto Final',
 
       sideEffet() {
@@ -1180,6 +1229,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Vegeta. Não é necessária nenhuma outra técnica para aprender Gamma Burst Flash. Custo de P.A: 3.',
       cost: 3,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1198,6 +1248,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Kuririn. Não é necessária nenhuma outra técnica para aprender Kienzan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1216,6 +1267,7 @@ export const timeChamberItems = {
       description: 'Versão aprimorada de Kienzan. É necessário aprender Kienzan para adquirir Kienzan Combo. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Kienzan',
 
       sideEffet() {
@@ -1239,6 +1291,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Kuririn. Não é necessária nenhuma outra técnica para aprender Chuva de Energia. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1257,6 +1310,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Yamcha. Não é necessária nenhuma outra técnica para aprender Wolf Fang Fist. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1275,6 +1329,7 @@ export const timeChamberItems = {
       description: 'Versão aprimorada de Wolf Fang Fist. É necessário ter aprendido Wolf Fang Fist para adquirir Binding Wolf Fang Fist. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Wolf Fang Fist',
 
       sideEffet() {
@@ -1298,6 +1353,7 @@ export const timeChamberItems = {
       description: 'Versão definitiva de Wolf Fang Fist. É necessário ter aprendido Binding Wolf Fang Fist para adquirir Neo Wolf Fang Fist. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Binding Wolf Fang Fist',
 
       sideEffet() {
@@ -1321,6 +1377,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Yamcha. Não é necessário ter aprendido nenhuma outra técnica para adquirir Soukidan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1339,6 +1396,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Yamcha. É necessário ter aprendido Soukidan para aprender Super Soukidan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Soukidan',
 
       sideEffet() {
@@ -1362,6 +1420,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais do dojo Tsuru-Sen. Não é necessário ter aprendido nenhuma outra técnica para adquirir Dodonpa. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1380,6 +1439,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Tenshinhan. Não é necessário ter aprendido nenhuma outra técnica para adquirir Kikoho. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1398,6 +1458,7 @@ export const timeChamberItems = {
       description: 'Versão aprimorada de Kikoho. É necessário ter aprendido Kikoho para adquirir Kikohodan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Kikoho',
 
       sideEffet() {
@@ -1421,6 +1482,7 @@ export const timeChamberItems = {
       description: 'Versão aprimorada de Kikoho. É necessário ter aprendido Kikohodan para adquirir Neo Kikoho. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Kikohodan',
 
       sideEffet() {
@@ -1444,6 +1506,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Tenshinhan. Não é necessário ter aprendido nenhuma outra técnica para adquirir Técnica das 4 Cópias. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1462,6 +1525,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Tenshinhan. Não é necessário ter aprendido nenhuma outra técnica para adquirir Técnica dos 4 Braços. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1480,6 +1544,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por diversos guerreiros. Não é necessário ter aprendido nenhuma outra técnica para adquirir Taiyouken. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1497,6 +1562,7 @@ export const timeChamberItems = {
       name: 'Super Onda Explosiva',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       description: 'Uma das técnicas principais de Piccolo. Não é necessário ter aprendido nenhuma outra técnica para adquirir Super Onda Explosiva. Custo de P.A: 1.',
 
       sideEffet() {
@@ -1515,6 +1581,7 @@ export const timeChamberItems = {
       name: 'Makankosappo',
       cost: 3,
       needCheck: true,
+      canBeRemoved: true,
       description: 'Uma das técnicas principais de Piccolo. Não é necessário ter aprendido nenhuma outra técnica para adquirir Makankosappo. Custo de P.A: 3.',
 
       sideEffet() {
@@ -1533,6 +1600,7 @@ export const timeChamberItems = {
       name: 'Zona de Granadas Infernais',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       description: 'Uma das técnicas principais de Piccolo. Não é necessário ter aprendido nenhuma outra técnica para adquirir Zona de Granadas Infernais. Custo de P.A: 1.',
 
       sideEffet() {
@@ -1551,6 +1619,7 @@ export const timeChamberItems = {
       name: 'Super Magekisen',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
       description: 'Uma das técnicas principais de Piccolo. Não é necessário ter aprendido nenhuma outra técnica para adquirir Super Magekisen. Custo de P.A: 2.',
 
       sideEffet() {
@@ -1570,6 +1639,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Trunks. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Attack. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Kikohodan',
 
       sideEffet() {
@@ -1593,6 +1663,7 @@ export const timeChamberItems = {
       description: 'Versão aprimorada de Burning Attack. É necessário ter aprendido Burning Attack para aprender Heat Dome Attack. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Burning Attack',
 
       sideEffet() {
@@ -1616,6 +1687,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Nappa. Não é necessário ter aprendido nenhuma outra técnica para aprender Bomber DX. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1634,6 +1706,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Nappa. Não é necessário ter aprendido nenhuma outra técnica para aprender Tempestade Gigante. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1652,6 +1725,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Turles. Não é necessário ter aprendido nenhuma outra técnica para aprender Kill Driver. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1670,6 +1744,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Turles. Não é necessário ter aprendido nenhuma outra técnica para aprender Calamity Blaster. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1688,6 +1763,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Turles. Não é necessário ter aprendido nenhuma outra técnica para aprender Calamity Blaster. Custo de P.A: 3.',
       cost: 3,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1706,6 +1782,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Raditz. Não é necessário ter aprendido nenhuma outra técnica para aprender Double Sunday. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1724,6 +1801,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Turles. Não é necessário ter aprendido nenhuma outra técnica para aprender Saturday Crush. Custo de P.A: 3.',
       cost: 3,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1742,6 +1820,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Mestre Kame. Não é necessário ter aprendido nenhuma outra técnica para aprender Sleepy Boy Technique. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1760,6 +1839,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Mestre Kame. Não é necessário ter aprendido nenhuma outra técnica para aprender Bankoku Bikkuri Sho. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1778,6 +1858,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Mestre Kame. Não é necessário ter aprendido nenhuma outra técnica para aprender Zanzoken. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1796,6 +1877,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Gohan. Não é necessário ter aprendido nenhuma outra técnica para aprender Masenko. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1814,6 +1896,7 @@ export const timeChamberItems = {
       description: 'Uma versão aprimorada do Masenko. É necessário ter aprendido Masenko para aprender Masendan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Masenko',
 
       sideEffet() {
@@ -1837,6 +1920,7 @@ export const timeChamberItems = {
       description: 'Uma versão aprimorada do Masenko. É necessário ter aprendido Masendan para aprender Super Masenko. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
       requirement: 'Masendan',
 
       sideEffet() {
@@ -1860,6 +1944,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Gohan. Não é necessário ter aprendido nenhuma outra técnica para aprender Gekiretsu Madan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1878,6 +1963,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Gohan. Não é necessário ter aprendido nenhuma outra técnica para aprender Impulse Fist. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1896,6 +1982,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Gohan. Não é necessário ter aprendido nenhuma outra técnica para aprender Gekiretsu Madan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1914,6 +2001,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Bardock. Não é necessário ter aprendido nenhuma outra técnica para aprender Vortex Crusher. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1932,6 +2020,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Freeza. Não é necessário ter aprendido nenhuma outra técnica para aprender Death Beam. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1950,6 +2039,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Freeza. Não é necessário ter aprendido nenhuma outra técnica para aprender Death Ball. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1968,6 +2058,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Freeza. Não é necessário ter aprendido nenhuma outra técnica para aprender Psicocinese. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -1986,6 +2077,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada pelos companheiros de Bojack. Não é necessário ter aprendido nenhuma outra técnica para aprender Psycho Thread. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -2004,6 +2096,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Piccolo. Não é necessário ter aprendido nenhuma outra técnica para aprender Magic Materialization. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -2022,6 +2115,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por diversos guerreiros. Não é necessário ter aprendido nenhuma outra técnica para aprender Escudo de Energia. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -2040,6 +2134,7 @@ export const timeChamberItems = {
       description: 'Técnica de cura. Não é necessário ter aprendido nenhuma outra técnica para aprender Curar. Adquira a magia novamente para receber Cura (Aprimorada). Custo de P.A: 1.',
       cost: 1,
       needCheck: false,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -2073,6 +2168,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Paikkuhan. Não é necessário ter aprendido nenhuma outra técnica para aprender Hyper Tornado. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -2091,6 +2187,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Paikkuhan. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Shoot. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -2109,6 +2206,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Paikkuhan. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Shoot. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -2127,6 +2225,7 @@ export const timeChamberItems = {
       description: 'Técnica utilizada por Dabura. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Shoot. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
@@ -2145,6 +2244,7 @@ export const timeChamberItems = {
       description: 'Uma das técnicas principais de Dabura. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Shoot. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
+      canBeRemoved: true,
 
       sideEffet() {
         if (handleChar.char.remainingPA < this.cost) {
