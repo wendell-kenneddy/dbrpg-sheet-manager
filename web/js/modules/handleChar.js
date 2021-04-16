@@ -1,288 +1,292 @@
-import { App } from '../App.js'
 import { Storage } from './handleStorage.js'
 import { Toast } from './handleToast.js'
+import { charUtilites } from './Utils.js'
 
-const handleChar = {
+export const handleChar = {
   char: Storage.get(),
-  availableRaces: ['Saiyajin (Puro)', 'Saiyajin (Híbrido)', 'Humano', 'Konatsu-seijin (Espadachim)', 'Konatsu-seijin (Feitiçeiro)', 'Andróide (Artificial)', 'Andróide (Ciborgue)', 'Andróide (Bioandróide)', 'Namekuseijin (Clã dos Guerreiros)', 'Namekuseijin (Clã do Dragão)', 'Raça Freeza', 'Majin'],
-  raceSpecs: [
-    {
-      race: 'Saiyajin (Puro)',
-      raceStr: 2,
-      raceDex: 0,
-      raceKi: 0,
-      raceInt: 0,
-      raceRes: 2,
-      advantages: ['Criar lua', 'Forma Gigante', 'Memória', 'Zenkai'],
-      disadvantages: ['Apetite Insaciável', 'Cauda']
-    },
 
-    {
-      race: 'Saiyajin (Híbrido)',
-      raceStr: 2,
-      raceDex: 0,
-      raceKi: 0,
-      raceInt: 1,
-      raceRes: 2,
-      advantages: ['Forma gigante', 'Memória', 'Zenkai', 'Desenvolvimento Aprimorado'],
-      disadvantages: ['Apetite Insaciável', 'Cauda']
-    },
+  createNewChar(baseChar) {
+    const char = {
+      name: baseChar.name,
+      race: baseChar.race,
+      level: 1,
+      status: [
+        {
+          name: 'EXP',
+          actual: 0,
+          max: 10
+        },
 
-    {
-      race: 'Humano',
-      raceStr: 0,
-      raceDex: 0,
-      raceKi: 0,
-      raceInt: 1,
-      raceRes: 2,
-      advantages: [],
-      disadvantages: []
-    },
+        {
+          name: 'Fôlego',
+          necessary: 'Destreza',
+          actual: baseChar.baseDex * 5 + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceDex,
+          max: baseChar.baseDex * 5 + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceDex
+        },
 
-    {
-      race: 'Majin',
-      raceStr: 1,
-      raceDex: 2,
-      raceKi: 2,
-      raceInt: 1,
-      raceRes: 1,
-      advantages: ['Alongar membros', 'Regeneração', 'Absorção (Majin)', 'Desmembrar', 'Usar Magia de Cura'],
-      disadvantages: ['Preguiçoso', 'Primitivo']
-    },
+        {
+          name: 'Ki',
+          necessary: 'Ki',
+          actual: baseChar.baseKi * 5 + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceKi,
+          max: baseChar.baseKi * 5 + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceKi
+        },
 
-    {
-      race: 'Raça Freeza',
-      raceStr: 1,
-      raceDex: 1,
-      raceKi: 0,
-      raceInt: 0,
-      raceRes: 2,
-      advantages: ['Aumentar Velocidade', 'Sobreviver a Feridas Mortais', 'Sobreviver no espaço', 'Transformação'],
-      disadvantages: ['Aparência Monstruosa', 'Má Fama (Raça Freeza)']
-    },
+        {
+          name: 'P.A',
+          actual: 12 - (baseChar.baseStr + baseChar.baseDex + baseChar.baseKi + baseChar.baseInt + baseChar.baseRes),
+          max: 12
+        },
 
-    {
-      race: 'Andróide (Artificial)',
-      raceStr: 0,
-      raceDex: 1,
-      raceKi: 0,
-      raceInt: 2,
-      raceRes: 0,
-      advantages: ['Imune a Veneno', 'Imune a Controle Mental'],
-      disadvantages: ['Necessidade de Drenar Energia']
-    },
+        {
+          name: 'PV',
+          necessary: 'Resistência',
+          actual: baseChar.baseRes * 5 + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceRes,
+          max: baseChar.baseRes * 5 + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceRes,
+        },
 
-    {
-      race: 'Andróide (Bioandróide)',
-      raceStr: 1,
-      raceDex: 0,
-      raceKi: 0,
-      raceInt: 1,
-      raceRes: 1,
-      advantages: ['Absorção de Energia (parcial ou por assimilação)'],
-      disadvantages: ['Chance de Perda de Assimilação', 'Perfeccionista']
-    },
+      ],
+      primaryAttributes: [
+        {
+          name: 'Força',
+          simpleName: 'str',
+          base: baseChar.baseStr,
+          race: charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceStr,
+          bonus: 0,
+          arbitrary: 0
+        },
 
-    {
-      race: 'Andróide (Ciborgue)',
-      raceStr: 1,
-      raceDex: 1,
-      raceKi: 0,
-      raceInt: 0,
-      raceRes: 2,
-      advantages: ['Energia Ilimitada', 'Imune a Veneno', 'Imune a Controle Mental'],
-      disadvantages: ['Incapaz de Sentir Ki', 'Necessidade de Hidratar-se']
-    },
+        {
+          name: 'Destreza',
+          simpleName: 'dex',
+          base: baseChar.baseDex,
+          race: charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceDex,
+          bonus: 0,
+          arbitrary: 0
+        },
 
-    {
-      race: 'Namekuseijin (Clã dos Guerreiros)',
-      raceStr: 1,
-      raceDex: 0,
-      raceKi: 0,
-      raceInt: 0,
-      raceRes: 2,
-      advantages: ['Forma Gigante (Namek)', 'Alongar Membros (Namek)', 'Assimilação', 'Audição Aguçada', 'Detecção Natural de Ki', 'Capacidade de Avaliar Índole', 'Regenerar Membros'],
-      disadvantages: []
-    },
+        {
+          name: 'Ki',
+          simpleName: 'ki',
+          base: baseChar.baseKi,
+          race: charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceKi,
+          bonus: 0,
+          arbitrary: 0
+        },
 
-    {
-      race: 'Namekuseijin (Clã do Dragão)',
-      raceStr: 0,
-      raceDex: 0,
-      raceKi: 2,
-      raceInt: 2,
-      raceRes: 0,
-      advantages: ['Usar Magias Avançadas', 'Forma Gigante (Namek)', 'Alongar Membros (Namek)', 'Assimilação', 'Audição Aguçada', 'Deteccção Natural de Ki', 'Capacidade de Avaliar Índole', 'Regenerar Membros'],
-      disadvantages: []
-    },
+        {
+          name: 'Inteligência',
+          simpleName: 'int',
+          base: baseChar.baseInt,
+          race: charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceInt,
+          bonus: 0,
+          arbitrary: 0
+        },
 
-    {
-      race: 'Konatsu-seijin (Espadachim)',
-      raceStr: 0,
-      raceDex: 2,
-      raceKi: 0,
-      raceInt: 2,
-      raceRes: 1,
-      advantages: ['Perícia Inigualável +1', 'Usar Magias Menores'],
-      disadvantages: ['Item Essencial - Arma de Corte']
-    },
+        {
+          name: 'Resistência',
+          simpleName: 'res',
+          base: baseChar.baseRes,
+          race: charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceRes,
+          bonus: 0,
+          arbitrary: 0
+        }
+      ],
+      secondaryAttributes: [
+        {
+          name: 'Ataque',
+          necessaryBasePrimaryAttribute: 'Força',
+          base: baseChar.baseStr + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceStr,
+          arbitrary: 0,
+          total: baseChar.baseStr + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceStr
+        },
 
-    {
-      race: 'Konatsu-seijin (Feitiçeiro)',
-      raceStr: 0,
-      raceDex: 0,
-      raceKi: 2,
-      raceInt: 2,
-      raceRes: 0,
-      advantages: ['Usar magia'],
-      disadvantages: ['Necessidade de Descansar Demasiadamente']
+        {
+          name: 'Defesa',
+          necessaryBasePrimaryAttribute: 'Força',
+          base: baseChar.baseStr + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceStr,
+          arbitrary: 0,
+          total: baseChar.baseStr + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceStr
+        },
+
+        {
+          name: 'Ataque Especial',
+          necessaryBasePrimaryAttribute: 'Ki',
+          base: baseChar.baseKi + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceKi,
+          arbitrary: 0,
+          total: baseChar.baseKi + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceKi
+        },
+
+        {
+          name: 'Defesa Especial',
+          necessaryBasePrimaryAttribute: 'Ki',
+          base: baseChar.baseKi + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceKi,
+          arbitrary: 0,
+          total: baseChar.baseKi + charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].raceKi
+        }
+      ],
+      advantages: charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].advantages,
+      disadvantages: charUtilites.raceSpecs[charUtilites.findRaceSpecs(baseChar.race)].disadvantages,
+      items: [],
+      techniques: [],
     }
-  ],
 
-  findRaceSpecs(race) {
-    const raceSpecsIndex = this.raceSpecs.findIndex(c => c.race == race)
-
-    return raceSpecsIndex
+    handleChar.char = char
+    return
   },
 
-  charFirstInit() {
-    this.updateCharMaxHP()
-    this.updateCharMaxKi()
-    this.updateCharMaxSTA()
-    this.updateCharActualHP(this.char.maxHP)
-    this.updateCharActualKi(this.char.maxKi)
-    this.updateCharActualSTA(this.char.maxSTA)
-  },
+  updateCharMaxStatus(status) {
+    let statusIndex = 0;
+    let necessaryPrimaryAttributeIndex = 0;
+    let maxValue = 0;
 
-  updateCharActualHP(value) {
-    if (this.char.actualHP + value >= this.char.maxHP) {
-      this.char.actualHP = this.char.maxHP
-      return
-    } else if (this.char.actualHP + value <= 0) {
-      this.char.actualHP = 0
-      Toast.open('Fora de combate...')
-      return
-    } else {
-      this.char.actualHP += value
-      return
+    for (let i = 0; i < handleChar.char.status.length; i++) {
+      if (handleChar.char.status[i].name == status) {
+        statusIndex = i;
+        break;
+      }
     }
-  },
 
-  updateCharActualKi(value) {
-    if (this.char.actualKi + value >= this.char.maxKi) {
-      this.char.actualKi = this.char.maxKi
-      return
-    } else if (this.char.actualKi + value <= 0) {
-      this.char.actualKi = 0
-      return
-    } else {
-      this.char.actualKi += value
-      return
+    for (let i = 0; i < handleChar.char.primaryAttributes.length; i++) {
+      if (handleChar.char.primaryAttributes[i].name == handleChar.char.status[statusIndex].necessary) {
+        necessaryPrimaryAttributeIndex = i;
+        break;
+      }
     }
-  },
 
-  updateCharActualSTA(value) {
-    if (this.char.actualSTA + value >= this.char.maxSTA) {
-      this.char.actualSTA = this.char.maxSTA
-      return
-    } else if (this.char.actualSTA + value <= 0) {
-      this.char.actualSTA = 0
-      return
-    } else {
-      this.char.actualSTA += value
+    maxValue = handleChar.char.primaryAttributes[necessaryPrimaryAttributeIndex].base * 5 + handleChar.char.primaryAttributes[necessaryPrimaryAttributeIndex].race + handleChar.char.primaryAttributes[necessaryPrimaryAttributeIndex].bonus + handleChar.char.primaryAttributes[necessaryPrimaryAttributeIndex].arbitrary;
+
+    handleChar.char.status[statusIndex].max = maxValue;
+
+    if (handleChar.char.status[statusIndex].actual >= handleChar.char.status[statusIndex].max) {
+      handleChar.char.status[statusIndex].actual = handleChar.char.status[statusIndex].max;
     }
-  },
 
-  updateCharMaxHP() {
-    this.char.maxHP = this.char.baseRes * 5 + this.char.raceRes + this.char.bonusRes + this.char.arbitraryRes
-
-    if (this.char.maxHP <= 0) this.char.maxHP = 0
-
-    if (this.char.actualHP > this.char.maxHP) handleChar.updateCharActualHP(this.char.maxHP)
+    if (handleChar.char.status[statusIndex].max <= 0) {
+      handleChar.char.status[statusIndex].max = 0;
+      handleChar.char.status[statusIndex].actual = 0;
+    }
 
     return
   },
 
-  updateCharMaxKi() {
-    this.char.maxKi = this.char.baseKi * 5 + this.char.raceKi + this.char.bonusKi + this.char.arbitraryKi
+  updateCharActualStatus(status, value) {
+    let statusIndex = 0;
 
-    if (this.char.maxKi <= 0) this.char.maxKi = 0
+    for (let i = 0; i < handleChar.char.status.length; i++) {
+      if (handleChar.char.status[i].name == status) {
+        statusIndex = i;
+        break;
+      }
+    }
 
-    if (this.char.actualKi > this.char.maxKi) handleChar.updateCharActualKi(this.char.maxKi)
+    handleChar.char.status[statusIndex].actual += value
+
+    if (handleChar.char.status[statusIndex].actual <= 0) {
+      handleChar.char.status[statusIndex].actual = 0
+    }
+
+    if (handleChar.char.status[statusIndex].actual >= handleChar.char.status[statusIndex].max) {
+      handleChar.char.status[statusIndex].actual = handleChar.char.status[statusIndex].max
+    }
+
+    if (status == 'EXP') {
+      handleChar.checkLevelUp()
+    }
 
     return
   },
 
-  updateCharMaxSTA() {
-    this.char.maxSTA = this.char.baseDex * 5 + this.char.raceDex + this.char.bonusDex + this.char.arbitraryDex
+  updateCharSecondaryAttributes() {
+    handleChar.char.secondaryAttributes.forEach(e => {
+      let primaryStatusIndex = 0;
 
-    if (this.char.maxSTA <= 0) this.char.maxSTA = 0
+      for (let i = 0; i < handleChar.char.primaryAttributes.length; i++) {
+        if (handleChar.char.primaryAttributes[i].name == e.necessaryBasePrimaryAttribute) {
+          primaryStatusIndex = i;
+          break;
+        }
+      }
 
-    if (this.char.actualSTA > this.char.maxSTA) handleChar.updateCharActualSTA(this.char.maxSTA)
+      e.base = handleChar.char.primaryAttributes[primaryStatusIndex].base + handleChar.char.primaryAttributes[primaryStatusIndex].race + handleChar.char.primaryAttributes[primaryStatusIndex].bonus + handleChar.char.primaryAttributes[primaryStatusIndex].arbitrary;
+      e.total = e.base + e.arbitrary;
+    })
 
     return
   },
 
-  updateCharActualEXP(value) {
-    if (handleChar.char.exp + value >= 10) {
-      handleChar.levelUP()
-    } else if (handleChar.char.exp + value <= 0) {
-      handleChar.char.actualEXP = 0
-    } else {
-      handleChar.char.exp += value
+  checkLevelUp() {
+    if (handleChar.char.status[0].actual == handleChar.char.status[0].max) {
+      handleChar.updateCharActualStatus('EXP', -10)
+      handleChar.updateCharActualStatus('Fôlego', handleChar.char.status[1].max)
+      handleChar.updateCharActualStatus('Ki', handleChar.char.status[2].max)
+      handleChar.updateCharActualStatus('P.A', 2)
+      handleChar.updateCharActualStatus('PV', handleChar.char.status[4].max)
+      handleChar.char.level += 1;
+      Toast.open(`Parabéns, você alcançou o nível ${handleChar.char.level}! +2 Pontos de Aptidão concedidos, e todos os status totalmente recuperados!`)
+      return
     }
   },
 
-  updateRemainingPA(value) {
-    if (this.char.remainingPA + Number(value) >= 12) {
-      this.char.remainingPA = 12
-    } else if (this.char.remainingPA + Number(value) <= 0) {
-      this.char.remainingPA = 0
-    } else {
-      this.char.remainingPA += Number(value)
+  addCharAdvantage(advantage) {
+    handleChar.char.advantages.push(advantage)
+    return
+  },
+
+  removeCharAdvantage(advantage) {
+    let advantageIndex = handleChar.char.advantages.indexOf(advantage)
+
+    if (advantageIndex == -1) {
+      throw new Error('Você não possui esta vantagem.')
     }
+
+    handleChar.char.advantages.splice(advantageIndex, 1)
+    return
   },
 
-  updateArbitraryAttributes(attributes) {
-    this.char.arbitraryStr += attributes.arbitraryStr
-    this.char.arbitraryDex += attributes.arbitraryDex
-    this.char.arbitraryKi += attributes.arbitraryKi
-    this.char.arbitraryInt += attributes.arbitraryInt
-    this.char.arbitraryRes += attributes.arbitraryRes
-    this.char.arbitraryBaseAtk += attributes.arbitraryBaseAtk
-    this.char.arbitraryBaseDef += attributes.arbitraryBaseDef
-    this.char.arbitrarySpAtk += attributes.arbitrarySpAtk
-    this.char.arbitrarySpDef += attributes.arbitrarySpDef
+  addCharDisadvantage(disadvantage) {
+    handleChar.char.disadvantages.push(disadvantage)
+    return
   },
 
-  getCharBaseSecAttribute() {
-    const baseSecAttribute = this.char.baseStr + this.char.raceStr + this.char.bonusStr
+  removeCharDisadvantage(disadvantage) {
+    let disadvantageIndex = handleChar.char.disadvantages.indexOf(disadvantage)
 
-    if (baseSecAttribute <= 0) return 0
-    else return baseSecAttribute
+    if (disadvantageIndex == -1) {
+      throw new Error('Você não possui esta desvantagem.')
+    }
+
+    handleChar.char.disadvantages.splice(disadvantageIndex, 1)
+    return
   },
 
-  getCharSpecialSecAttribute() {
-    const spSecAttribute = this.char.baseKi + this.char.raceKi + this.char.bonusKi
-
-    if (spSecAttribute <= 0) return 0
-    else return spSecAttribute
+  addCharItem(item) {
+    handleChar.char.items.push(item)
+    return
   },
 
-  levelUP() {
-    this.char.level += 1
-    handleChar.updateRemainingPA(2)
-    handleChar.char.actualHP = handleChar.char.maxHP
-    handleChar.char.actualKi = handleChar.char.maxKi
-    handleChar.char.actualSTA = handleChar.char.maxSTA
-    this.char.exp = 0
-    Toast.open(`Parabéns, você alcançou o nível ${handleChar.char.level}! HP, Ki e Fôlego totalmente recuperados, e + 1 P.A disponível!`)
+  removeCharItem(itemIndex) {
+    handleChar.char.items.splice(itemIndex, 1)
+    return
+  },
+
+  addTechnique(technique) {
+    handleChar.char.techniques.push(technique)
+    return
+  },
+
+  removeCharTechnique(technique) {
+    let techniqueIndex = handleChar.char.techniques.indexOf(technique)
+
+    if (techniqueIndex == -1) {
+      throw new Error('Você não possui esta técnica.')
+    }
+
+    handleChar.char.techniques.splice(techniqueIndex, 1)
+    return
   },
 
   deleteChar() {
-    this.char = null
-    App.reload()
+    handleChar.char = null
+    return
   }
 }
-
-export { handleChar }
