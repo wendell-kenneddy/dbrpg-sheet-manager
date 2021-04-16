@@ -1,5 +1,5 @@
-const openBtn = document.getElementById('open-modal')
-const closeBtn = document.getElementById('close-modal')
+const openBtn = document.getElementById('open-modal');
+const closeBtn = document.getElementById('close-modal');
 
 const handleModal = {
   modal: document.querySelector('div.overlay'),
@@ -11,6 +11,7 @@ const handleModal = {
     closeBtn.addEventListener('click', handleModal.close)
 
     handleModal.sectionsNav.addEventListener('click', handleModal.close)
+    return
   },
 
   close() {
@@ -19,6 +20,7 @@ const handleModal = {
     closeBtn.removeEventListener('click', handleModal.close)
 
     handleModal.sectionsNav.removeEventListener('click', handleModal.close)
+    return
   }
 }
 
