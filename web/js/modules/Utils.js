@@ -1,120 +1,178 @@
-import { timeChamber } from './handleTimeChamber.js';
+import { attributeRealocateModal, timeChamberModal } from './formAndModalHandlers.js';
 import { handleChar } from './handleChar.js';
 import { App } from '../App.js'
 import { Toast } from './handleToast.js';
 import { toggleModal } from './handleModals.js';
 
 export const timeChamberItems = {
+  /*
+    From this point, above each advantage, disadvantage and technique will be
+    written a comment indicating it's name.
+
+    Depending of the type (advantage, disadvantage or technique), the objects
+    will have some different properties, wich can be a cost value to discount
+    from the available P.A of the player, a bonus value that will be added to
+    the available P.A, and some properties that indicate if the characteristic
+    needs to be checked - if it's already been added - and another property that
+    indicates if the characteristic can be removed, so the player won't be able
+    to delete he's race advantages and disadvantages.
+
+    The characteristics can also have some validating code, that checks if the
+    player has the needed P.A to buy or if the player already have the
+    characteristc, and in some cases unique validations specific to the characteristic.
+  */
+
   advantages: [
+    // Aceleração
     {
       name: 'Aceleração',
-      description: 'Em virtude de sua boa genética, você é capaz de se mover um pouco mais rápido que os demais. Isto lhe garante vantagem em situações de perseguição, fuga e esquiva. Além disso, você recebe uma ação extra durante seu turno de ação, podendo mover-se duas vezes antes de agir, ou mover-se três vezes. Usar esta vantagem durante o combate consumirá 1 ponto de Fôlego e durará até o fim do combate. Garante um bônus de +1 em Destreza. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Em virtude de sua boa genética, você é capaz de se mover um pouco mais rápido que os demais. Isto lhe garante vantagem em situações de perseguição, fuga e esquiva. Além disso, você recebe uma ação extra durante seu turno de ação, podendo mover-se duas vezes antes de agir, ou mover-se três vezes. Usar esta vantagem durante o combate consumirá 1 ponto de Fôlego e durará até o fim do combate. Garante um bônus de +1 em Destreza. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        handleChar.char.bonusDex += 1
-        handleChar.char.advantages.push(this.name)
-        handleChar.updateCharMaxSTA()
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.char.primaryAttributes[1].bonus += 1;
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharMaxStatus('Fôlego')
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Ataque Especial
     {
       name: 'Ataque Especial',
-      description: 'Você recebe a capacidade de criar sua pŕopria técnica, com características únicas. Consulte seu mestre para decidir os efeitos causados pela técnica. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você recebe a capacidade de criar sua pŕopria técnica, com características únicas. Consulte seu mestre para decidir os efeitos causados pela técnica. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
-        } else {
-          handleChar.char.advantages.push(this.name)
-          handleChar.updateRemainingPA(-this.cost)
-          timeChamber.closeTimeChamber()
-          App.reload()
         }
+
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
+        App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Blefar
     {
       name: 'Blefar',
-      description: 'Você recebe a capacidade de blefar, uma habilidade que lhe permite vencer lutas mesmo que não possua a força para tal. Tudo que a força não puder resolver, blefar irá. Garente um bônus de +2 em Inteligênia. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você recebe a capacidade de blefar, uma habilidade que lhe permite vencer lutas mesmo que não possua a força para tal. Tudo que a força não puder resolver, blefar irá. Garente um bônus de +2 em Inteligênia. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
-        } else {
-          handleChar.char.advantages.push(this.name)
-          handleChar.char.bonusInt += 2
-          handleChar.updateRemainingPA(-this.cost)
-          timeChamber.closeTimeChamber()
-          App.reload()
         }
+
+        handleChar.char.primaryAttributes[3].bonus += 1;
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
+        App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Boa Fama
     {
       name: 'Boa Fama',
-      description: 'Você é admirado por todos, seja por sua perícia em combate, aparência, estilo ou mesmo uma única luta marcante. De qualquer forma, você é famoso, admirado e temido. Ser famoso pode trazer vantagens em algumas ocasiões, mas também desvantagens. Será mais difícil passar agir com furtividade, e se você tiver um ponto fraco, será mais fácil de descobrir. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você é admirado por todos, seja por sua perícia em combate, aparência, estilo ou mesmo uma única luta marcante. De qualquer forma, você é famoso, admirado e temido. Ser famoso pode trazer vantagens em algumas ocasiões, mas também desvantagens. Será mais difícil passar agir com furtividade, e se você tiver um ponto fraco, será mais fácil de descobrir. Custo: ${this.cost} P.A.`
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
-        } else {
-          handleChar.char.advantages.push(this.name)
-          handleChar.updateRemainingPA(-this.cost)
-          timeChamber.closeTimeChamber()
-          App.reload()
         }
+
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
+        App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Deflexão
     {
       name: 'Deflexão',
-      description: 'Você recebe a capacidade de desviar completamente de um ataque, sem sofrer quase nenhum dano. Para isso, você pode gastar 2 pontos de Fôlego para cada tentativa e aumentar sua Destreza em 2 pontos contra um único ataque. O número de vezes que você pode tentar por turno é igual ao seu total de Destreza. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você recebe a capacidade de desviar completamente de um ataque, sem sofrer quase nenhum dano. Para isso, você pode gastar 2 pontos de Fôlego para cada tentativa e aumentar sua Destreza em 2 pontos contra um único ataque. O número de vezes que você pode tentar por turno é igual ao seu total de Destreza. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
-        } else {
-          handleChar.char.advantages.push(this.name)
-          handleChar.updateRemainingPA(-this.cost)
-          timeChamber.closeTimeChamber()
-          App.reload()
         }
+
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
+        App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Energia Extra
     {
       name: 'Energia Extra',
-      description: 'Você recebe a capacidade de invocar sua força interior, recuperando seus Pontos de Vida. Para tal, você deve gastar 2 pontos do status Ki, recuperando completamente seus Pontos de Vida. Usar esta vantagem leva um turno inteiro, e enquanto estiver concentrando-se, será considerado indefeso. Ao sofrer dano, sua concentração é perdida. A vantagem possui dois níveis: 1 - você só poderá usar Energia Extra em situações de quase morte; 2 - Você poderá usar Energia Extra quando quiser. Custo: 1-2 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
       baseLevel: 'Energia Extra (Base)',
       maxLevel: 'Energia Extra (Aprimorado)',
 
+      getDescription() {
+        const description = `Você recebe a capacidade de invocar sua força interior, recuperando seus Pontos de Vida. Para tal, você deve gastar 2 pontos do status Ki, recuperando completamente seus Pontos de Vida. Usar esta vantagem leva um turno inteiro, e enquanto estiver concentrando-se, será considerado indefeso. Ao sofrer dano, sua concentração é perdida. A vantagem possui dois níveis: 1 - você só poderá usar Energia Extra em situações de quase morte; 2 - Você poderá usar Energia Extra quando quiser. Custo: 1-2 P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
@@ -123,216 +181,276 @@ export const timeChamberItems = {
         }
 
         if (handleChar.char.advantages.indexOf(this.baseLevel) == -1) {
-          handleChar.char.advantages.push(this.baseLevel)
-          handleChar.updateRemainingPA(-this.cost)
-          timeChamber.closeTimeChamber()
+          handleChar.addCharAdvantage(this.baseLevel)
+          handleChar.updateCharActualStatus('P.A', this.cost)
+          timeChamberModal.closeTimeChamber()
           App.reload()
+          Toast.open(`${this.name} adquirido com sucesso!`)
           return
         }
 
-        const index = handleChar.char.advantages.indexOf(this.baseLevel)
-        handleChar.char.advantages[index] = this.maxLevel
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        const index = handleChar.char.advantages.indexOf(this.baseLevel);
+        handleChar.char.advantages[index] = this.maxLevel;
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprimorado com sucesso!`)
       }
     },
 
+    // Esconder Intenções
     {
       name: 'Esconder Intenções',
-      description: 'Você recebe a capacidade de enganar seus oponentes, parecendo fraco, covarde, pequeno ou qualquer outro motivo que preferir. Além de maior facilidade ao agir com furtividade, sua aparência inofensiva também o auxiliará em combate. Desse modo, você ganha a iniciativa, recebendo uma ação extra antes mesmo do primeiro turno de combate iniciar. Não funciona com quem já o tenha visto lutar, e o mesmo truque não engana a mesma pessoa duas vezes. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você recebe a capacidade de enganar seus oponentes, parecendo fraco, covarde, pequeno ou qualquer outro motivo que preferir. Além de maior facilidade ao agir com furtividade, sua aparência inofensiva também o auxiliará em combate. Desse modo, você ganha a iniciativa, recebendo uma ação extra antes mesmo do primeiro turno de combate iniciar. Não funciona com quem já o tenha visto lutar, e o mesmo truque não engana a mesma pessoa duas vezes. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        handleChar.char.advantages.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Rivalidade
     {
       name: 'Rivalidade',
-      description: 'Você recebe um treinamento especial, ou passa a nutrir certa rivalidade com determinadas raças, conhecendo bem suas fraquezas e habilidades. Escolha entre as raças disponíveis. Garante um bônus de +2 em Inteligência e Resistência. Custo: 1 P.A.',
       cost: 1,
       needCheck: false,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você recebe um treinamento especial, ou passa a nutrir certa rivalidade com determinadas raças, conhecendo bem suas fraquezas e habilidades. Escolha entre as raças disponíveis. Garante um bônus de +2 em Inteligência e Resistência. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
         const validateRace = () => {
-          const rivalRace = document.getElementById('desired-race').value
+          const rivalRace = document.getElementById('desired-race').value;
           if (handleChar.char.advantages.indexOf(`${this.name} (${rivalRace})`) != -1) {
-            throw new Error('Você já possui Rivalidade com esta raça')
+            throw new Error('Você já possui Rivalidade com esta raça.')
           }
         }
 
         const closeRivalRaceModal = () => {
-          toggleModal(9, 'hide')
-          const confirmRivalRace = document.getElementById('confirm-desired-race')
-          confirmRivalRace.removeEventListener('click', confirm)
-          const cancelRivalRace = document.getElementById('cancel-desired-race')
-          cancelRivalRace.removeEventListener('click', closeRivalRaceModal)
+          const confirmBtn = document.getElementById('confirm-desired-race');
+          const cancelBtn = document.getElementById('cancel-desired-race');
+          toggleModal(10, 'hide')
+          confirmBtn.removeEventListener('click', confirmRivalRace)
+          cancelBtn.removeEventListener('click', closeRivalRaceModal)
         }
 
-        const confirm = () => {
-          const rivalRace = document.getElementById('desired-race').value
+        const confirmRivalRace = () => {
+          const rivalRace = document.getElementById('desired-race').value;
 
           try {
             validateRace()
-            handleChar.char.advantages.push(`${this.name} (${rivalRace})`)
-            handleChar.char.bonusInt += 2
-            handleChar.char.bonusRes += 2
-            handleChar.updateCharMaxHP()
-            handleChar.updateRemainingPA(-this.cost)
+            handleChar.addCharAdvantage(`${this.name} (${rivalRace})`)
+            handleChar.char.primaryAttributes[3].bonus += 2;
+            handleChar.char.primaryAttributes[4].bonus += 2;
+            handleChar.updateCharMaxStatus('PV')
+            handleChar.updateCharActualStatus('P.A', -this.cost)
             closeRivalRaceModal()
-            timeChamber.closeTimeChamber()
+            timeChamberModal.closeTimeChamber()
             App.reload()
+            Toast.open('Rivalidade adicionada com sucesso!')
           } catch (error) {
             Toast.open(error.message)
           }
         }
 
-        toggleModal(9, 'show')
-        const confirmRivalRace = document.getElementById('confirm-desired-race')
-        confirmRivalRace.addEventListener('click', confirm)
-        const cancelRivalRace = document.getElementById('cancel-desired-race')
-        cancelRivalRace.addEventListener('click', closeRivalRaceModal)
+        toggleModal(10, 'show')
+        const confirmBtn = document.getElementById('confirm-desired-race');
+        const cancelBtn = document.getElementById('cancel-desired-race');
+        confirmBtn.addEventListener('click', confirmRivalRace)
+        cancelBtn.addEventListener('click', closeRivalRaceModal)
         return
       }
     },
 
+    // Memória Expandida
     {
       name: 'Memória Expandida',
-      description: 'Você recebe uma dádiva que melhora consideravelmente sua memória, possibilitando que lembre de tudo relacionado aos cinco sentidos. Desse modo, você se torna capaz de gravar perícias simplesmente ao ver uma pessoa utilizá-la. Contudo, você não pode manter mais de uma perícia ao mesmo tempo. Para gravar uma nova, deve apagar uma já existente. Personagens com esta vantagem não necessitam realizar testes para aprender novas magias. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você recebe uma dádiva que melhora consideravelmente sua memória, possibilitando que lembre de tudo relacionado aos cinco sentidos. Desse modo, você se torna capaz de gravar perícias simplesmente ao ver uma pessoa utilizá-la. Contudo, você não pode manter mais de uma perícia ao mesmo tempo. Para gravar uma nova, deve apagar uma já existente. Personagens com esta vantagem não necessitam realizar testes para aprender novas magias. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
-        } else {
-          handleChar.char.advantages.push(this.name)
-          handleChar.updateRemainingPA(-this.cost)
         }
+
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
+        App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Partes Mecânicas
     {
       name: 'Partes Mecânicas',
-      description: 'Você recebe a capacidade de reconstruir um ou mais membros perdidos consultando um especialista. Cada membro reconstruído dá a possibilidade de realocar 3 pontos de atributos. Custo: 1 P.A.',
       cost: 1,
-      needCheck: false,
+
+      getDescription() {
+        const description = `Você recebe a capacidade de reconstruir um ou mais membros perdidos consultando um especialista. Cada membro reconstruído dá a possibilidade de realocar 3 pontos de atributos Você deve utilizar Partes Mecânicas para cada membro perdido. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
 
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        toggleModal(10, 'show')
-        attributeRealocateHandler.watchButtonAction()
+        toggleModal(11, 'show')
+        attributeRealocateModal.watchAttributeRealocate()
         return
       }
     },
 
+    // Poder Oculto
     {
       name: 'Poder Oculto',
-      description: 'Você recebe a capacidade de manifestar seu verdadeiro poder em situações de combate ou emergenciais (à critério do mestre). Você pode gastar um ponto de seu status Ki para aumentar em +1 qualquer atributo, um máximo de + 5. Como alternativa, seu Poder Oculto pode afetar apenas uma característica, escolhida durante sua criação de personagem (consulte seu mestre). Neste caso, Poder Oculto irá aumentar em +2 o atributo selecionado, até um máximo de +10. Poder Oculto não pode ser ativado em situações que não envolvam perigo, o que significa que não pode ser ativado fora de combate. Para Poder Oculto ser ativado, levará um turno para cada aumento de atributo - 5 turnos se quiser elevar seu atributo Força em +3 e seu atributo Inteligência em +2, por exemplo. Enquanto concentra-se para ativar seu Poder Oculto, ficará totalmente indefeso. Receber ataques enquanto se concentra lhe fará perder completamente a concentração. Uma vez ativado, Poder Oculto durará até o fim do combate. Contudo, se seus Pontos de Vida chegarem a 0, Poder Oculto será desativado. Custo: 1 P.A.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você recebe a capacidade de manifestar seu verdadeiro poder em situações de combate ou emergenciais (à critério do mestre). Você pode gastar um ponto de seu status Ki para aumentar em +1 qualquer atributo, um máximo de + 5. Como alternativa, seu Poder Oculto pode afetar apenas uma característica, escolhida durante sua criação de personagem (consulte seu mestre). Neste caso, Poder Oculto irá aumentar em +2 o atributo selecionado, até um máximo de +10. Poder Oculto não pode ser ativado em situações que não envolvam perigo, o que significa que não pode ser ativado fora de combate. Para Poder Oculto ser ativado, levará um turno para cada aumento de atributo - 5 turnos se quiser elevar seu atributo Força em +3 e seu atributo Inteligência em +2, por exemplo. Enquanto concentra-se para ativar seu Poder Oculto, ficará totalmente indefeso. Receber ataques enquanto se concentra lhe fará perder completamente a concentração. Uma vez ativado, Poder Oculto durará até o fim do combate. Contudo, se seus Pontos de Vida chegarem a 0, Poder Oculto será desativado. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        handleChar.char.advantages.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Sobrecarga de Ki
     {
       name: 'Sobrecarga de Ki',
-      description: 'Você recebe um treinamento árduo que o ajuda a controlar melhor seu Ki, aumentando em +1 seus pontos base de Ki. Custo: 1 P.A.',
       cost: 1,
 
+      getDescription() {
+        const description = `Você recebe um treinamento árduo que o ajuda a controlar melhor seu Ki, aumentando em +1 seus pontos base de Ki. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        handleChar.char.baseKi += 1
-        handleChar.updateCharMaxKi()
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharAdvantage(this.name)
+        handleChar.char.primaryAttributes[2].base += 1
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        handleChar.updateCharMaxStatus('Ki')
+        handleChar.updateCharSecondaryAttributes()
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Sobrecarga de Resistência
     {
       name: 'Sobrecarga de Resistência',
-      description: 'Você recebe um árduo treinamento para fortalecer sua resistência, aumentando +1 seus pontos base de Resistência. Custo: 1 P.A.',
       cost: 1,
 
+      getDescription() {
+        const description = `Você recebe um árduo treinamento para fortalecer sua resistência, aumentando +1 seus pontos base de Resistência. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        handleChar.char.baseRes += 1
-        handleChar.updateCharMaxHP()
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharAdvantage(this.name)
+        handleChar.char.primaryAttributes[4].base += 1;
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        handleChar.updateCharMaxStatus('PV')
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Reencarnação
     {
       name: 'Reencarnação',
-      description: 'Você recebe a dádiva de reecarnar numa outra versão de você, graças ao Plano Espiritual. Desse modo, você pode escolher uma outra raça, com exceção de Andróide. Custo: 1 P.A.',
       cost: 3,
+
+      getDescription() {
+        const description = `Você recebe a dádiva de reecarnar numa outra versão de você, graças ao Plano Espiritual. Desse modo, você pode escolher uma outra raça, com exceção de Andróide. Reencarnar irá remover todas as suas vantagens, desvantagens, técnicas e itens adquiridos, além de resetar seu nível e atributos, de acordo com a raça desejada. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
 
       sideEffet() {
         if (handleChar.char.race == 'Humano') {
-          this.cost = 0
+          this.cost = 0;
         }
 
         if (!handleChar.char.reencarnatedRaces) {
-          handleChar.char.reencarnatedRaces = []
+          handleChar.char.reencarnatedRaces = [];
         }
 
-        if (handleChar.char.actualHP != 0) {
+        if (handleChar.char.status[4].actual != 0) {
           throw new Error('Seus Pontos de Vida devem ser reduzidos a zero para que possa reencarnar.')
         }
 
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3] < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
         const closeReencarnateModal = () => {
-          toggleModal(9, 'hide')
-          const confirmReencarnateBtn = document.getElementById('confirm-desired-race')
-          const cancelReencarnatebtn = document.getElementById('cancel-desired-race')
-          confirmReencarnateBtn.removeEventListener('click', confirmReencarnate)
-          cancelReencarnatebtn.removeEventListener('click', closeReencarnateModal)
+          toggleModal(10, 'hide')
+          const confirmBtn = document.getElementById('confirm-desired-race');
+          const cancelBtn = document.getElementById('cancel-desired-race');
+          confirmBtn.removeEventListener('click', confirmReencarnate)
+          cancelBtn.removeEventListener('click', closeReencarnateModal)
           return
         }
 
         const validateRace = () => {
-          const race = document.getElementById('desired-race').value
+          const race = document.getElementById('desired-race').value;
 
           if (handleChar.char.race == race) {
             throw new Error(`${race} é sua raça atual.`)
@@ -347,132 +465,139 @@ export const timeChamberItems = {
           if (handleChar.char.reencarnatedRaces.indexOf(race) != -1) {
             throw new Error(`Você não pode reencarnar para ${race} novamente.`)
           }
-        }
 
-        const updateCharAdvantagesAndDisadvantages = () => {
-          handleChar.char.advantages = handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].advantages
-          handleChar.char.disadvantages = handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].disadvantages
           return
         }
 
-        const removeCharTechniques = () => {
-          handleChar.char.techniques = []
+        const updateCharAdvantagesAndDisadvantages = () => {
+          handleChar.char.advantages = charUtilites.raceSpecs[charUtilites.findRaceSpecs(handleChar.char.race)].advantages;
+          handleChar.char.disadvantages = charUtilites.raceSpecs[charUtilites.findRaceSpecs(handleChar.char.race)].disadvantages;
+          handleChar.char.specificCharacteristics = {};
+          return
         }
 
         const updateRace = () => {
-          const race = document.getElementById('desired-race').value
-          handleChar.char.race = race
+          const race = document.getElementById('desired-race').value;
+          handleChar.char.race = race;
           return
         }
 
         const updateReencarnatedRaces = () => {
-          handleChar.char.reencarnatedRaces.push(handleChar.char.race)
+          handleChar.char.reencarnatedRaces.push(handleChar.char.race);
+          return
         }
 
-        const removeActualRaceAttributes = () => {
-          handleChar.char.raceStr -= handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].raceStr
-          handleChar.char.raceDex -= handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].raceDex
-          handleChar.char.raceKi -= handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].raceKi
-          handleChar.char.raceInt -= handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].raceInt
-          handleChar.char.raceRes -= handleChar.raceSpecs[handleChar.findRaceSpecs(handleChar.char.race)].raceRes
-        }
-
-        const addNewRaceAttributes = () => {
-          const newRace = document.getElementById('desired-race').value
-
-          handleChar.char.raceStr += handleChar.raceSpecs[handleChar.findRaceSpecs(newRace)].raceStr
-          handleChar.char.raceDex += handleChar.raceSpecs[handleChar.findRaceSpecs(newRace)].raceDex
-          handleChar.char.raceKi += handleChar.raceSpecs[handleChar.findRaceSpecs(newRace)].raceKi
-          handleChar.char.raceInt += handleChar.raceSpecs[handleChar.findRaceSpecs(newRace)].raceInt
-          handleChar.char.raceRes += handleChar.raceSpecs[handleChar.findRaceSpecs(newRace)].raceRes
+        const updateCharRaceAttributes = () => {
+          handleChar.char.primaryAttributes[0].race = charUtilites.raceSpecs[charUtilites.findRaceSpecs(handleChar.char.race)].raceStr;
+          handleChar.char.primaryAttributes[1].race = charUtilites.raceSpecs[charUtilites.findRaceSpecs(handleChar.char.race)].raceDex;
+          handleChar.char.primaryAttributes[2].race = charUtilites.raceSpecs[charUtilites.findRaceSpecs(handleChar.char.race)].raceKi;
+          handleChar.char.primaryAttributes[3].race = charUtilites.raceSpecs[charUtilites.findRaceSpecs(handleChar.char.race)].raceInt;
+          handleChar.char.primaryAttributes[4].race = charUtilites.raceSpecs[charUtilites.findRaceSpecs(handleChar.char.race)].raceRes;
+          return
         }
 
         const resetCharSpecs = () => {
-          handleChar.char.items = []
-          handleChar.char.arbitraryStr = 0
-          handleChar.char.arbitraryDex = 0
-          handleChar.char.arbitraryKi = 0
-          handleChar.char.arbitraryInt = 0
-          handleChar.char.arbitraryRes = 0
-          handleChar.char.arbitraryBaseAtk = 0
-          handleChar.char.arbitraryBaseDef = 0
-          handleChar.char.arbitrarySpDef = 0
-          handleChar.char.arbitrarySpAtk = 0
-          handleChar.char.bonusStr = 0
-          handleChar.char.bonusDex = 0
-          handleChar.char.bonusKi = 0
-          handleChar.char.bonusInt = 0
-          handleChar.char.bonusRes = 0
+          handleChar.char.items = [];
+          handleChar.char.techniques = [];
+
+          if (handleChar.char.codeOfHonorVoteCount && handleChar.char.codeOfHonorVotes) {
+            handleChar.char.codeOfHonorVotes = [];
+            handleChar.char.codeOfHonorVoteCount = 0;
+          }
+
+          for (let i = 0; i < handleChar.char.primaryAttributes.length; i++) {
+            handleChar.char.primaryAttributes[i].bonus = 0;
+            handleChar.char.primaryAttributes[i].arbitrary = 0;
+          }
+
+          for (let i = 0; i < handleChar.char.secondaryAttributes.length; i++) {
+            handleChar.char.secondaryAttributes[i].arbitrary = 0;
+          }
+
+          return
         }
 
         const updateCharStatus = () => {
-          handleChar.char.exp = 0
-          handleChar.char.level = 1
-          handleChar.updateCharMaxSTA()
-          handleChar.updateCharMaxHP()
-          handleChar.updateCharMaxKi()
-          handleChar.updateCharActualHP(handleChar.char.maxHP)
-          handleChar.updateCharActualKi(handleChar.char.maxKi)
-          handleChar.updateCharActualSTA(handleChar.char.maxSTA)
+          handleChar.char.exp = 0;
+          handleChar.char.level = 1;
+          handleChar.updateCharMaxStatus('PV')
+          handleChar.updateCharMaxStatus('Fôlego')
+          handleChar.updateCharMaxStatus('Ki')
+          handleChar.updateCharActualStatus('PV', handleChar.char.status[4].max)
+          handleChar.updateCharActualStatus('Fôlego', handleChar.char.status[1].max)
+          handleChar.updateCharActualStatus('Ki', handleChar.char.status[2].max)
         }
 
         const confirmReencarnate = () => {
           try {
             validateRace()
-            removeActualRaceAttributes()
             updateRace()
+            updateCharRaceAttributes()
             updateReencarnatedRaces()
-            addNewRaceAttributes()
             resetCharSpecs()
-            removeCharTechniques()
             updateCharAdvantagesAndDisadvantages()
             updateCharStatus()
-            handleChar.updateRemainingPA(-this.cost)
+            handleChar.updateCharSecondaryAttributes()
+            handleChar.updateCharActualStatus('P.A', -this.cost)
             closeReencarnateModal()
-            timeChamber.closeTimeChamber()
+            timeChamberModal.closeTimeChamber()
             App.reload()
+            Toast.open('Reencarnação realizada com sucesso!')
           } catch (error) {
             Toast.open(error.message)
           }
         }
 
-        toggleModal(9, 'show')
-        const confirmReencarnateBtn = document.getElementById('confirm-desired-race')
-        const cancelReencarnatebtn = document.getElementById('cancel-desired-race')
-        confirmReencarnateBtn.addEventListener('click', confirmReencarnate)
-        cancelReencarnatebtn.addEventListener('click', closeReencarnateModal)
+        toggleModal(10, 'show')
+        const confirmBtn = document.getElementById('confirm-desired-race')
+        const cancelBtn = document.getElementById('cancel-desired-race')
+        confirmBtn.addEventListener('click', confirmReencarnate)
+        cancelBtn.addEventListener('click', closeReencarnateModal)
         return
       }
     },
 
+    // Reflexão
     {
       name: 'Reflexão',
-      description: 'Similar a Deflexão, porém melhor. Além de desviar do ataque, você recebe a capacidade de desferí-lo de volta ao atacante. Para tal, você pode gastar 2 pontos de seu status Ki e duplicar seu total de Força ou Ki para calcular sua defesa total contra um único ataque. Caso consiga deter completamente o ataque, não sofrerá dano algum, e lançará o ataque de volta para o agressor. Reflexão é considerada esquiva, o que significa que o total de vezes que pode ser usada em combate é igual ao seu total de defesa. Custo: 2 P.A.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Similar a Deflexão, porém melhor. Além de desviar do ataque, você recebe a capacidade de desferí-lo de volta ao atacante. Para tal, você pode gastar 2 pontos de seu status Ki e duplicar seu total de Força ou Ki para calcular sua defesa total contra um único ataque. Caso consiga deter completamente o ataque, não sofrerá dano algum, e lançará o ataque de volta para o agressor. Reflexão é considerada esquiva, o que significa que o total de vezes que pode ser usada em combate é igual ao seu total de defesa. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        handleChar.char.advantages.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharAdvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Sentir Ki
     {
       name: 'Sentir Ki',
-      description: 'Você recebe a capacidade de sentir a presença e a assinatura de qualquer ser vivo. Para tal, realize um teste de Inteligência + Ki para sentir uma assinatura de Ki ou presença. Caso gaste 2 P.A, Sentir Ki se tornará Sentir Ki (Aguçado), o que lhe permite também determinar se a presença é benigna ou malígna. Sentir Ki (Aguçado) também descarta a necessidade de realizar qualquer teste, e pode ser aprendido também via treinamento. Custo: 1 P.A.',
       cost: 1,
       baseLevel: 'Sentir Ki (Base)',
       maxLevel: 'Sentir Ki (Aguçado)',
 
+      getDescription() {
+        const description = `Você recebe a capacidade de sentir a presença e a assinatura de qualquer ser vivo. Para tal, realize um teste de Inteligência + Ki para sentir uma assinatura de Ki ou presença. Caso gaste 2 P.A, Sentir Ki se tornará Sentir Ki (Aguçado), o que lhe permite também determinar se a presença é benigna ou malígna. Sentir Ki (Aguçado) também descarta a necessidade de realizar qualquer teste, e pode ser aprendido também via treinamento. Custo: ${this.cost} P.A.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
@@ -482,53 +607,68 @@ export const timeChamberItems = {
 
         if (handleChar.char.advantages.indexOf(this.baseLevel) == -1) {
           handleChar.char.advantages.push(this.baseLevel)
-          handleChar.updateRemainingPA(-this.cost)
-          timeChamber.closeTimeChamber()
+          handleChar.updateCharActualStatus('P.A', -this.cost)
+          timeChamberModal.closeTimeChamber()
           App.reload()
+          Toast.open(`${this.name} adquirido com sucesso!`)
           return
         }
 
-        const index = handleChar.char.advantages.indexOf(this.baseLevel)
-        handleChar.char.advantages[index] = this.maxLevel
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        const index = handleChar.char.advantages.indexOf(this.baseLevel);
+        handleChar.char.advantages[index] = this.maxLevel;
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprimorado com sucesso!`)
         return
       }
     },
   ],
   disadvantages: [
+    // Tormenta
     {
       name: 'Tormenta',
-      description: 'Você recebe uma tormenta, que pode ser uma lembrança perturbadora ou algum espírito maligno. Ninguém pode sentir a Tormenta além de você mesmo, e além disso, Tormenta o deixará em paz apenas quando você estiver satisfeito ou cansado. Não importa o que seja, sempre que entrar em combate, o mestre realizará um teste, e caso o resultado esteja entre 4 e 6, Tormenta o afetará, e reduzirá em -1 todos os seus atributos. À critério do mestre, Tormenta pode aparecer também em outras ocasiões. Bônus de P.A: 2',
       bonus: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você recebe uma tormenta, que pode ser uma lembrança perturbadora ou algum espírito maligno. Ninguém pode sentir a Tormenta além de você mesmo, e além disso, Tormenta o deixará em paz apenas quando você estiver satisfeito ou cansado. Não importa o que seja, sempre que entrar em combate, o mestre realizará um teste, e caso o resultado esteja entre 4 e 6, Tormenta o afetará, e reduzirá em -1 todos os seus atributos. À critério do mestre, Tormenta pode aparecer também em outras ocasiões. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.char.disadvantages.push(this.name)
-        handleChar.updateRemainingPA(this.bonus)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Código de Honra
     {
       name: 'Código de Honra',
-      description: 'Você passa a seguir um código de honra que o implica a fazer ou deixar de fazer determinadas ações - o voto é escolhido aleatoriamente, leia o manual para ver cada um. Bônus de P.A: 1',
       bonus: 1,
+
+      getDescription() {
+        const description = `Você passa a seguir um código de honra que o implica a fazer ou deixar de fazer determinadas ações - o voto é escolhido aleatoriamente, leia o manual para ver cada um. Bônus de P.A: ${this.bonus}`;
+
+        return description
+      },
 
       sideEffet() {
         if (!handleChar.char.codeOfHonorVoteCount && !handleChar.char.codeOfHonorVotes) {
-          handleChar.char.codeOfHonorVoteCount = 0
-          handleChar.char.codeOfHonorVotes = []
+          handleChar.char.codeOfHonorVoteCount = 0;
+          handleChar.char.codeOfHonorVotes = [];
         }
 
         if (handleChar.char.codeOfHonorVoteCount == 4) {
           throw new Error('Limite de votos atingido.')
         }
 
-        let vote = 0
+        let vote = 0;
 
         for (let i = 0; i < 10; i++) {
           vote = Math.round(Math.random() * (10 - 1) + 1)
@@ -539,257 +679,373 @@ export const timeChamberItems = {
           }
         }
 
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(`${this.name} (${vote})`)
-        handleChar.char.codeOfHonorVoteCount += 1
-        timeChamber.closeTimeChamber()
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        handleChar.addCharDisadvantage(`${this.name} (${vote})`)
+        handleChar.char.codeOfHonorVoteCount += 1;
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} (${vote}) adquirido com sucesso!`)
       }
     },
 
+    // Covarde
     {
       name: 'Covarde',
-      description: 'Você subitamente passa a achar que não foi feito para o combate. Mesmo quando precisar salvar sua própria vida, sofrerá uma penalidade de -2 no seu total de defesa. Bônus de P.A: 1.',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente passa a achar que não foi feito para o combate. Mesmo quando precisar salvar sua própria vida, sofrerá uma penalidade de -2 no seu total de defesa. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Audição Ruim
     {
       name: 'Audição Ruim',
-      description: 'Você subitamente perde parte de sua audição, sofrendo uma penalidade de -1 para notar inimigos escondidos. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente perde parte de sua audição, sofrendo uma penalidade de -1 para notar inimigos escondidos. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Visão Turva
     {
       name: 'Visão Turva',
-      description: 'Você subitamente perde parte de sua visão, vendo o mundo ao seu redor de maneira turva. Desse modo, sofrerá sempre uma penalidade de -1 em Força para ataques corporais, -3 em Força para ataques à distância e -3 em Destreza para esquivas. Além disso, sofrerá um redutor de -1 para notar inimigos escondidos, utilizando apenas seus outros sentidos (em situações onde você não possa usar nem mesmo o tato ou o olfato, o teste será negado). Bônus de P.A: 2',
       bonus: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente perde parte de sua visão, vendo o mundo ao seu redor de maneira turva. Desse modo, sofrerá sempre uma penalidade de -1 em Força para ataques corporais, -3 em Força para ataques à distância e -3 em Destreza para esquivas. Além disso, sofrerá um redutor de -1 para notar inimigos escondidos, utilizando apenas seus outros sentidos (em situações onde você não possa usar nem mesmo o tato ou o olfato, o teste será negado). Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Incapaz de Falar
     {
       name: 'Incapaz de Falar',
-      description: 'Você subitamente perde consideravelmente sua capacidade de se comunicar, exceto com personagens que possam utilizar telepatia. Testes que envolvam ações sociais serão sempre considerados difíceis. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente perde consideravelmente sua capacidade de se comunicar, exceto com personagens que possam utilizar telepatia. Testes que envolvam ações sociais serão sempre considerados difíceis. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Péssimo Olfato
     {
       name: 'Péssimo Olfato',
-      description: 'Você subitamente perde consideravelmente seu olfato, sendo incapaz de sentir até mesmo seu próprio cheiro. Você não pode, por exemplo, distinguir somente pela aparência se um alimento está estragado. Bônus de P.A: 1.',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente perde consideravelmente seu olfato, sendo incapaz de sentir até mesmo seu próprio cheiro. Você não pode, por exemplo, distinguir somente pela aparência se um alimento está estragado ou não. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Sem Paladar
     {
       name: 'Sem Paladar',
-      description: 'Você subitamente perde consideravelmente seu paladar, sendo incapaz de distinguir se um alimento está estragado somente pelo gosto, por exemplo. Contudo, você não sente tanta fome, visto que será capaz de comer pratos que revirariam o estômago de um avestruz. Bônus de P.A: 1.',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente perde consideravelmente seu paladar, sendo incapaz de distinguir se um alimento está estragado somente pelo gosto, por exemplo. Contudo, você não sente tanta fome, visto que será capaz de comer pratos que revirariam o estômago de um avestruz. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Perda de Foco
     {
       name: 'Perda de Foco',
-      description: 'Você subitamente passa a perder facilmente o foco, perdendo a vontade de lutar ou ficando desatento mais facilmente, não importando a gravidade da situação. Vale para qualquer tipo de situação, desde lutas à testes. Bônus de P.A: 2.',
       bonus: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente passa a perder facilmente o foco, perdendo a vontade de lutar ou ficando desatento mais facilmente, não importando a gravidade da situação. Vale para qualquer tipo de situação, desde lutas à testes. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Fúria
     {
       name: 'Fúria',
-      description: 'Você subitamente sente sua mentalidade mudar. De agora em diante, será impossível controlar sua fúria. Sempre que receber dano ou irritar-se (à critério do mestre), deverá realizar um Teste de Resistência. Se falhar, entrará em um estado de Fúria, atacando automaticamente o alvo da Fúria. Durante a Fúria, sua mente se tornará uma tempestade, impedindo-o de esquivar, usar Ki ou qualquer Habilidade de Ki. A Fúria cessará quando você ou o seu oponente forem derrotados, ou se seu oponente fugir e, após isso, você ficará completamente esgotado. Devido ao cansaço extremo, sofrerá uma penalidade de -1 em todas as suas características. As penalidades acumulam para cada vez que entrar em Fúria. Garante um bônus de +2 em Força e Resistência. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente sente sua mentalidade mudar. De agora em diante, será impossível controlar sua Fúria. Sempre que receber dano ou irritar-se (à critério do mestre), deverá realizar um Teste de Resistência. Se falhar, entrará em Fúria, atacando automaticamente o alvo da Fúria. Durante a Fúria, sua mente se tornará uma tempestade, impedindo-o de esquivar, usar Ki ou qualquer Habilidade de Ki. A Fúria cessará quando você ou o seu oponente forem derrotados, ou se seu oponente fugir e, após isso, você ficará completamente esgotado. Devido ao cansaço extremo, sofrerá uma penalidade de -1 em todos os seus atributos. As penalidades acumulam para cada vez que entrar em Fúria. Garante um bônus de +2 em Força e Resistência. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.bonusStr += 2
-        handleChar.char.bonusRes += 2
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        handleChar.char.primaryAttributes[1].bonus += 2;
+        handleChar.char.primaryAttributes[4].bonus += 2;
+        handleChar.updateCharMaxStatus('PV')
+        handleChar.updateCharSecondaryAttributes()
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Inculto
     {
       name: 'Inculto',
-      description: 'Você subitamente perde os costumes de comunicação e vivência em sociedade. Seu modo de agir se tornará primitivo, o que significa que não saberá mais ler ou terá extrema dificuldade para tal, além de grande dificuldade para se comunicar com as pessoas. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente perde os costumes de comunicação e vivência em sociedade. Seu modo de agir se tornará primitivo, o que significa que não saberá mais ler ou terá extrema dificuldade para tal, além de grande dificuldade para se comunicar com as pessoas. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Má Fama
     {
       name: 'Má Fama',
-      description: 'Você subitamente perde qualquer credibilidade que tenha adquirido em vida, tornando-se completamente infame. Talvez por uma má experiência em combate, uma humilhação em público ou seja lá qual for o motivo. A partir de agora, será muito mais difícil adquirir a confiança das pessoas, que te olharão sempre com olhos turvos. Além disso, sua presença em um grupo tornará todos os membros suspeitos também. Ademais, caso seja constatado algum crime, muito provavelmente você será perseguido, mesmo que seja inocente. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente perde qualquer credibilidade que tenha adquirido em vida, tornando-se completamente infame. Talvez por uma má experiência em combate, uma humilhação em público ou seja lá qual for o motivo. A partir de agora, será muito mais difícil adquirir a confiança das pessoas, que te olharão sempre com olhos turvos. Além disso, sua presença em um grupo tornará todos os membros suspeitos também. Ademais, caso seja constatado algum crime, muito provavelmente você será perseguido, mesmo que seja inocente. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Maneta
     {
       name: 'Maneta',
-      description: 'Você subitamente perde um de seus braços ou de suas mãos, curiosamente não sentindo dor alguma. A partir de agora, será mais difícil manipular objetos com a mesma destreza, e você sofrerá uma penalidade de -1 em qualquer teste que envolva Ataque ou Defesa. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente perde um de seus braços ou de suas mãos, curiosamente não sentindo dor alguma. A partir de agora, será mais difícil manipular objetos com a mesma destreza, e você sofrerá uma penalidade de -1 em qualquer teste que envolva Ataque ou Defesa. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Preguiçoso
     {
       name: 'Preguiçoso',
-      description: 'Você subitamente sente sua força de vontade para qualquer ação ser consumida por preguiça, não importando quão devoto à ou honrosa fosse a ação. A partir de agora, deverá realizar um teste a tudo que resolver fazer. Se quiser arrombar uma porte usando um chute, por exemplo, deverá realizar um Teste de Força, e se falhar, não terá êxito. Além disso, a dificuldade do teste aumentará conforme você falhar. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente sente sua força de vontade para qualquer ação ser consumida por preguiça, não importando quão devoto à ou honrosa fosse a ação. A partir de agora, deverá realizar um teste a tudo que resolver fazer. Se quiser arrombar uma porta usando um chute, por exemplo, deverá realizar um Teste de Força, e se falhar, não terá êxito. Além disso, a dificuldade do teste aumentará conforme você falhar. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Ponto Fraco
     {
       name: 'Ponto Fraco',
-      description: 'Você subitamente se sente mais desleixado, abrindo brecha para que seus oponentes encontrem seu Ponto Fraco. A partir de agora, qualquer oponente que conhecer seu Ponto Fraco receberá um bônus de +1 em Destreza ao lutar com você. Seu Ponto Fraco só poderá ser descoberto por pessoas que o tenham visto lutar ao menos uma vez. Você pode tentar descobrir o Ponto Fraco de um oponente realizando um teste de Destreza + Inteligência enquanto o assiste lutar, e se tiver êxito, receberá um bônus de +1 em Destreza sempre que lutar com ele. Caso possua Boa Fama ou Má Fama, automaticamente quase todo mundo saberá seu Ponto Fraco. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente se sente mais desleixado, abrindo brecha para que seus oponentes encontrem seu Ponto Fraco. A partir de agora, qualquer oponente que conhecer seu Ponto Fraco receberá um bônus de +1 em Destreza ao lutar com você. Seu Ponto Fraco só poderá ser descoberto por pessoas que o tenham visto lutar ao menos uma vez. Você pode tentar descobrir o Ponto Fraco de um oponente realizando um teste de Destreza + Inteligência enquanto o assiste lutar, e se tiver êxito, receberá um bônus de +1 em Destreza sempre que lutar com ele. Caso possua Boa Fama ou Má Fama, automaticamente quase todo mundo saberá seu Ponto Fraco. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
 
+    // Rival Definitivo
     {
       name: 'Rival Definitivo',
-      description: 'Você subitamente declara sua rivalidade à uma pessoa, cuja lembrança o enche de ódio (diferente de Rivalidade). Durante a aventura, deverá escolher um NPC (personagem do mestre) ou jogador, e declará-lo como seu Rival Definitivo. Sempre que encontrar seu Rival Definitvo, deverá travar uma batalha com ele, e caso perca, sofrerá uma penalidade de -5 em EXP. Se não houver EXP disponível no momento, assim que atingir 5 pontos, sua EXP será reduzida a 0. Sua ficha não poderá ser evolúida até que pague a penalidade. Além disso, se andar ao lado de seu Rival Definitvo, deverá travar uma batalha com ele a cada 15 dias. Bônus de P.A: 1',
       bonus: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Você subitamente declara sua rivalidade à uma pessoa, cuja lembrança o enche de ódio (diferente de Rivalidade). Durante a aventura, deverá escolher um NPC (personagem do mestre) ou jogador, e declará-lo como seu Rival Definitivo. Sempre que encontrar seu Rival Definitvo, deverá travar uma batalha com ele, e caso perca, sofrerá uma penalidade de -5 em EXP. Se não houver EXP disponível no momento, assim que atingir 5 pontos, sua EXP será reduzida a 0. Sua ficha não poderá ser evolúida até que pague a penalidade. Além disso, se andar ao lado de seu Rival Definitvo, deverá travar uma batalha com ele a cada 15 dias. Bônus de P.A: ${this.bonus}.`;
+
+        return description
+      },
+
       sideEffet() {
-        handleChar.updateRemainingPA(this.bonus)
-        handleChar.char.disadvantages.push(this.name)
-        timeChamber.closeTimeChamber()
+        handleChar.addCharDisadvantage(this.name)
+        handleChar.updateCharActualStatus('P.A', this.bonus)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} adquirido com sucesso!`)
       }
     },
   ],
   techniques: [
+    // Kamehameha
     {
       name: 'Kamehameha',
-      description: 'Uma das técnicas principais de Son Goku. Não necessita de nenhuma outra técnica para ser adquirida. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica rápida que pode ser carregada a cada dois turnos , acrescentando 1d6. Dano: Ataque Especial + 1d6. Custo de Ki: 3. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
 
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Kamehamhea
     {
       name: 'Super Kamehameha',
-      description: 'Versão aprimorada  do Kamehameha. É necessário ter aprendido Kamehameha para adquirir Super Kamehameha. Custo de P.A: 2.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
       requirement: 'Kamehameha',
 
+
+      getDescription() {
+        const description = `Versão aprimorada  do Kamehameha. Diminui o tempo para carregar. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
@@ -797,42 +1053,58 @@ export const timeChamberItems = {
           throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Genki Dama
     {
       name: 'Genki Dama',
-      description: 'Uma técnica com potencial destrutivo esmagador. Não necessita de nenhuma outra técnica para ser adquirida. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica Extremamente poderosa se carregada devidamente. Cada turno carregando utiliza 1 ponto de Ki para gerar um ponto de dano, que será multiplicado com seu total de Ataque Especial para gerar o dano final. Dano: Ataque * pontos utilizados. Custo de Ki: 1 ponto/turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Genki Dama
     {
       name: 'Super Genki Dama',
-      description: 'Versão aprimorada da Genki Dama. É necessário ter aprendido Genki Dama para adquirir Super Genkidama. Custo de P.A: 2.',
-      cost: 2,
+      cost: 4,
       needCheck: true,
       canBeRemoved: true,
       requirement: 'Genki Dama',
 
+      getDescription() {
+        const description = `Versão aprimorada da Genki Dama. É necessário ter aprendido Genki Dama para adquirir Super Genkidama. Aumenta o dano de canalização de 1 para 2 para cada ponto de Ki gasto. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
@@ -840,41 +1112,57 @@ export const timeChamberItems = {
           throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Kaioken
     {
       name: 'Kaioken',
-      description: 'Uma técnica que eleva suas capacidades corporais. Não necessita de nenhuma outra técnica para ser adquirida. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Uma técnica que dá grande poder e velocidade ao usuário mas que causa severos danos ao corpo. O multiplicador (Kaioken x2, por exemplo) depende do total de turnos canalizando a técnica. Bônus (Arbitrário): +2 em Força, Destreza, Ki, Resistência, Ataque, Defesa e Ataque Especial, +1 para cada atributo a depender da quantidade de turnos canalizando. Custo de P.V: -2 pontos/turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Saiyajin
     {
       name: 'Super Saiyajin',
-      description: 'Uma técnica que eleva suas capacidades como Saiyajin. Não necessita de nenhuma outra técnica para ser adquirida. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Transformação da raça Saiyajin, ativada por meio da raiva intensa. Leva um turno para ser ativada e garante um considerável aumento de poder para o guerreiro. Bônus (Arbitrário): +1 em Força, Destreza, Ki e Resistência. Custo de Ki: 1 ponto/turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
@@ -882,386 +1170,501 @@ export const timeChamberItems = {
           throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Ultra Super Saiyajin
     {
       name: 'Ultra Super Saiyajin',
-      description: 'Versão um pouco aprimorada do Super Saiyajin. É necessário ter aprendido Super Saiyajin para aprender Ultra Super Saiyajin. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       requirement: 'Super Saiyajin',
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Versão aprimorada (facultativa) do Super Saiyajin. É necessário ter aprendido Super Saiyajin para aprender Ultra Super Saiyajin. Bônus (Arbitrário): +2 em Força, Ki e Resistência Recebe um debuff de -2 em Destreza. Custo de Ki: 2 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
         if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
           throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Saiyajin 2
     {
       name: 'Super Saiyajin 2',
-      description: 'Versão aprimorada do Super Saiyajin. É necessário ter aprendido Super Saiyajin para aprender Super Saiyajin 2. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       requirement: 'Super Saiyajin',
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Versão aprimorada do Super Saiyajin. É necessário ter aprendido Super Saiyajin para aprender Super Saiyajin 2. Bônus (Arbitrário): +2 em Força, Destreza, Ki e Resistência. Custo de Ki: 2 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
         if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
           throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Saiyajin 3
     {
       name: 'Super Saiyajin 3',
-      description: 'Versão aprimorada do Super Saiyajin 2. É necessário ter aprendido Super Saiyajin 2 para aprender Super Saiyajin 3. Custo de P.A: 3.',
       cost: 3,
       needCheck: true,
       requirement: 'Super Saiyajin 2',
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Versão aprimorada do Super Saiyajin 2. É necessário ter aprendido Super Saiyajin 2 para aprender Super Saiyajin 3. Bônus (Arbitrário): +3 em Força, Destreza, Ki e Resistência. Custo de Ki: 3 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
         if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
           throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Saiyaijn 4
     {
       name: 'Super Saiyajin 4',
-      description: 'A forma de um saiyajin que utiliza o máximo de seu poder nato. É necessário ter aprendido Super Saiyajin 3 e possuir uma cauda - este último requisito fica à bom senso do jogador, penalidades por burlar os requisitos serão aplicadas à critério do mestre - para aprender Super Saiyajin 4. Custo de P.A: 4.',
       cost: 4,
       needCheck: true,
       requirement: 'Super Saiyajin 3',
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `A transformação que concede acesso ao poder nato de um Saiyajin. Para aprender Super Saiyajin 4 é necessário ter aprendido Super Saiyajin 3 e possuir uma cauda - este último requisito fica à bom senso do jogador. Bônus (Arbitrário): +5 em Força, Destreza, Ki e Resistência. Custo de Ki: 4 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
         if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
           throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Saiyain Deus
     {
       name: 'Super Saiyajin Deus',
-      description: 'A forma de um saiyajin que atingiu o poder de um deus. É necessário ter aprendido Super Saiyajin 3 para aprender Super Saiyajin Deus. Custo de P.A: 6.',
-      cost: 6,
+      cost: 8,
       needCheck: true,
       requirement: 'Super Saiyajin 3',
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `A transformação de um Saiyajin que atingiu o nível de um deus. Para aprender Super Saiyajin Deus é necessário ter aprendido Super Saiyajin 3 e satisfazer um requisito à critério do mestre. Bônus (Arbitrário): +8 em Força, Destreza, Ki e Resistência. Custo de Ki: 8 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        const keyItemName = 'Prova de Ascenção';
+        let keyItemIndex = -1;
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
         if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
           throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
+        for (let i = 0; i < handleChar.char.items.length; i++) {
+          if (handleChar.char.items[i].name == keyItemName) {
+            keyItemIndex = i;
+            break
+          }
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        if (keyItemIndex == -1) {
+          throw new Error('Você não possui o que é necessário para ascender a esta forma.')
+        }
+
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Saiyajin Blue
     {
       name: 'Super Saiyajin Blue (SSGSS)',
-      description: 'Versão aprimorada do Super Saiyajin God. É necessário ter aprendido Super Saiyajin Deus para aprender Super Saiyajin Blue (SSGSS). Custo de P.A: 8.',
-      cost: 8,
+      cost: 10,
       needCheck: true,
       requirement: 'Super Saiyajin Deus',
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `A transformação de Super Saiyajin de um Super Saiyajin Deus, ou simplesmente Super Saiyajin Blue. Para aprender Super Saiyajin Deus é necessário ter aprendido Super Saiyajin Deus e satisfazer um requisito à critério do mestre. Bônus (Arbitrário): +10 em Força, Destreza, Ki e Resistência. Custo de Ki: 10 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        const keyItemName = 'Prova de Alma Valorosa';
+        let keyItemIndex = -1;
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
         if (handleChar.char.race != 'Saiyajin (Puro)' && handleChar.char.race != 'Saiyajin (Híbrido)') {
           throw new Error(`Você deve ser da raça Saiyajin para aprender as transformações de Super Saiyajin.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
+        for (let i = 0; i < handleChar.char.items.length; i++) {
+          if (handleChar.char.items[i].name == keyItemName) {
+            keyItemIndex = i;
+            break
+          }
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        if (keyItemIndex == -1) {
+          throw new Error('Você não possui o que é necessário para ascender a esta forma.')
+        }
+
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Galick Ho
     {
       name: 'Galick Ho',
-      description: 'Uma das técnicas principais de Vegeta. Não necessita de nenhuma outra técnica para aprender Galick Ho. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Uma técnica de disparo rápido e potente. Dano: Ataque Especial + 1d6. Custo de Ki: 2 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Controle de Oozaru
     {
       name: 'Controle do Oozaru',
-      description: 'A capacidade de controlar a forma primitiva e esmagadora de um Saiyajin. Não necessita de nenhuma outra técnica para aprender Galick Ho. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `A capacidade de controlar a transformação de Oozaru, não sofrendo qualquer penalidade para utilizá-la, além de perder penalidades passíveis para golpes desferidos na cauda. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Ataque Big Bang
     {
       name: 'Ataque Big Bang',
-      description: 'Uma das técnicas principais de Vegeta. Não necessita de nenhuma outra técnica para aprender Ataque Big Bang. Custo de P.A: 1.',
-      cost: 1,
+      cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Um ataque que concentra energia na palma da mão com o braço estendido, e então a dispara numa esfera massiva de energia. Precisa de um turno para carregar e tem um alto poder explosivo. Dano: Ataque Especial + 1d8. Custo de Ki: 3 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Resplendor Final
     {
       name: 'Resplendor Final',
-      description: 'Uma das técnicas principais de Vegeta. Não necessita de nenhuma outra técnica para aprender Resplendor Final. Custo de P.A: 2.',
-      cost: 2,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Ataque Resplendor Final',
-      description: 'Versão aprimorada de Resplendor Final. É necessário ter aprendido Resplendor Final para adquirir Ataque Resplendor Final. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-      requirement: 'Resplendor Final',
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Dark Impact',
-      description: 'Técnica utilizada por Majin Vegeta. Não é necessária nenhuma outra técnica para aprender Dark Impact. Custo de P.A: 2.',
-      cost: 2,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Impacto Final',
-      description: 'Técnica utilizada por Majin Vegeta. É necessário ter aprendido Dark Impact para adquirir Impacto Final. Custo de P.A: 2.',
-      cost: 2,
-      needCheck: true,
-      canBeRemoved: true,
-      requirement: 'Dark Impact',
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Explosão Final',
-      description: 'Técnica definitiva de Majin Vegeta. É necessário ter aprendido Impacto Final para adquirir Explosão Final. Custo de P.A: 4.',
       cost: 4,
       needCheck: true,
       canBeRemoved: true,
-      requirement: 'Impacto Final',
+
+      getDescription() {
+        const description = `Uma técnica que consiste em canalizar energia nas duas palmas, com ambos os braços estendidos e, após canalizada, um feixe massivo e extraordinariamente destrutivo é disparado. Precisa de um turno para carregar. Dano: Ataque Especial + 4d6. Custo de Ki: 10 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
 
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Dark Impact
     {
-      name: 'Gamma Burst Flash',
-      description: 'Uma das técnicas principais de Vegeta. Não é necessária nenhuma outra técnica para aprender Gamma Burst Flash. Custo de P.A: 3.',
+      name: 'Dark Impact',
+      cost: 2,
+      needCheck: true,
+      canBeRemoved: true,
+
+      getDescription() {
+        const description = `Movimento de Contra-ataque. O jogador declara que vai usar esta ação e abdica de usar sua defesa, fazendo um Teste de Esquiva (Destreza + d20). Se tiver sucesso, o jogador desvia e lança um ataque usando uma bola de energia que causa dano e lança o oponente pra longe. Dano: Ataque Especial + total de Destreza + 1d4. Custo de Ki e Fôlego: 2 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
+      sideEffet() {
+
+        if (handleChar.char.status[3].actual < this.cost) {
+          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
+        App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
+      }
+    },
+
+    // Impacto Final
+    {
+      name: 'Impacto Final',
+      cost: 2,
+      needCheck: true,
+      canBeRemoved: true,
+
+      getDescription() {
+        const description = `Consiste em concentrar energia em dois dedos, e em seguida disparar um massivo feixe de energia, causando um dano perfurante e diminuindo a defesa do oponente em -1 (cumulativo para cada feixe disparado). Dano: Ataque Especial + 1d4. Custo de Ki: 1 ponto. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
+      sideEffet() {
+
+        if (handleChar.char.status[3].actual < this.cost) {
+          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
+        App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
+      }
+    },
+
+    // Super Explosão
+    {
+      name: 'Super Explosão',
       cost: 3,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Uma técnica suicida. Você simplesmente utiliza todo seu Ki disponível para gerar uma massiva explosão, com raio de alcance de 2m para cada ponto de Ki gasto. Quem estiver dentro da aŕea de efeito deverá rolar um d20 para testar sua chance de sobreviver. Você recebe 30% do dano causado. Dano: Ataque Especial + Ki disponível. Custo de Ki: todo o Ki disponível. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Gamma Burst Flash
+    {
+      name: 'Gamma Burst Flash',
+      cost: 3,
+      needCheck: true,
+      canBeRemoved: true,
+
+      getDescription() {
+        const description = `Um ataque efetivo contra mais de um alvo. Este ataque toma forma de um cone gigante, fruto de uma energia muito potente, e acertando todos os inimigos à frente. Dano: Ataque Especial + 1d8 por inimigo. Custo de Ki: 3 pontos por inimigo. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
+      sideEffet() {
+
+        if (handleChar.char.status[3].actual < this.cost) {
+          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
+        }
+
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
+        App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
+      }
+    },
+
+    // Kienzan
     {
       name: 'Kienzan',
-      description: 'Uma das técnicas principais de Kuririn. Não é necessária nenhuma outra técnica para aprender Kienzan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em manipular o Ki para criar discos cortantes. São capazes de atingir inimigos de níveis acima e até mais de um inimigo de uma vez. Com o braço erguido e mão aberta,
+        cria-se um disco de energia e, aṕos devidamente estabilizado, o disco é disparado. Dano: 1d8 e 50% de chance de causar sangramento. Custo de Ki: 3 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Kienzan Combo
     {
       name: 'Kienzan Combo',
       description: 'Versão aprimorada de Kienzan. É necessário aprender Kienzan para adquirir Kienzan Combo. Custo de P.A: 1.',
@@ -1270,199 +1673,238 @@ export const timeChamberItems = {
       canBeRemoved: true,
       requirement: 'Kienzan',
 
+      getDescription() {
+        const description = `Versão aprimorada do Kienzan, que permite lançar dois discos pelo custo de um. É necessário ter aprendido Kienzan para aprender Kienzan Combo. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Chuva de Energia
     {
       name: 'Chuva de Energia',
-      description: 'Uma das técnicas principais de Kuririn. Não é necessária nenhuma outra técnica para aprender Chuva de Energia. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Uma técnica usada para acertar múltiplos inimigos. Não possui um alto poder ofensivo, porém tem pouco gasto de energia e consegue acertar muitos oponentes. O usuário lança dois feixes de energia e os manipula para cima, com uma velocidade relativamente baixa. Ao chegarem na altura desejada, ambos os feixes explodem em diversos feixes de luz, acertando vários oponentes e causando dano a cada um. Dano: 1d4. Custo de Ki: 2 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Wolf Fang Fist
     {
       name: 'Wolf Fang Fist',
-      description: 'Uma das técnicas principais de Yamcha. Não é necessária nenhuma outra técnica para aprender Wolf Fang Fist. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Como um bom artista marcial, seus golpes são rápidos e letais. Você consegue desferir uma série de socos e arranhões, imitando o ataque de um lobo feroz. Jogue 1d6 para saber quantos ataques você fará. O oponente terá de defender cada golpe. Dano: Ataque + 1d4 por ataque. Custo de Fôlego: 1 ponto por golpe. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Binding Wolf Fang Fist
     {
       name: 'Binding Wolf Fang Fist',
-      description: 'Versão aprimorada de Wolf Fang Fist. É necessário ter aprendido Wolf Fang Fist para adquirir Binding Wolf Fang Fist. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
       requirement: 'Wolf Fang Fist',
 
+      getDescription() {
+        const description = `Versão aprimorada de Wolf Fang Fist. Finaliza o combo com uma descarga de energia em forma das presas de lobo, lançando o inimigo pra longe. É necessário ter aprendido ${this.requirement} para aprender ${this.name}. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Neo Wolf Fang Fist
     {
       name: 'Neo Wolf Fang Fist',
-      description: 'Versão definitiva de Wolf Fang Fist. É necessário ter aprendido Binding Wolf Fang Fist para adquirir Neo Wolf Fang Fist. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
       requirement: 'Binding Wolf Fang Fist',
 
+      getDescription() {
+        const description = `Versão aprimorada de Binding Wolf Gang Fist. Com o melhor controle de seu Ki, você é capaz de aumentar o dano causado, adicionando +2 aos dados e ao Custo de Fôlego. É necessário ter aprendido ${this.requirement} para aprender ${this.name}. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
         if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
+          throw new Error(`Você deve ter aprendido ${this.requirement} para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Soukidan
     {
       name: 'Soukidan',
-      description: 'Uma das técnicas principais de Yamcha. Não é necessário ter aprendido nenhuma outra técnica para adquirir Soukidan. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `O usuário dispara uma esfera de energia mediana contra o adversário, podendo controlá-la como desejar, e para qualquer direção e sentido, até que a esfera colida com algo. Durante a manipulação da técnica, o usuário é considerado indefeso. Dano: Ataque Especial + 1d4. Custo de Ki: 2 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
-    {
-      name: 'Super Soukidan',
-      description: 'Uma das técnicas principais de Yamcha. É necessário ter aprendido Soukidan para aprender Super Soukidan. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-      requirement: 'Soukidan',
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
+    // Dodonpa
     {
       name: 'Dodonpa',
-      description: 'Uma das técnicas principais do dojo Tsuru-Sen. Não é necessário ter aprendido nenhuma outra técnica para adquirir Dodonpa. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Uma técnica poderosa que usa o dedo indicador, disparando um raio com um grande poder de penetração adicionando +1 na margem crítica. Dano: Ataque Especial + 1d6. Custo de Ki: 2 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Kikoho
     {
       name: 'Kikoho',
-      description: 'Uma das técnicas principais de Tenshinhan. Não é necessário ter aprendido nenhuma outra técnica para adquirir Kikoho. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Uma técnica letal, tanto para o oponente quanto ao usuário, útil até mesmo contra adversários muito mais poderosos ao custo da vida de quem a utiliza. Forma-se um triângulo com as mãos,
+        focando no alvo e disparando um feixe massivo de energia. Dano: Ataque Especial + 1d8. Custo de PV: 1 ponto. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Neo Kikoho
     {
-      name: 'Kikohodan',
-      description: 'Versão aprimorada de Kikoho. É necessário ter aprendido Kikoho para adquirir Kikohodan. Custo de P.A: 1.',
-      cost: 1,
+      name: 'Neo Kikoho',
+      cost: 2,
       needCheck: true,
       canBeRemoved: true,
       requirement: 'Kikoho',
 
+      getDescription() {
+        const description = `Versão aprimorada de Kikoho. Devido a um intenso treinamento, torna-se possível aplicar mais dano conforme a vontade do usuário, aumentando o dano em +1 por ponto de PV utilizado. É necessário ter aprendido Kikoho para aprender Neo Kikoho. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
@@ -1470,437 +1912,421 @@ export const timeChamberItems = {
           throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
-    {
-      name: 'Neo Kikoho',
-      description: 'Versão aprimorada de Kikoho. É necessário ter aprendido Kikohodan para adquirir Neo Kikoho. Custo de P.A: 2.',
-      cost: 2,
-      needCheck: true,
-      canBeRemoved: true,
-      requirement: 'Kikohodan',
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
+    // Técnica das 4 Cópias
     {
       name: 'Técnica das 4 Cópias',
-      description: 'Uma das técnicas principais de Tenshinhan. Não é necessário ter aprendido nenhuma outra técnica para adquirir Técnica das 4 Cópias. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica criada pelos Ciclopes. Consiste em criar 4 réplicas do usuário, dividindo seu poder em 4 frações. O jogador pode controlar as 4 cópias durante o seu turno, ou seja, fazer 4 movimentos e
+        ações. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Técnica dos 4 Braços
     {
       name: 'Técnica dos 4 Braços',
-      description: 'Uma das técnicas principais de Tenshinhan. Não é necessário ter aprendido nenhuma outra técnica para adquirir Técnica dos 4 Braços. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica criada pelos Ciclopes. Consiste em criar dois braços adicionais temporariamente, aumentando a intensidade de seus golpes. Bônus (Arbitrário): +2 em Força. Custo de Fôlego: 2 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Taiyouken
     {
       name: 'Taiyouken',
-      description: 'Técnica utilizada por diversos guerreiros. Não é necessário ter aprendido nenhuma outra técnica para adquirir Taiyouken. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica defensiva. Permite que o usuário ofusque a visão de seus adverśarios por até 2 turnos (50% de chance). Custo de Ki: 3 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
-    {
-      name: 'Super Onda Explosiva',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-      description: 'Uma das técnicas principais de Piccolo. Não é necessário ter aprendido nenhuma outra técnica para adquirir Super Onda Explosiva. Custo de P.A: 1.',
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
+    // Makankosappo
     {
       name: 'Makankosappo',
       cost: 3,
       needCheck: true,
       canBeRemoved: true,
-      description: 'Uma das técnicas principais de Piccolo. Não é necessário ter aprendido nenhuma outra técnica para adquirir Makankosappo. Custo de P.A: 3.',
+
+      getDescription() {
+        const description = `Técnica extremamente poderosa, com um alto poder de perfuração e destruição. É necessário carregar a técnica para que ela realmente funcione. A cada turno carregado, adicione +2 na margem crítica e no dano final. Dano: Ataque Especial + 1d8. Custo de Ki: 2 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
 
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Zona de Granadas Infernais
     {
       name: 'Zona de Granadas Infernais',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
-      description: 'Uma das técnicas principais de Piccolo. Não é necessário ter aprendido nenhuma outra técnica para adquirir Zona de Granadas Infernais. Custo de P.A: 1.',
+
+      getDescription() {
+        const description = `Técnica que consiste em lançar diversas esferas de energia ao redor do oponente, deixando-o cercado. Se o oponente se mover, ele será atingido sem que o usuário da técnica exploda as granadas. Basta um simples gesto com os braços para que cada granada de energia se lançe ao oponente. Dano: 1d4 por granada. Custo de Ki: 1 ponto por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
 
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
-    {
-      name: 'Super Magekisen',
-      cost: 2,
-      needCheck: true,
-      canBeRemoved: true,
-      description: 'Uma das técnicas principais de Piccolo. Não é necessário ter aprendido nenhuma outra técnica para adquirir Super Magekisen. Custo de P.A: 2.',
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
+    // Burning Attack
     {
       name: 'Burning Attack',
-      description: 'Uma das técnicas principais de Trunks. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Attack. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
-      requirement: 'Kikohodan',
+
+      getDescription() {
+        const description = `Técnica que consiste em canalizar uma quantidade considerável de energia por meio de gestos realizados com os braços e mãos. A energia é então disparada em uma esfera de energia extremamente quente. O disparo é rápido, porém não muito destrutivo. Dano: Ataque Especial + 1d4. Custo de Ki: 1 ponto. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
 
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Heat Dome Attack
     {
       name: 'Heat Dome Attack',
-      description: 'Versão aprimorada de Burning Attack. É necessário ter aprendido Burning Attack para aprender Heat Dome Attack. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
-      requirement: 'Burning Attack',
+
+      getDescription() {
+        const description = `Técnica que consiste em arremessar o alvo para o ar, deixando-o indefeso. Em seguida, uma quantidade massiva de energia é disparada em direção ao oponente, como finalização. Caso o usuário da técnica obtenha sucesso em arremessar o oponente, o alvo deverá realizar um Teste de Resistência para estabilizar-se e tentar defender a onda finalizadora. Dano: Ataque Especial + 1d4. Custo de Ki: 1 ponto. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
 
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        if (handleChar.char.techniques.indexOf(this.requirement) == -1) {
-          throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Bomber DX
     {
       name: 'Bomber DX',
-      description: 'Uma das técnicas principais de Nappa. Não é necessário ter aprendido nenhuma outra técnica para aprender Bomber DX. Custo de P.A: 1.',
-      cost: 1,
+      cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em canalizar uma grande quantidade de energia no braço e, em seguida, disparar a energia canalizada em direção ao alvo. Pode causar dano mesmo que não acerte diretamente o oponente. Precisa de um turno para canalizar totalmente o ataque, com 2m de raio de alcance. Dano: Ataque Especial + 1d4 (-50% caso não acerte diretamente o alvo). Custo de Ki: 3 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Giant Storm
     {
-      name: 'Tempestade Gigante',
-      description: 'Uma das técnicas principais de Nappa. Não é necessário ter aprendido nenhuma outra técnica para aprender Tempestade Gigante. Custo de P.A: 1.',
-      cost: 1,
+      name: 'Giant Storm',
+      cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em canalizar uma grande quantidade de energia na palma da mão e, em seguida, descarregar a energia canalizada no solo, causando uma explosão de baixo para cima. Abrange uma área com 4m de raio, causando pouco dano enquanto arremessa os oponentes para longe. Dano: 1d4. Custo de Ki: 2 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Kill Driver
     {
       name: 'Kill Driver',
-      description: 'Uma das técnicas principais de Turles. Não é necessário ter aprendido nenhuma outra técnica para aprender Kill Driver. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em canalizar uma corrente elétrica circular utilizando as mãos e, em seguida, disparar contra o oponente, tendo 20% de chance de atordoá-lo por um turno. Role 1d100 após o cálculo de dano. Dano: Ataque Especial + 1d4. Custo de Ki: 2 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Calamity Blaster
     {
       name: 'Calamity Blaster',
-      description: 'Uma das técnicas principais de Turles. Não é necessário ter aprendido nenhuma outra técnica para aprender Calamity Blaster. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Um combo de ataques físicos e de Ki. Consiste em desferir um ou dois golpes físicos, e por fim disparar uma esfera de energia em direção ao alvo. Dano: Ataque + Ataque Especial + 1d4. Custo de Ki e Fôlego: 4 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
-    {
-      name: 'Meteor Burst',
-      description: 'Uma das técnicas principais de Turles. Não é necessário ter aprendido nenhuma outra técnica para aprender Calamity Blaster. Custo de P.A: 3.',
-      cost: 3,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Double Sunday',
-      description: 'Uma das técnicas principais de Raditz. Não é necessário ter aprendido nenhuma outra técnica para aprender Double Sunday. Custo de P.A: 2.',
-      cost: 2,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Saturday Crush',
-      description: 'Uma das técnicas principais de Turles. Não é necessário ter aprendido nenhuma outra técnica para aprender Saturday Crush. Custo de P.A: 3.',
-      cost: 3,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
+    // Sleepy Boy Technique
     {
       name: 'Sleepy Boy Technique',
-      description: 'Técnica utilizada por Mestre Kame. Não é necessário ter aprendido nenhuma outra técnica para aprender Sleepy Boy Technique. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em controlar o oponente sem causar dano, colocando-o em sono profundo Caso obtenha sucesso, o oponente deverá rolar um Teste de Resistência a cada turno para tentar acordar. Role 1d20 + total de Inteligênci + Ataque Especial. A quantidade de turnos que o oponente permanece em sono profundo é igual ao seu total de Inteligência. Custo de Ki: 3 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Bankoku Bikkuri Shō
     {
-      name: 'Bankoku Bikkuri Sho',
-      description: 'Técnica utilizada por Mestre Kame. Não é necessário ter aprendido nenhuma outra técnica para aprender Bankoku Bikkuri Sho. Custo de P.A: 1.',
+      name: 'Bankoku Bikkuri Shō',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em descarregar uma corrente elétrica no alvo, incapacitando-o até que o usuário não consiga mais manter a corrente, ou até que o oponente obtenha êxito num Teste de Resistência. Custo de Ki: 2 pontos por turno. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Zanzoken
     {
       name: 'Zanzoken',
-      description: 'Técnica utilizada por Mestre Kame. Não é necessário ter aprendido nenhuma outra técnica para aprender Zanzoken. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em enganar o alvo, mais rápido do que os olhos inimigos conseguem acompanhar. O usuário deverá declarar que usará esta técnica, podendo criar ilusões de acordo com seu total de Destreza. O oponente deverá realizar um teste de Inteligência para tentar descobrir qual das imagens é a verdadeira. Custo de Fôlego: 1 ponto por ilusão. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Masenko
     {
       name: 'Masenko',
-      description: 'Uma das técnicas principais de Gohan. Não é necessário ter aprendido nenhuma outra técnica para aprender Masenko. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em canalizar energia na palma das mãos, frente à testa do usuário e, após canalizar energia suficiente, descarregar a energia numa explosão em direção ao oponente. Quanto mais próximo do oponente, maior o dano causado e mais fácil de acertar com total precisão. Dano: Ataque Especial + 1d6 (+2 de dano se estiver a menos de 2m do oponente). Custo de Ki: 3 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Masendan
     {
       name: 'Masendan',
-      description: 'Uma versão aprimorada do Masenko. É necessário ter aprendido Masenko para aprender Masendan. Custo de P.A: 1.',
-      cost: 1,
+      cost: 2,
       needCheck: true,
       canBeRemoved: true,
       requirement: 'Masenko',
 
+      getDescription() {
+        const description = `Versão aprimorada do Masenko. Consiste em canalizar a energia em uma mão só, e então arremessá-la em direção ao usuário, aumentando o potencial destrutivo da técnica, tendo 10% de chance de atordoar o oponente. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
@@ -1908,23 +2334,30 @@ export const timeChamberItems = {
           throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Super Masenko
     {
       name: 'Super Masenko',
-      description: 'Uma versão aprimorada do Masenko. É necessário ter aprendido Masendan para aprender Super Masenko. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
       requirement: 'Masendan',
 
+      getDescription() {
+        const description = `Versão aprimorada do Masendan. Esperando um turno para canalizar a energia e gastando 2 pontos de Ki, garante um bônus de +2 no dano final. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
@@ -1932,432 +2365,234 @@ export const timeChamberItems = {
           throw new Error(`Você deve aprender ${this.requirement} para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
-    {
-      name: 'Gekiretsu Madan',
-      description: 'Uma das técnicas principais de Gohan. Não é necessário ter aprendido nenhuma outra técnica para aprender Gekiretsu Madan. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
+    // Impulse Fist
     {
       name: 'Impulse Fist',
-      description: 'Técnica utilizada por Gohan. Não é necessário ter aprendido nenhuma outra técnica para aprender Impulse Fist. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Final Spirit Cannon',
-      description: 'Técnica utilizada por Gohan. Não é necessário ter aprendido nenhuma outra técnica para aprender Gekiretsu Madan. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Vortex Crusher',
-      description: 'Técnica utilizada por Bardock. Não é necessário ter aprendido nenhuma outra técnica para aprender Vortex Crusher. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Death Beam',
-      description: 'Uma das técnicas principais de Freeza. Não é necessário ter aprendido nenhuma outra técnica para aprender Death Beam. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Death Ball',
-      description: 'Uma das técnicas principais de Freeza. Não é necessário ter aprendido nenhuma outra técnica para aprender Death Ball. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Psicocinese',
-      description: 'Uma das técnicas principais de Freeza. Não é necessário ter aprendido nenhuma outra técnica para aprender Psicocinese. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Psycho Thread',
-      description: 'Técnica utilizada pelos companheiros de Bojack. Não é necessário ter aprendido nenhuma outra técnica para aprender Psycho Thread. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Magic Materialization',
-      description: 'Técnica utilizada por Piccolo. Não é necessário ter aprendido nenhuma outra técnica para aprender Magic Materialization. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Escudo de Energia',
-      description: 'Técnica utilizada por diversos guerreiros. Não é necessário ter aprendido nenhuma outra técnica para aprender Escudo de Energia. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Curar',
-      description: 'Técnica de cura. Não é necessário ter aprendido nenhuma outra técnica para aprender Curar. Adquira a magia novamente para receber Cura (Aprimorada). Custo de P.A: 1.',
-      cost: 1,
-      needCheck: false,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        if (handleChar.char.techniques.indexOf('Cura (Aprimorada)') != -1) {
-          throw new Error(`${this.name} já está no nível máximo.`)
-        }
-
-        if (handleChar.char.techniques.indexOf(this.name) != -1) {
-          const index = handleChar.char.techniques.indexOf(this.name)
-
-          handleChar.char.techniques[index] = 'Cura (Aprimorada)'
-          handleChar.updateRemainingPA(-this.cost)
-          timeChamber.closeTimeChamber()
-          App.reload()
-          return
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-        return
-      }
-    },
-
-    {
-      name: 'Hyper Tornado',
-      description: 'Uma das técnicas principais de Paikkuhan. Não é necessário ter aprendido nenhuma outra técnica para aprender Hyper Tornado. Custo de P.A: 2.',
       cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que consiste em canalizar Ki nos punhos, descarregando a energia em um combo letal. Para aumentar o dano em +1, gaste 2 pontos de Ki em um turno adicional. Para somar +1 no dano total após canalizar totalmente, gaste mais 2 pontos de Ki. Dano: 1+. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Vortex Crusher
     {
-      name: 'Burning Shoot',
-      description: 'Uma das técnicas principais de Paikkuhan. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Shoot. Custo de P.A: 1.',
-      cost: 1,
+      name: 'Vortex Crusher',
+      cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Técnica que pode ser utilizada tanto ofensiva quanto defensivamente. Consiste em contornar o oponente como no entorno de um vortex e atacá-lo com um golpe destruidor. Caso utilizada defensivamente, realize um Teste de Destreza para tentar esquivar do ataque inimigo e então realizar um contra-ataque, arremessando o oponente para longe, com 10% de chance de atordoá-lo no fim. Caso utilizada ofensivamente, realize um Teste de Força e, caso obtenha êxito, acrescente +2 no dano final. Dano: Ataque + 1d4(somente ofensivamente). Custo de Fôlego: 3 pontos. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
     },
 
+    // Death Beam
     {
-      name: 'Thunder Flash Attack',
-      description: 'Uma das técnicas principais de Paikkuhan. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Shoot. Custo de P.A: 1.',
-      cost: 1,
+      name: 'Death Beam',
+      cost: 2,
       needCheck: true,
       canBeRemoved: true,
 
+      getDescription() {
+        const description = `Uma técnica que consiste em disparar um raio de energia concentrada pela ponta dos dedos, em direção ao oponente. Limita-se a disparar uma quantidade de raios equivalente ao total de Destreza do usuário num mesmo turno, por ser extremamente rápida de canalizar. Dano: 1d4 para cada raio disparado. Custo de Ki: 2 pontos por raio disparado. Custo de P.A: ${this.cost}.`;
+
+        return description
+      },
+
       sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
+        if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
         }
 
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
+        handleChar.addTechnique(this.name)
+        handleChar.updateCharActualStatus('P.A', -this.cost)
+        timeChamberModal.closeTimeChamber()
         App.reload()
+        Toast.open(`${this.name} aprendido com sucesso!`)
       }
-    },
-
-    {
-      name: 'Evil Flame',
-      description: 'Técnica utilizada por Dabura. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Shoot. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
-
-    {
-      name: 'Stone Spit',
-      description: 'Uma das técnicas principais de Dabura. Não é necessário ter aprendido nenhuma outra técnica para aprender Burning Shoot. Custo de P.A: 1.',
-      cost: 1,
-      needCheck: true,
-      canBeRemoved: true,
-
-      sideEffet() {
-        if (handleChar.char.remainingPA < this.cost) {
-          throw new Error(`Você não possui P.A suficientes para aprender ${this.name}.`)
-        }
-
-        handleChar.char.techniques.push(this.name)
-        handleChar.updateRemainingPA(-this.cost)
-        timeChamber.closeTimeChamber()
-        App.reload()
-      }
-    },
+    }
   ]
 }
 
-export const attributeRealocateHandler = {
-  getNewAttributeValues() {
-    return {
-      newStr: Number(document.getElementById('new-bonus-str').value),
-      newDex: Number(document.getElementById('new-bonus-dex').value),
-      newKi: Number(document.getElementById('new-bonus-ki').value),
-      newInt: Number(document.getElementById('new-bonus-int').value),
-      newRes: Number(document.getElementById('new-bonus-res').value),
+export const charUtilites = {
+  // This is the available race characteristics for each race.
+  availableRaces: ['Saiyajin (Puro)', 'Saiyajin (Híbrido)', 'Humano', 'Konatsu-seijin (Espadachim)', 'Konatsu-seijin (Feitiçeiro)', 'Andróide (Artificial)', 'Andróide (Ciborgue)', 'Andróide (Bioandróide)', 'Namekuseijin (Clã dos Guerreiros)', 'Namekuseijin (Clã do Dragão)', 'Raça Freeza', 'Majin'],
+  raceSpecs: [
+    {
+      race: 'Saiyajin (Puro)',
+      raceStr: 2,
+      raceDex: 0,
+      raceKi: 0,
+      raceInt: 0,
+      raceRes: 2,
+      advantages: ['Criar lua', 'Forma Gigante', 'Memória', 'Zenkai'],
+      disadvantages: ['Apetite Insaciável', 'Cauda']
+    },
+
+    {
+      race: 'Saiyajin (Híbrido)',
+      raceStr: 2,
+      raceDex: 0,
+      raceKi: 0,
+      raceInt: 1,
+      raceRes: 2,
+      advantages: ['Forma gigante', 'Memória', 'Zenkai', 'Desenvolvimento Aprimorado'],
+      disadvantages: ['Apetite Insaciável', 'Cauda']
+    },
+
+    {
+      race: 'Humano',
+      raceStr: 0,
+      raceDex: 0,
+      raceKi: 0,
+      raceInt: 1,
+      raceRes: 2,
+      advantages: [],
+      disadvantages: []
+    },
+
+    {
+      race: 'Majin',
+      raceStr: 1,
+      raceDex: 2,
+      raceKi: 2,
+      raceInt: 1,
+      raceRes: 1,
+      advantages: ['Alongar membros', 'Regeneração', 'Absorção (Majin)', 'Desmembrar', 'Usar Magia de Cura'],
+      disadvantages: ['Preguiçoso', 'Primitivo']
+    },
+
+    {
+      race: 'Raça Freeza',
+      raceStr: 1,
+      raceDex: 1,
+      raceKi: 0,
+      raceInt: 0,
+      raceRes: 2,
+      advantages: ['Aumentar Velocidade', 'Sobreviver a Feridas Mortais', 'Sobreviver no espaço', 'Transformação'],
+      disadvantages: ['Aparência Monstruosa', 'Má Fama (Raça Freeza)']
+    },
+
+    {
+      race: 'Andróide (Artificial)',
+      raceStr: 0,
+      raceDex: 1,
+      raceKi: 0,
+      raceInt: 2,
+      raceRes: 0,
+      advantages: ['Imune a Veneno', 'Imune a Controle Mental'],
+      disadvantages: ['Necessidade de Drenar Energia']
+    },
+
+    {
+      race: 'Andróide (Bioandróide)',
+      raceStr: 1,
+      raceDex: 0,
+      raceKi: 0,
+      raceInt: 1,
+      raceRes: 1,
+      advantages: ['Absorção de Energia (parcial ou por assimilação)'],
+      disadvantages: ['Chance de Perda de Assimilação', 'Perfeccionista']
+    },
+
+    {
+      race: 'Andróide (Ciborgue)',
+      raceStr: 1,
+      raceDex: 1,
+      raceKi: 0,
+      raceInt: 0,
+      raceRes: 2,
+      advantages: ['Energia Ilimitada', 'Imune a Veneno', 'Imune a Controle Mental'],
+      disadvantages: ['Incapaz de Sentir Ki', 'Necessidade de Hidratar-se']
+    },
+
+    {
+      race: 'Namekuseijin (Clã dos Guerreiros)',
+      raceStr: 1,
+      raceDex: 0,
+      raceKi: 0,
+      raceInt: 0,
+      raceRes: 2,
+      advantages: ['Forma Gigante (Namek)', 'Alongar Membros (Namek)', 'Assimilação', 'Audição Aguçada', 'Detecção Natural de Ki', 'Capacidade de Avaliar Índole', 'Regenerar Membros'],
+      disadvantages: []
+    },
+
+    {
+      race: 'Namekuseijin (Clã do Dragão)',
+      raceStr: 0,
+      raceDex: 0,
+      raceKi: 2,
+      raceInt: 2,
+      raceRes: 0,
+      advantages: ['Usar Magias Avançadas', 'Forma Gigante (Namek)', 'Alongar Membros (Namek)', 'Assimilação', 'Audição Aguçada', 'Deteccção Natural de Ki', 'Capacidade de Avaliar Índole', 'Regenerar Membros'],
+      disadvantages: []
+    },
+
+    {
+      race: 'Konatsu-seijin (Espadachim)',
+      raceStr: 0,
+      raceDex: 2,
+      raceKi: 0,
+      raceInt: 2,
+      raceRes: 1,
+      advantages: ['Perícia Inigualável +1', 'Usar Magias Menores'],
+      disadvantages: ['Item Essencial - Arma de Corte']
+    },
+
+    {
+      race: 'Konatsu-seijin (Feitiçeiro)',
+      raceStr: 0,
+      raceDex: 0,
+      raceKi: 2,
+      raceInt: 2,
+      raceRes: 0,
+      advantages: ['Usar magia'],
+      disadvantages: ['Necessidade de Descansar Demasiadamente']
     }
+  ],
+
+  findRaceSpecs(race) {
+    const raceSpecsIndex = this.raceSpecs.findIndex(c => c.race == race)
+
+    return raceSpecsIndex
   },
-
-  validateAttributes() {
-    const { newStr, newDex, newKi, newInt, newRes } = attributeRealocateHandler.getNewAttributeValues()
-
-    if (newStr == '' &&
-      newDex == '' &&
-      newKi == '' &&
-      newInt == '' &&
-      newRes == '') {
-      throw new Error('Por favor, digite valores válidos.')
-    }
-
-    if (!Number.isInteger(newStr) ||
-      !Number.isInteger(newDex) ||
-      !Number.isInteger(newKi) ||
-      !Number.isInteger(newInt) ||
-      !Number.isInteger(newRes)) {
-      throw new Error('Por favor, digite valores válidos.')
-    }
-
-    if (newStr + handleChar.char.bonusStr + newDex + handleChar.char.bonusDex + newKi + handleChar.char.bonusKi + newInt + handleChar.char.bonusInt + newRes + handleChar.char.bonusRes != handleChar.char.bonusStr + handleChar.char.bonusDex + handleChar.char.bonusKi + handleChar.char.bonusInt + handleChar.char.bonusRes
-    ) {
-      throw new Error('Os total de pontos realocados não pode modificar o total original de pontos bônus.')
-    }
-
-    return
-  },
-
-  watchButtonAction() {
-    const confirmBtn = document.getElementById('confirm-attribute-realocate')
-    const cancelBtn = document.getElementById('cancel-attribute-realocate')
-
-    confirmBtn.addEventListener('click', attributeRealocateHandler.confirmAttributeRealocate)
-    cancelBtn.addEventListener('click', attributeRealocateHandler.closeAttributeRealocateModal)
-  },
-
-  closeAttributeRealocateModal() {
-    const confirmBtn = document.getElementById('confirm-attribute-realocate')
-    const cancelBtn = document.getElementById('cancel-attribute-realocate')
-
-    toggleModal(10, 'hide')
-    confirmBtn.removeEventListener('click', attributeRealocateHandler.confirmAttributeRealocate)
-    cancelBtn.removeEventListener('click', attributeRealocateHandler.closeAttributeRealocateModal)
-    attributeRealocateHandler.clearFields()
-  },
-
-  updateCharBonusAttributes() {
-    const { newStr, newDex, newKi, newInt, newRes } = attributeRealocateHandler.getNewAttributeValues()
-
-    handleChar.char.bonusStr += newStr
-    handleChar.char.bonusDex += newDex
-    handleChar.char.bonusKi += newKi
-    handleChar.char.bonusInt += newInt
-    handleChar.char.bonusRes += newRes
-    return
-  },
-
-  clearFields() {
-    const newStr = document.getElementById('new-bonus-str')
-    const newDex = document.getElementById('new-bonus-dex')
-    const newKi = document.getElementById('new-bonus-ki')
-    const newInt = document.getElementById('new-bonus-int')
-    const newRes = document.getElementById('new-bonus-res')
-
-    newStr.value = ''
-    newDex.value = ''
-    newKi.value = ''
-    newInt.value = ''
-    newRes.value = ''
-
-    return
-  },
-
-  confirmAttributeRealocate(e) {
-    e.preventDefault()
-
-    try {
-      attributeRealocateHandler.validateAttributes()
-      attributeRealocateHandler.updateCharBonusAttributes()
-      handleChar.updateCharMaxHP()
-      handleChar.updateCharMaxSTA()
-      handleChar.updateCharMaxKi()
-      handleChar.updateRemainingPA(-1)
-      attributeRealocateHandler.closeAttributeRealocateModal()
-      timeChamber.closeTimeChamber()
-      App.reload()
-    } catch (error) {
-      Toast.open(error.message)
-    }
-  }
 }
