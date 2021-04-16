@@ -1128,7 +1128,7 @@ export const timeChamberItems = {
       canBeRemoved: true,
 
       getDescription() {
-        const description = `Uma técnica que dá grande poder e velocidade ao usuário mas que causa severos danos ao corpo. O multiplicador (Kaioken x2, por exemplo) depende do total de turnos canalizando a técnica. Bônus (Arbitrário): +2 em Força, Destreza, Ki, Resistência, Ataque, Defesa e Ataque Especial, +1 para cada atributo a depender da quantidade de turnos canalizando. Custo de P.V: -2 pontos/turno. Custo de P.A: ${this.cost}.`;
+        const description = `Uma técnica que dá grande poder e velocidade ao usuário mas que causa severos danos ao corpo. O usuário deve declarar o nível que deseja utilizar (Kaioken x20, por exemplo). Bônus (Arbitrário): +2 em Força, Destreza, Ki, Resistência, Ataque, Defesa e Ataque Especial e +1 para cada atributo a depender do nível utilizado. Custo de PV: -1 multiplicado pelo nível utilizado por turno (Kaioken x4 consome 4 PV por turno, por exemplo). Custo de P.A: ${this.cost}.`;
 
         return description
       },
