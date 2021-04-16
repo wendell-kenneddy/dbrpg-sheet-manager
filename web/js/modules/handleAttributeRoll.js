@@ -1,6 +1,6 @@
 import { handleChar } from "./handleChar.js"
 
-export const handleRoll = {
+export const attributeRoll = {
   diceFaces: 0,
   rolls: [],
   critRolls: 0,
@@ -11,40 +11,48 @@ export const handleRoll = {
   output: '',
 
   updateDiceFaces(facesAmount) {
-    this.diceFaces = facesAmount
+    attributeRoll.diceFaces = facesAmount;
+    return
   },
 
   rollDice(times) {
     for (let i = 0; i < times; i++) {
-      const randomNum = Math.round(Math.random() * this.diceFaces)
+      const randomNum = Math.round(Math.random() * this.diceFaces);
 
-      this.rolls.push(randomNum)
-      this.attributesPlusRollsTotal += randomNum
+      attributeRoll.rolls.push(randomNum)
+      attributeRoll.attributesPlusRollsTotal += randomNum
     }
+
+    return
   },
 
   checkCrits() {
-    if (this.diceFaces == 20) {
-      for (let i = 0; i < this.rolls.length; i++) {
-        if (this.rolls[i] == 20) {
-          this.critRolls += 1
+    if (attributeRoll.diceFaces == 20) {
+      for (let i = 0; i < attributeRoll.rolls.length; i++) {
+        if (attributeRoll.rolls[i] == 20) {
+          attributeRoll.critRolls += 1
         }
       }
     }
+
+    return
   },
 
   checkFails() {
-    if (this.diceFaces == 20) {
-      for (let i = 0; i < this.rolls.length; i++) {
-        if (this.rolls[i] == 0) {
-          this.failedRolls += 1
+    if (attributeRoll.diceFaces == 20) {
+      for (let i = 0; i < attributeRoll.rolls.length; i++) {
+        if (attributeRoll.rolls[i] == 0) {
+          attributeRoll.failedRolls += 1
         }
       }
     }
+
+    return
   },
 
   formatRolls() {
     const rolls = []
+
     for (let i = 0; i < this.rolls.length; i++) {
       rolls.push(`${this.rolls[i]}(d${this.diceFaces})`)
     }
@@ -53,77 +61,53 @@ export const handleRoll = {
   },
 
   resetRoll() {
-    this.diceFaces = 0
-    this.attributesPlusRollsTotal = 0
-    this.rolledAttributeTotal = 0
-    this.rolledAttribute = ''
-    this.rolls = []
-    this.critRolls = 0
-    this.failedRolls = 0
-    this.output = ''
+    attributeRoll.diceFaces = 0;
+    attributeRoll.attributesPlusRollsTotal = 0;
+    attributeRoll.rolledAttributeTotal = 0;
+    attributeRoll.rolledAttribute = '';
+    attributeRoll.rolls = [];
+    attributeRoll.critRolls = 0;
+    attributeRoll.failedRolls = 0;
+    attributeRoll.output = '';
     return
   },
-
-  clearRollContainer() {
-    const resultContainer = document.getElementById('result-container')
-    resultContainer.innerHTML = '<p>O resultado aparecerá aqui.'
-    return
-  },
-
 
   getAttributeTotal(attribute) {
-    if (attribute == 'str') {
-      this.rolledAttribute = 'Força'
-      this.rolledAttributeTotal += handleChar.char.baseStr + handleChar.char.bonusStr + handleChar.char.raceStr
-      this.attributesPlusRollsTotal += this.rolledAttributeTotal
-      return
+    let charPrimaryAttributeIndex = 0;
+    let attributeTotal = 0;
+
+    for (let i = 0; i < handleChar.char.primaryAttributes.length; i++) {
+      if (handleChar.char.primaryAttributes[i].simpleName == attribute) {
+        charPrimaryAttributeIndex = i;
+        break;
+      }
     }
 
-    if (attribute == 'dex') {
-      this.rolledAttribute = 'Destreza'
-      this.rolledAttributeTotal += handleChar.char.baseDex + handleChar.char.bonusDex + handleChar.char.raceDex
-      this.attributesPlusRollsTotal += this.rolledAttributeTotal
-      return
-    }
-
-    if (attribute == 'ki') {
-      this.rolledAttribute = 'Ki'
-      this.rolledAttributeTotal += handleChar.char.baseKi + handleChar.char.bonusKi + handleChar.char.raceKi
-      this.attributesPlusRollsTotal += this.rolledAttributeTotal
-      return
-    }
-
-    if (attribute == 'int') {
-      this.rolledAttribute = 'Inteligência'
-      this.rolledAttributeTotal += handleChar.char.baseInt + handleChar.char.bonusInt + handleChar.char.raceInt
-      this.attributesPlusRollsTotal += this.rolledAttributeTotal
-      return
-    }
-
-    if (attribute == 'res') {
-      this.rolledAttribute = 'Resistência'
-      this.rolledAttributeTotal += handleChar.char.baseRes + handleChar.char.bonusRes + handleChar.char.raceRes
-      this.attributesPlusRollsTotal += this.rolledAttributeTotal
-      return
-    }
+    attributeTotal = handleChar.char.primaryAttributes[charPrimaryAttributeIndex].base + handleChar.char.primaryAttributes[charPrimaryAttributeIndex].race + handleChar.char.primaryAttributes[charPrimaryAttributeIndex].bonus + handleChar.char.primaryAttributes[charPrimaryAttributeIndex].arbitrary;
+    attributeRoll.rolledAttribute = handleChar.char.primaryAttributes[charPrimaryAttributeIndex].name
+    attributeRoll.rolledAttributeTotal = attributeTotal;
+    attributeRoll.attributesPlusRollsTotal += attributeTotal;
+    return
   },
 
   buildOutput() {
-    this.output += `${this.formatRolls().join(' + ')} + ${this.rolledAttributeTotal}(total de ${this.rolledAttribute}) = ${this.attributesPlusRollsTotal}.`
+    attributeRoll.output += `${attributeRoll.formatRolls().join(' + ')} + ${attributeRoll.rolledAttributeTotal}(total de ${attributeRoll.rolledAttribute}) = ${attributeRoll.attributesPlusRollsTotal}.`;
 
-    if (this.critRolls != 0) {
-      this.output += ` <span class="critical-roll">${this.critRolls} Acerto(s) Crítico(s)!</span>`
+    if (attributeRoll.critRolls != 0) {
+      attributeRoll.output += ` <span class="critical-roll">${this.critRolls} Acerto(s) Crítico(s)!</span>`;
     }
 
-    if (this.failedRolls != 0) {
-      this.output += ` <span class="critical-fail">${this.failedRolls} Falha(s) Crítica(s)!</span>`
+    if (attributeRoll.failedRolls != 0) {
+      attributeRoll.output += ` <span class="critical-fail">${attributeRoll.failedRolls} Falha(s) Crítica(s)!</span>`;
     }
+
+    return
   },
 
   printOutput() {
-    const resultContainer = document.getElementById('roll-result')
+    const resultContainer = document.getElementById('roll-result');
     resultContainer.innerHTML = ''
-    resultContainer.innerHTML = this.output
+    resultContainer.innerHTML = attributeRoll.output
     return
   }
 }
