@@ -50,6 +50,10 @@
   gap: 0.6rem;
 }
 
+.no-height-overflow {
+  max-height: 300px;
+}
+
 .no-wrap {
   white-space: nowrap;
 }
