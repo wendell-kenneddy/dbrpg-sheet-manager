@@ -54,9 +54,7 @@
       <h2 class="sr-only">Informações gerais</h2>
 
       <div id="char-info">
-        <p id="char-name">Nome: </p>
-        <p id="char-race">Raça: </p>
-        <p id="char-level">Nível: 1</p>
+
       </div>
 
       <div class="grid-btn-group" id="player-actions">
@@ -67,13 +65,13 @@
           atributo</button>
         <button id="char-attributes-modify" class="styled-button">Aprimorar
           atributos</button>
+        <button class="styled-button" id="char-arbitrary-attributes">Atributos
+          Arbitrários</button>
         <button id="char-status-modify" class="styled-button">Modificar
           status</button>
         <button class="styled-button" id="char-add-item">Adicionar item</button>
         <button class="styled-button" id="char-remove-item">Remover
           item</button>
-        <button class="styled-button" id="char-arbitrary-attributes">Atributos
-          Arbitrários</button>
         <button id="open-time-chamber" class="styled-button">Sala do
           Tempo</button>
         <button id="char-remove-characteristic" class="styled-button">Remover
@@ -82,7 +80,7 @@
 
       <div class=" table-container">
 
-        <table id="char-attributes" class="styled-table">
+        <table id="char-primary-attributes" class="styled-table">
           <summary class="sr-only">Tabela contendo os atributos primários do
             jogador</summary>
           <thead>
@@ -96,46 +94,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Força</td>
-              <td id="char-base-str-attribute">0</td>
-              <td id="char-race-str-attribute">0</td>
-              <td id="char-bonus-str-attribute">0</td>
-              <td id="char-arbitrary-str-attribute">0</td>
-              <td id="char-total-str-attribute">0</td>
-            </tr>
-            <tr>
-              <td>Destreza</td>
-              <td id="char-base-dex-attribute">0</td>
-              <td id="char-race-dex-attribute">0</td>
-              <td id="char-bonus-dex-attribute">0</td>
-              <td id="char-arbitrary-dex-attribute">0</td>
-              <td id="char-total-dex-attribute">0</td>
-            </tr>
-            <tr>
-              <td>Ki</td>
-              <td id="char-base-ki-attribute">0</td>
-              <td id="char-race-ki-attribute">0</td>
-              <td id="char-bonus-ki-attribute">0</td>
-              <td id="char-arbitrary-ki-attribute">0</td>
-              <td id="char-total-ki-attribute">0</td>
-            </tr>
-            <tr>
-              <td>Inteligência</td>
-              <td id="char-base-int-attribute">0</td>
-              <td id="char-race-int-attribute">0</td>
-              <td id="char-bonus-int-attribute">0</td>
-              <td id="char-arbitrary-int-attribute">0</td>
-              <td id="char-total-int-attribute">0</td>
-            </tr>
-            <tr>
-              <td>Resistência</td>
-              <td id="char-base-res-attribute">0</td>
-              <td id="char-race-res-attribute">0</td>
-              <td id="char-bonus-res-attribute">0</td>
-              <td id="char-arbitrary-res-attribute">0</td>
-              <td id="char-total-res-attribute">0</td>
-            </tr>
+
           </tbody>
         </table>
 
@@ -152,31 +111,6 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td>EXP</td>
-              <td id="char-actual-exp">1</td>
-              <td id="char-max-exp">10</td>
-            </tr>
-            <tr>
-              <td>Fôlego</td>
-              <td id="char-actual-sta">0</td>
-              <td id="char-max-sta">0</td>
-            </tr>
-            <tr>
-              <td>Ki</td>
-              <td id="char-actual-ki">0</td>
-              <td id="char-max-ki">0</td>
-            </tr>
-            <tr>
-              <td>P.A</td>
-              <td id="char-actual-ap">0</td>
-              <td id="char-max-ap">12</td>
-            </tr>
-            <tr>
-              <td>PV</td>
-              <td id="char-actual-hp">0</td>
-              <td id="char-max-hp">0</td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -198,21 +132,21 @@
         </tbody>
       </table>
 
-      <table id="char-abilities"
-        class="styled-table large-table centered-td-table">
-        <summary class="sr-only">Habilidades do jogador.</summary>
+      <div class="table-container no-height-overflow">
+        <table id="char-abilities"
+          class="styled-table large-table centered-td-table">
+          <summary class="sr-only">Habilidades do jogador.</summary>
+          <thead>
+            <tr>
+              <th>Habilidades e técnicas</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
 
-        <thead>
-          <tr>
-            <th>Habilidades e técnicas</th>
-          </tr>
-        </thead>
-
-        <tbody>
-        </tbody>
-      </table>
-
-      <div class="table-container">
+      <div class="table-container no-height-overflow">
         <table id="char-advantages" class="styled-table centered-td-table">
           <summary class="sr-only">Tabela contendo as vantagens do jogador
           </summary>
@@ -238,13 +172,13 @@
         </table>
       </div>
 
-      <div class="table-container">
+      <div class="table-container no-height-overflow">
         <table id="char-items"
           class="styled-table large-table centered-td-table no-wrap">
           <summary class="sr-only">Itens e equipamentos</summary>
           <thead>
             <tr>
-              <th>Itens</th>
+              <th>Item</th>
               <th>Tipo</th>
               <th>Raridade</th>
             </tr>
@@ -258,32 +192,37 @@
   </main>
 
   <div class="overlay hide">
-    <div class="modal">
+    <div class=" modal">
       <section id="char-creation">
         <div class="title-container">
           <h2>Crie seu personagem</h2>
         </div>
+
         <form action="#" id="creation-form">
           <label for="char-name" class="block-large">Nome</label>
           <input type="text" name="char-name" id="char-name"
             class="block-large">
+
           <label for="char-race" class="block-large">Raça</label>
-          <input list="races" name="char-race" id="char-race"
-            class="block-large">
-          <datalist id="races">
-            <option value="Saiyajin (Puro)"></option>
-            <option value="Saiyajin (Híbrido)"></option>
-            <option value="Humano"></option>
-            <option value="Konatsu-seijin (Espadachim)"></option>
-            <option value="Konatsu-seijin (Feitiçeiro)"></option>
-            <option value="Namekuseijin (Clã dos Guerreiros)"></option>
-            <option value="Namekuseijin (Clã do Dragão)"></option>
-            <option value="Andróide (Ciborgue)"></option>
-            <option value="Andróide (Artificial)"></option>
-            <option value="Andróide (Bioandróide)"></option>
-            <option value="Raça Freeza"></option>
-            <option value="Majin"></option>
-          </datalist>
+          <select name="char-race" id="char-race" class="block-large">
+            <option value="Saiyajin (Puro)">Saiyajin (Puro)</option>
+            <option value="Saiyajin (Híbrido)">Saiyajin (Híbrido)</option>
+            <option value="Humano">Humano</option>
+            <option value="Konatsu-seijin (Espadachim)">Konatsu-seijin
+              (Espadachim)</option>
+            <option value="Konatsu-seijin (Feitiçeiro)">Konatsu-seijin
+              (Feitiçeiro)</option>
+            <option value="Namekuseijin (Clã dos Guerreiros)">Namekuseijin (Clã
+              dos Guerreiros)</option>
+            <option value="Namekuseijin (Clã do Dragão)">Namekuseijin (Clã do
+              Dragão)</option>
+            <option value="Andróide (Ciborgue)">Andróide (Ciborgue)</option>
+            <option value="Andróide (Artificial)">Andróide (Artificial)</option>
+            <option value="Andróide (Bioandróide)">Andróide (Bioandróide)
+            </option>
+            <option value="Raça Freeza">Raça Freeza</option>
+            <option value="Majin">Majin</option>
+          </select>
 
           <p>Distribua seus Pontos de Aptidão (PA) iniciais. Você possui 12, e
             pode usar no máximo 3 em cada atributo.</p>
@@ -316,55 +255,16 @@
   </div>
 
   <div class="overlay hide">
-    <div id="attribute-edit" class="modal">
-      <div class="title-container">
-        <h2>Aprimorar atributos</h2>
-      </div>
-
-      <form action="#" id="attribute-edit-form">
-        <p id="available-ap">P.A disponíveis: </p>
-
-        <label for="edit-str" class="block-large">Força</label>
-        <input type="number" name="edit-str" id="edit-str" step="1" max="12"
-          class="block-large">
-
-        <label for="edit-dex" class="block-large">Destreza</label>
-        <input type="number" name="edit-dex" id="edit-dex" step="1" max="12"
-          class="block-large">
-
-        <label for="edit-ki" class="block-large">Ki</label>
-        <input type="number" name="edit-ki" id="edit-ki" step="1" max="12"
-          class="block-large">
-
-        <label for="edit-int" class="block-large">Inteligência</label>
-        <input type="number" name="edit-int" id="edit-int" step="1" max="12"
-          class="block-large">
-
-        <label for="edit-res" class="block-large">Resistência</label>
-        <input type="number" name="edit-res" id="edit-res" step="1" max="12"
-          class="block-large">
-
-        <div class="btn-group" id="player-actions-modify">
-          <button id="confirm-modify"
-            class="styled-button large-button confirm-button">Confirmar</button>
-
-          <a href="#" id="cancel-modify"
-            class="styled-button large-button cancel-button">Cancelar</a>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="overlay hide">
     <div id="dialogue-box" class="modal">
       <div class="title-container">
         <h2 id="warning">Aviso</h2>
       </div>
+
       <p id="warning-description">Esta ação é <strong>irreversível</strong>. O
-        personagem não
-        poderá ser recuperado, e <strong>todo o progresso será perdido</strong>.
-        Deseja realmente
-        seguir em frente e apagar o personagem?</p>
+        personagem não poderá ser recuperado, e <strong>todo o progresso será
+          perdido</strong>. Deseja realmente seguir em frente e apagar o
+        personagem?</p>
+
       <div class="btn-group">
         <button id="confirm-char-delete"
           class="styled-button large-button confirm-button">Confirmar</button>
@@ -441,6 +341,154 @@
   </div>
 
   <div class="overlay hide">
+    <div id="attribute-edit" class="modal">
+      <div class="title-container">
+        <h2>Aprimorar atributos</h2>
+      </div>
+
+      <form action="#" id="primary-attribute-edit-form">
+        <p id="available-ap"></p>
+
+        <label for="edit-str" class="block-large">Força</label>
+        <input type="number" name="edit-str" id="edit-str" step="1" max="12"
+          class="block-large">
+
+        <label for="edit-dex" class="block-large">Destreza</label>
+        <input type="number" name="edit-dex" id="edit-dex" step="1" max="12"
+          class="block-large">
+
+        <label for="edit-ki" class="block-large">Ki</label>
+        <input type="number" name="edit-ki" id="edit-ki" step="1" max="12"
+          class="block-large">
+
+        <label for="edit-int" class="block-large">Inteligência</label>
+        <input type="number" name="edit-int" id="edit-int" step="1" max="12"
+          class="block-large">
+
+        <label for="edit-res" class="block-large">Resistência</label>
+        <input type="number" name="edit-res" id="edit-res" step="1" max="12"
+          class="block-large">
+
+        <div class="btn-group">
+          <button id="confirm-attribute-upgrade"
+            class="styled-button large-button confirm-button">Confirmar</button>
+
+          <a href="#" id="cancel-attribute-upgrade"
+            class="styled-button large-button cancel-button">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="overlay hide">
+    <div id="arbitrary-attribute" class="modal">
+      <div class="title-container">
+        <h2>Atributos Arbitrários</h2>
+      </div>
+
+      <p>Use o sinal de menos para valores negativos.</p>
+
+      <form action="#" id="arbitrary-attribute-form">
+        <label for="arbitrary-str" class="block-large">Força</label>
+        <input type="number" name="arbitrary-str" id="arbitrary-str" step="1"
+          class="block-large">
+
+        <label for="arbitrary-dex" class="block-large">Destreza</label>
+        <input type="number" name="arbitrary-dex" id="arbitrary-dex" step="1"
+          class="block-large">
+
+        <label for="arbitrary-ki" class="block-large">Ki</label>
+        <input type="number" name="arbitrary-ki" id="arbitrary-ki" step="1"
+          class="block-large">
+
+        <label for="arbitrary-int" class="block-large">Inteligência</label>
+        <input type="number" name="arbitrary-int" id="arbitrary-int" step="1"
+          class="block-large">
+
+        <label for="arbitrary-res" class="block-large">Resistência</label>
+        <input type="number" name="arbitrary-res" id="arbitrary-res" step="1"
+          class="block-large">
+
+        <label for="arbitrary-base-atk" class="block-large">Ataque</label>
+        <input type="number" name="arbitrary-base-atk" id="arbitrary-base-atk"
+          step="1" class="block-large">
+
+        <label for="arbitrary-base-def" class="block-large">Defesa</label>
+        <input type="number" name="arbitrary-base-def" id="arbitrary-base-def"
+          step="1" class="block-large">
+
+        <label for="arbitrary-sp-atk" class="block-large">Ataque
+          Especial</label>
+        <input type="number" name="arbitrary-sp-atk" id="arbitrary-sp-atk"
+          step="1" class="block-large">
+
+        <label for="arbitrary-sp-def" class="block-large">Defesa
+          Especial</label>
+        <input type="number" name="arbitrary-sp-def" id="arbitrary-sp-def"
+          step="1" class="block-large">
+
+        <div class="btn-group">
+          <button id="confirm-arbitrary-attribute-modify"
+            class="styled-button large-button confirm-button">Confirmar</button>
+
+          <a href="#" id="cancel-arbitrary-attribute-modify"
+            class="styled-button large-button cancel-button">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="overlay hide">
+    <div class="modal">
+      <div class="status-mofidy">
+        <div class="title-container">
+          <h2>Modificar status</h2>
+        </div>
+
+        <form action="#" id="status-modify-form">
+          <p class="block-large">Selecione o status que deseja modificar.</p>
+
+          <div class="radio-and-text">
+            <input type="radio" name="status-to-modify" id="modify-hp"
+              value="PV" checked>
+            <label for="modify-hp">PV</label>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="status-to-modify" id="modify-exp"
+              value="EXP">
+            <label for="modify-exp">EXP</label>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="status-to-modify" id="modify-ki"
+              value="Ki">
+            <label for="modify-ki">Ki</label>
+          </div>
+
+          <div class="radio-and-text">
+            <input type="radio" name="status-to-modify" id="modify-sta"
+              value="Fôlego">
+            <label for="modify-sta">Fôlego</label>
+          </div>
+
+          <label for="modify-value" class="block-large">Valor (use o sinal de
+            menos para subtrações)</label>
+          <input type="number" name="modify-value" id="modify-value" step="1"
+            class="block-large">
+
+          <div class="btn-group">
+            <button class="styled-button confirm-button large-button"
+              id="confirm-status-modify">Confirmar</button>
+            <a href="#" class="styled-button cancel-button large-button"
+              id="cancel-status-modify">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay hide">
     <div class="modal">
       <div id="add-item">
         <div class="title-container">
@@ -495,114 +543,6 @@
 
   <div class="overlay hide">
     <div class="modal">
-      <div class="status-mofidy">
-        <div class="title-container">
-          <h2>Modificar status</h2>
-        </div>
-
-        <form action="#" id="status-modify-form">
-          <p class="block-large">Selecione o status que deseja modificar.</p>
-
-          <div class="radio-and-text">
-            <input type="radio" name="status-to-modify" id="modify-hp"
-              value="hp" checked>
-            <label for="modify-hp">HP</label>
-          </div>
-
-          <div class="radio-and-text">
-            <input type="radio" name="status-to-modify" id="modify-exp"
-              value="exp">
-            <label for="modify-exp">EXP</label>
-          </div>
-
-          <div class="radio-and-text">
-            <input type="radio" name="status-to-modify" id="modify-ki"
-              value="ki">
-            <label for="modify-ki">Ki</label>
-          </div>
-
-          <div class="radio-and-text">
-            <input type="radio" name="status-to-modify" id="modify-sta"
-              value="sta">
-            <label for="modify-sta">Fôlego</label>
-          </div>
-
-          <label for="modify-value" class="block-large">Valor (use o sinal de
-            menos para subtrações)</label>
-          <input type="number" name="modify-value" id="modify-value" step="1"
-            class="block-large">
-
-          <div class="btn-group">
-            <button class="styled-button confirm-button large-button"
-              id="confirm-status-modify">Confirmar</button>
-            <a href="#" class="styled-button cancel-button large-button"
-              id="cancel-status-modify">Cancelar</a>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="overlay hide">
-    <div id="arbitrary-attribute" class="modal">
-      <div class="title-container">
-        <h2>Atributos Arbitrários</h2>
-      </div>
-
-      <p>Use o sinal de menos para valores negativos.</p>
-
-      <form action="#" id="arbitrary-attribute-form">
-        <label for="arbitrary-str" class="block-large">Força</label>
-        <input type="number" name="arbitrary-str" id="arbitrary-str" step="1"
-          class="block-large">
-
-        <label for="arbitrary-dex" class="block-large">Destreza</label>
-        <input type="number" name="arbitrary-dex" id="arbitrary-dex" step="1"
-          class="block-large">
-
-        <label for="arbitrary-ki" class="block-large">Ki</label>
-        <input type="number" name="arbitrary-ki" id="arbitrary-ki" step="1"
-          class="block-large">
-
-        <label for="arbitrary-int" class="block-large">Inteligência</label>
-        <input type="number" name="arbitrary-int" id="arbitrary-int" step="1"
-          class="block-large">
-
-        <label for="arbitrary-res" class="block-large">Resistência</label>
-        <input type="number" name="arbitrary-res" id="arbitrary-res" step="1"
-          class="block-large">
-
-        <label for="arbitrary-base-atk" class="block-large">Ataque</label>
-        <input type="number" name="arbitrary-base-atk" id="arbitrary-base-atk"
-          step="1" class="block-large">
-
-        <label for="arbitrary-base-def" class="block-large">Defesa</label>
-        <input type="number" name="arbitrary-base-def" id="arbitrary-base-def"
-          step="1" class="block-large">
-
-        <label for="arbitrary-sp-atk" class="block-large">Ataque
-          Especial</label>
-        <input type="number" name="arbitrary-sp-atk" id="arbitrary-sp-atk"
-          step="1" class="block-large">
-
-        <label for="arbitrary-sp-def" class="block-large">Defesa
-          Especial</label>
-        <input type="number" name="arbitrary-sp-def" id="arbitrary-sp-def"
-          step="1" class="block-large">
-
-        <div class="btn-group" id="arbitrary-attributes-modify">
-          <button id="confirm-arbitrary"
-            class="styled-button large-button confirm-button">Confirmar</button>
-
-          <a href="#" id="cancel-arbitrary"
-            class="styled-button large-button cancel-button">Cancelar</a>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="overlay hide">
-    <div class="modal">
       <div class="time-chamber">
         <div class="title-container">
           <h2>Sala do Tempo</h2>
@@ -627,8 +567,8 @@
           </ul>
         </div>
 
-        <p>Descrição (clique na vantagem ou desvantagem para ver sua descrição
-          aqui): </p>
+        <p>Descrição (clique na vantagem, desvantagem ou técnica para ver sua
+          descrição aqui): </p>
         <p id="characteristic-description"></p>
 
         <div class="btn-group">
@@ -638,6 +578,37 @@
             id="cancel-buy-characteristic">Cancelar</a>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay hide">
+    <div class="modal">
+      <div class="remove-characteristic">
+        <div class="title-container">
+          <h2>Remover característica</h2>
+        </div>
+
+        <div class="filter-container">
+          <label for="characteristic-type">Tipo:</label>
+
+          <select name="characteristic-type" id="characteristic-type">
+            <option value="advantage">Vantagem</option>
+            <option value="disadvantage">Desvantagem</option>
+            <option value="technique">Técnica</option>
+          </select>
+        </div>
+
+        <label for="characteristic-name" class="block-large">Nome da
+          característica</label>
+        <input type="text" id="characteristic-name" class="block-large">
+
+        <div class="btn-group">
+          <button class="styled-button large-button confirm-button"
+            id="confirm-characteristic-remove">Confirmar</button>
+          <a href="#" class="styled-button large-button cancel-button"
+            id="cancel-characteristic-remove">Cancelar</a>
+        </div>
       </div>
     </div>
   </div>
@@ -717,37 +688,6 @@
               id="cancel-attribute-realocate">Cancelar</a>
           </div>
         </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="overlay hide">
-    <div class="modal">
-      <div class="remove-characteristic">
-        <div class="title-container">
-          <h2>Remover característica</h2>
-        </div>
-
-        <div class="filter-container">
-          <label for="characteristic-type">Tipo:</label>
-
-          <select name="characteristic-type" id="characteristic-type">
-            <option value="advantage">Vantagem</option>
-            <option value="disadvantage">Desvantagem</option>
-            <option value="technique">Técnica</option>
-          </select>
-        </div>
-
-        <label for="characteristic-name" class="block-large">Nome da
-          característica</label>
-        <input type="text" id="characteristic-name" class="block-large">
-
-        <div class="btn-group">
-          <button class="styled-button large-button confirm-button"
-            id="confirm-characteristic-remove">Confirmar</button>
-          <a href="#" class="styled-button large-button cancel-button"
-            id="cancel-characteristic-remove">Cancelar</a>
-        </div>
       </div>
     </div>
   </div>
