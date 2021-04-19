@@ -78,12 +78,14 @@
       <section>
         <h3>Força</h3>
 
-        <p>O atributo Força é utilizado em qualquer atividade que exija uso de
-          força bruta, como golpes físicos, empurrar, empurrar e afins. Sempre
-          que atacar ou defender-se usando este atributo, deverá fazer um
-          Teste
-          de Força (1d20 + total de Força). Caso supere o ataque ou defesa de
-          seu oponente, terá êxito em sua ação.</p>
+        <p>O atributo primário Força é utilizado em qualquer atividade que exija
+          uso de força bruta, como golpes físicos, empurrar e afins.
+          Sempre que atacar ou defender-se usando este atributo, deverá fazer um
+          Teste de Força (1d20 + total de Força). Caso supere o ataque ou defesa
+          de seu oponente, terá êxito em sua ação.</p>
+
+        <p>o atributo primário Força influencia diretamente nos atributos
+          secundários Ataque e Defesa.</p>
       </section>
 
       <hr>
@@ -92,14 +94,13 @@
       <section>
         <h3>Destreza</h3>
 
-        <p>O atributo Destreza é utilizado em toda atividade que exija
+        <p>O atributo primário Destreza é utilizado em toda atividade que exija
           agilidade, velocidade ou esquiva. Sempre que realizar uma destas
           ações, deverá fazer um Teste de Destreza (1d20 + total de Destreza).
         </p>
 
         <p>Cada ponto base em Destreza, isto é, os pontos distribuídos durante
-          a
-          criação da ficha, aumentam em 5 seu status Fôlego, enquanto que os
+          a criação da ficha, aumentam em 5 seu status Fôlego, enquanto que os
           demais pontos aumentam apenas em 1.</p>
       </section>
 
@@ -109,16 +110,17 @@
       <section>
         <h3>Ki</h3>
 
-        <p>O atributo Ki é utilizado em toda atividade que exija uso de Ki,
-          como
-          usar um Kamehameha ou defender-se de um. Atacar utilizando-o ou
-          defender-se de um ataque como Kamehameha consumirá seus pontos de
-          Ki.
-          Nesses caso, deverá fazer um Teste de Ki (1d20 + total de Ki) para
+        <p>O atributo primário Ki é utilizado em toda atividade que exija uso de
+          Ki, como usar um Kamehameha ou defender-se de um. Atacar utilizando-o
+          ou defender-se de um ataque como Kamehameha consumirá seus pontos de
+          Ki. Nesses caso, deverá fazer um Teste de Ki (1d20 + total de Ki) para
           calcular sua defesa.</p>
 
         <p>Cada ponto base em Ki aumenta em 5 seu status Ki, enquanto que os
           demais aumentam apenas em 1.</p>
+
+        <p>O atributo primário Ki influencia diretamente nos atributos
+          secundários Super Ataque e Super Defesa.</p>
       </section>
 
       <hr>
@@ -127,16 +129,13 @@
       <section>
         <h3>Inteligência</h3>
 
-        <p>O atributo Inteligência é utilizado em qualquer ação que exija
-          raciocínio ou concentração, como pensar, sentir Ki, conversar e
-          afins.
-          Em situações relacionadas, deverá fazer um Teste de Inteligência
-          (1d20
-          + total de Inteligência). Personagens com pouca Inteligência podem
-          ter
-          dificuldade para conversar. O atributo pode, inclusive, ajudar numa
-          situação que exija lábia, ou para determinar a presença que está
-          sentindo.</p>
+        <p>O atributo primário Inteligência é utilizado em qualquer ação que
+          exija raciocínio ou concentração, como pensar, sentir Ki, conversar e
+          afins. Em situações relacionadas, deverá fazer um Teste de
+          Inteligência (1d20 + total de Inteligência). Personagens com pouca
+          Inteligência podem ter dificuldade para conversar. O atributo pode,
+          inclusive, ajudar numa situação que exija lábia, ou para determinar a
+          presença que está sentindo.</p>
       </section>
 
       <hr>
@@ -145,15 +144,71 @@
       <section>
         <h3>Resistência</h3>
 
-        <p>O atributo Resistência é utilizado em toda atividade que exija
-          resistir a alguma ação, como controle mental, paralisia,
-          envenenamento
-          e afins. Ao realizar uma ação relacionada, deverá fazer um Teste de
-          Resistência (1d20 + total de Resistência).</p>
+        <p>O atributo primário Resistência é utilizado em toda atividade que
+          exija resistir a alguma ação, como controle mental, paralisia,
+          envenenamento e afins. Ao realizar uma ação relacionada, deverá fazer
+          um Teste de Resistência (1d20 + total de Resistência).</p>
 
         <p>Cada ponto base em Resistência aumenta em 5 seu status Pontos de
-          Vida
-          (PV), enquanto que os demais aumentam em apenas 1.</p>
+          Vida (PV), enquanto que os demais aumentam em apenas 1.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="atk">Seção Ataque</a>
+      <section>
+        <h3>Ataque</h3>
+
+        <p>O atributo secundário Ataque é utilizado majoritariamente em cálculos
+          de dano, isto é, em combates. Técnicas corpo-a-corpo, por exemplo, se
+          beneficiam deste atributo.</p>
+
+        <p>Pontos base não podem ser alocados em Ataque. O total se dá pelo
+          valor base (total do atributo primário Força) + Pontos Arbitrários em
+          Ataque.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="def">Seção Defesa</a>
+      <section>
+        <h3>Defesa</h3>
+
+        <p>O atributo secundário Defesa é utilizado em situações que exijam
+          defender-se de alguma ameaça, como um golpe direto.</p>
+
+        <p>Pontos base não podem ser alocados em Defesa. O total se dá pelo
+          valor base (total do atributo primário Força) + Pontos Arbitrários em
+          Defesa.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="sp-atk">Seção Super Ataque</a>
+      <section>
+        <h3>Super Ataque</h3>
+
+        <p>O atributo secundário Super Ataque é utilizado majoritariamente em
+          cálculos de dano. Por exemplo, a técnica Final Flash irá utilizar seu
+          Super Ataque para gerar o dano final.</p>
+
+        <p>Pontos base não podem ser alocados em Super Ataque. O total se dá
+          pelo valor base (total do atributo primário Ki) + Pontos
+          Arbitrários em Super Ataque.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="sp-def">Seção Super Defesa</a>
+      <section>
+        <h3>Super Defesa</h3>
+
+        <p>O atributo secundário Super Defesa é utilizado em situações que
+          exijam defender-se de ameaças relacionadas a Ki, como técnicas.</p>
+
+        <p>Pontos base não podem ser alocados em Super Defesa. O total se dá
+          pelo valor base (total do atributo primário Ki) + Pontos
+          Arbitrários em Super Defesa.</p>
       </section>
     </article>
   </main>
