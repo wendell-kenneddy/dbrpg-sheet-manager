@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="creator" content="Wendell Kenneddy">
+  <meta name="description" content="Manual do Sistema SSG.">
+  <meta name="keywords" content="ssg, rpg, sistema, manual">
+  <meta property="og:title" content="Sistema SSG - Manual">
+  <meta property="site_name" content="Sistema SSG - Manual">
+  <meta property="og:description" content="Manual do Sistema SSG.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url"
+    content="https://sistemassg.vercel.app//manual/techniques.html">
+  <meta property="og:img"
+    content="https://sistemassg.vercel.app//assets/preview.png">
+  <meta name="twitter:title" content="Sistema SSG - Manual">
+  <meta name="twitter:description" content="Manual do Sistema SSG.">
+  <meta name="twitter:url"
+    content="https://sistemassg.vercel.app//manual/techniquess.html">
+  <meta name="twitter:image"
+    content="https://sistemassg.vercel.app//assets/preview.png">
+  <title>Sistema SSG - Manual</title>
+  <link rel="shortcut icon" href="../assets/icon.svg" type="image/svg + xml">
+  <link rel="canonical"
+    href="https://sistemassg.vercel.app//manual/techniques.html">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../styles/css/manual.css">
+</head>
+
+<body>
+  <header id="page-header" role="banner">
+    <h1 class="logo">
+      <img src="../assets/logo.svg" alt="Logo" width="247" height="37">
+    </h1>
+
+    <nav>
+      <ul>
+        <li><a href="./manual.html" rel="prev">Manual</a></li>
+        <li><button id="open-modal">Seções</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="overlay hide">
+    <div class="modal">
+      <div class="title-container">
+        <h2>Seções</h2>
+      </div>
+
+
+      <div class="sections-container">
+        <nav id="page-sections">
+          <ul>
+            <li><a href="#kamehameha">Kamehameha</a></li>
+            <li><a href="#super-kamehameha">Super Kamehameha</a></li>
+            <li><a href="#genki-dama">Genki Dama</a></li>
+            <li><a href="#super-genki-dama">Super Genki Dama</a></li>
+            <li><a href="#kaioken">Kaioken</a></li>
+            <li><a href="#super-saiyan">Super Saiyajin</a></li>
+            <li><a href="#ultra-super-saiyan">Ultra Super Saiyajin</a></li>
+            <li><a href="#super-saiyan2">Super Saiyajin 2</a></li>
+            <li><a href="#super-saiyan3">Super Saiyajin 3</a></li>
+            <li><a href="#super-saiyan4">Super Saiyajin 4</a></li>
+            <li><a href="#super-saiyan-god">Super Saiyajin Deus</a></li>
+            <li><a href="#super-saiyan-blue">Super Saiyajin Blue (SSGSS)</a>
+            </li>
+            <li><a href="#galick-ho">Galick Ho</a></li>
+            <li><a href="#oozaru-control">Controle de Oozaru</a></li>
+            <li><a href="#big-bang-attack">Ataque Big Bang</a></li>
+            <li><a href="#final-flash">Final Flash</a></li>
+            <li><a href="#dark-impact">Dark Impact</a></li>
+            <li><a href="#final-impact">Final Impact</a></li>
+            <li><a href="#super-explosion">Super Explosão</a></li>
+            <li><a href="#gamma-burst-flash">Gamma Burst Flash</a></li>
+            <li><a href="#kienzan">Kienzan</a></li>
+            <li><a href="#kienzan-combo">Kienzan Combo</a></li>
+            <li><a href="#energy-rain">Chuva de Energia</a></li>
+            <li><a href="#wolf-fang-fist">Wolf Fang Fist</a></li>
+            <li><a href="#binding-wolf-fang-fist">Binding Wolf Fang Fist</a>
+            </li>
+            <li><a href="#neo-wolf-fang-fist">Neo Wolf Fang Fist</a></li>
+            <li><a href="#soukidan">Soukidan</a></li>
+            <li><a href="#dodonpa">Dodonpa</a></li>
+            <li><a href="#kikoho">Kikoho</a></li>
+            <li><a href="#neo-kikoho">Neo Kikoho</a></li>
+            <li><a href="#four-copies-technique">Técnica das 4 Cópias</a></li>
+            <li><a href="#four-arms-technique">Técnica dos 4 Braços</a></li>
+            <li><a href="#taiyouken">Taiyouken</a></li>
+            <li><a href="#makankosappo">Makankosappo</a></li>
+            <li><a href="#hell-grenade-zone">Zona de Granadas Infernais</a></li>
+            <li><a href="#burning-attack">Burning Attack</a></li>
+            <li><a href="#heat-dome-attack">Heat Dome Attack</a></li>
+            <li><a href="#bomber-dx">Bomber DX</a></li>
+            <li><a href="#giant-storm">Giant Storm</a></li>
+            <li><a href="#kill-driver">Kill Driver</a></li>
+            <li><a href="#calamity-blaster">Calamity Blaster</a></li>
+            <li><a href="#sleepy-boy-technique">Sleepy Boy Technique</a></li>
+            <li><a href="#bankoku-bikkuri-sho">Bankoku Bikkuri Shō</a></li>
+            <li><a href="#zanzoken">Zanzoken</a></li>
+            <li><a href="#masenko">Masenko</a></li>
+            <li><a href="#masendan">Masendan</a></li>
+            <li><a href="#super-masenko">Super Masenko</a></li>
+            <li><a href="#impulse-fist">Impulse Fist</a></li>
+            <li><a href="#vortex-crusher">Vortex Crusher</a></li>
+            <li><a href="#death-beam">Death Beam</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="btn-container">
+        <button id="close-modal" class="styled-button">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <article id="manual">
+      <header>
+        <h2>Técnicas</h2>
+      </header>
+
+      <a href="#" class="anchor" id="kamehameha">Técnica Kamehameha</a>
+      <section>
+        <h3>Kamehameha</h3>
+
+        <p>Técnica rápida que pode ser carregada a cada dois turnos,
+          acrescentando 1d6.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial +
+          1d6.</p>
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-kamehameha">Técnica Super
+        Kamehameha</a>
+      <section>
+        <h3>Super Kamehameha</h3>
+
+        <p>Versão aprimorada do Kamehameha. Diminui o tempo para carregar.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="genki-dama">Técnica Genki Dama</a>
+      <section>
+        <h3>Genki Dama</h3>
+
+        <p>Técnica extremamente poderosa se carregada devidamente. Cada turno
+          carregando utiliza 1 ponto de Ki para gerar um ponto de dano, que será
+          multiplicado com seu total de Ataque Especial para gerar o dano final.
+        </p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque x pontos
+          utilizados.</p>
+        <p><span class="highlighted-text">Custo de Ki:</span> 1 ponto por turno.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-genki-dama">Técnica Super Genki
+        Dama</a>
+      <section>
+        <h3>Super Genki Dama</h3>
+
+        <p>Versão aprimorada da Genki Dama. É necessário ter aprendido Genki
+          Dama para aprender Super Genkidama. Aumenta o dano de canalização de 1
+          para 2 para cada ponto de Ki gasto.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 4 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="kaioken">Técnica Kaioken</a>
+      <section>
+        <h3>Kaioken</h3>
+
+        <p>Uma técnica que dá grande poder e velocidade ao usuário mas que causa
+          severos danos ao corpo. O usuário deve declarar o nível que deseja
+          utilizar (Kaioken x20, por exemplo).
+        </p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +2 em
+          Força, Destreza, Ki, Resistência, Ataque, Defesa e Ataque Especial e
+          +1 para cada atributo a depender do nível utilizado.
+        </p>
+
+        <p><span class="highlighted-text">Custo de PV:</span> -1 multiplicado
+          pelo nível utilizado por turno.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-saiyan">Técnica Super
+        Saiyajin</a>
+      <section>
+        <h3>Super Saiyajin</h3>
+
+        <p>Transformação da raça Saiyajin, ativada por meio da raiva intensa.
+          Leva um turno para ser ativada e garante um considerável aumento de
+          poder para o guerreiro.
+        </p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +1 em
+          Força, Destreza, Ki e Resistência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 1 ponto por turno.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="ultra-super-saiyan">Técnica Ultra Super
+        Saiyajin</a>
+      <section>
+        <h3>Ultra Super Saiyajin</h3>
+
+        <p>Versão aprimorada (facultativa) do Super Saiyajin. É necessário ter
+          aprendido Super Saiyajin para aprender Ultra Super Saiyajin.
+        </p>
+
+        <p><span class="highlighted-text">Debuff (Arbitrário):</span> -2 em
+          Destreza.</p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +2 em
+          Força, Ki e Resistência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos por
+          turno.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-saiyan2">Técnica Super
+        Saiyajin 2</a>
+      <section>
+        <h3>Suepr Saiyajin 2</h3>
+
+        <p>Versão aprimorada do Super Saiyajin. É necessário ter aprendido Super
+          Saiyajin para aprender Super Saiyajin 2.
+        </p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +2 em
+          Força, Ki e Resistência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos por
+          turno.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-saiyan3">Técnica Super
+        Saiyajin 3</a>
+      <section>
+        <h3>Suepr Saiyajin 3</h3>
+
+        <p>Versão aprimorada do Super Saiyajin 2. É necessário ter aprendido
+          Super Saiyajin 2 para aprender Super Saiyajin 3.
+        </p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +3 em
+          Força, Ki e Resistência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos por
+          turno.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 3 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-saiyan4">Técnica Super
+        Saiyajin 4</a>
+      <section>
+        <h3>Suepr Saiyajin 4</h3>
+
+        <p>A transformação que concede acesso ao poder nato de um Saiyajin. Para
+          aprender Super Saiyajin 4 é necessário ter aprendido Super Saiyajin 3
+          e possuir uma cauda - este último requisito fica à bom senso do
+          jogador.
+        </p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +5 em
+          Força, Ki e Resistência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 4 pontos por
+          turno.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 4 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-saiyan-god">Técnica Super
+        Saiyajin Deus</a>
+      <section>
+        <h3>Suepr Saiyajin Deus</h3>
+
+        <p>A transformação de um Saiyajin que atingiu o nível de um deus. Para
+          aprender Super Saiyajin Deus é necessário ter aprendido Super Saiyajin
+          3 e satisfazer um requisito à critério do mestre.
+        </p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +8 em
+          Força, Ki e Resistência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 8 pontos por
+          turno.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 8 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-saiyan-blue">Técnica Super
+        Saiyajin Blue (SSGSS)</a>
+      <section>
+        <h3>Super Saiyajin Blue (SSGSS)</h3>
+
+        <p>A transformação de Super Saiyajin de um Super Saiyajin Deus, ou
+          simplesmente Super Saiyajin Blue. Para aprender Super Saiyajin Blue é
+          necessário ter aprendido Super Saiyajin Deus e satisfazer um requisito
+          à critério do mestre.
+        </p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +10 em
+          Força, Ki e Resistência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 10 pontos por
+          turno.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 10 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="galick-ho">Técnica Galick Ho</a>
+      <section>
+        <h3>Galick Ho</h3>
+
+        <p>Uma técnica de disparo rápido e potente.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d6.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="oozaru-control">Técnica Controle de
+        Oozaru</a>
+      <section>
+        <h3>Controle de Oozaru</h3>
+
+        <p>A capacidade de controlar a transformação de Oozaru, não sofrendo
+          qualquer penalidade para utilizá-la, além de perder penalidades
+          passíveis para golpes desferidos na cauda.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="big-bang-attack">Técnica Ataque Big
+        Bang</a>
+      <section>
+        <h3>Ataque Big Bang</h3>
+
+        <p>Um ataque que concentra energia na palma da mão com o braço
+          estendido, e então a dispara numa esfera massiva de energia. Precisa
+          de um turno para carregar e tem um alto poder explosivo.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d8.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="final-flash">Técnica Final Flash</a>
+      <section>
+        <h3>Final Flash</h3>
+
+        <p>Uma técnica que consiste em canalizar energia nas duas palmas, com
+          ambos os braços estendidos e, após canalizada, um feixe massivo e
+          extraordinariamente destrutivo é disparado. Precisa de um turno para
+          carregar.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 4d6.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 10 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 4 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="dark-impact">Técnica Dark Impact</a>
+      <section>
+        <h3>Dark Impact</h3>
+
+        <p>Movimento de contra-ataque. O jogador declara que vai usar esta ação
+          e abdica de usar sua defesa, fazendo um Teste de Esquiva (Destreza +
+          d20). Se tiver sucesso, o jogador desvia e lança um ataque usando uma
+          bola de energia que causa dano e lança o oponente pra longe.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + total
+          de Destreza + 1d4.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki e Fôlego:</span> 2
+          pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="final-impact">Técnica Impacto Final</a>
+      <section>
+        <h3>Impacto Final</h3>
+
+        <p>Consiste em concentrar energia em dois dedos, e em seguida disparar
+          um massivo feixe de energia, causando um dano perfurante e diminuindo
+          a defesa do oponente em -1 (cumulativo para cada feixe disparado).</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d4.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 1 ponto.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-explosion">Técnica Super Explosão</a>
+      <section>
+        <h3>Super Explosão</h3>
+
+        <p>Uma técnica suicida. Você simplesmente utiliza todo seu Ki disponível
+          para gerar uma massiva explosão, com raio de alcance de 2m para cada
+          ponto de Ki gasto. Quem estiver dentro da aŕea de efeito deverá rolar
+          um d20 para testar sua chance de sobreviver. Você recebe 30% do dano
+          causado.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + todo o
+          Ki disponível.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> todo o Ki
+          disponível.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 3 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="gamma-burst-flash">Técnica Gamma Burst
+        Flash</a>
+      <section>
+        <h3>Gamma Burst Flash</h3>
+
+        <p>Um ataque efetivo contra mais de um alvo. Este ataque toma forma de
+          um cone gigante, fruto de uma energia muito potente, e acertando todos
+          os inimigos à frente.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d8 por
+          inimigo.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 3 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="kienzan">Técnica Kienzan</a>
+      <section>
+        <h3>Kienzan</h3>
+
+        <p>Técnica que consiste em manipular o Ki para criar discos cortantes.
+          São capazes de atingir inimigos de níveis acima e até mais de um
+          inimigo de uma vez. Com o braço erguido e mão aberta, cria-se um disco
+          de energia e, aṕos devidamente estabilizado, o disco é disparado.</p>
+
+        <p><span class="highlighted-text">Dano:</span> 1d8 e 50% de chance de
+          causar sangramento.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="kienzan-combo">Técnica Kienzan Combo</a>
+      <section>
+        <h3>Kienzan Combo</h3>
+
+        <p>Versão aprimorada do Kienzan, que permite lançar dois discos pelo
+          custo de um. É necessário ter aprendido Kienzan para aprender Kienzan
+          Combo.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="energy-rain">Técnica Chuva de Energia</a>
+      <section>
+        <h3>Chuva de Energia</h3>
+
+        <p>Uma técnica usada para acertar múltiplos inimigos. Não possui um
+          alto poder ofensivo, porém tem pouco gasto de energia e consegue
+          acertar muitos oponentes. O usuário lança dois feixes de energia e os
+          manipula para cima, com uma velocidade relativamente baixa. Ao
+          chegarem na altura desejada, ambos os feixes explodem em diversos
+          feixes de luz, acertando vários oponentes e causando dano a cada um.
+        </p>
+
+        <p><span class="highlighted-text">Dano:</span> 1d4.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="wolf-fang-fist">Técnica Wolf Fang Fist</a>
+      <section>
+        <h3>Wolf Fang Fist</h3>
+
+        <p>Como um bom artista marcial, seus golpes são rápidos e letais. Você
+          consegue desferir uma série de socos e arranhões, imitando o ataque de
+          um lobo feroz. Jogue 1d6 para saber quantos ataques você fará. O
+          oponente terá de defender cada golpe.
+        </p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque + 1d4 por ataque.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Fôlego:</span> 1 ponto por
+          golpe.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="binding-wolf-fang-fist">Técnica Binding
+        Wolf Fang Fist</a>
+      <section>
+        <h3>Binding Wolf Fang Fist</h3>
+
+        <p>Versão aprimorada de Wolf Fang Fist. Finaliza o combo com uma
+          descarga de energia em forma das presas de lobo, lançando o inimigo
+          pra longe. É necessário ter aprendido Wolf Fang Fist para
+          aprender Binding Wolf Fang Fist.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="neo-wolf-fang-fist">Técnica Neo
+        Wolf Fang Fist</a>
+      <section>
+        <h3>Neo Wolf Fang Fist</h3>
+
+        <p>Versão aprimorada de Binding Wolf Fang Fist. Com o melhor controle de
+          seu Ki, você é capaz de aumentar o dano causado, adicionando +2 aos
+          dados e ao Custo de Fôlego. É necessário ter aprendido
+          Binding Wolf Fang Fist para aprender Neo Wolf Fang Fist.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="soukidan">Técnica Soukidan</a>
+      <section>
+        <h3>Soukidan</h3>
+
+        <p>O usuário dispara uma esfera de energia mediana contra o adversário,
+          podendo controlá-la como desejar, e para qualquer direção e sentido,
+          até que a esfera colida com algo. Durante a manipulação da técnica, o
+          usuário é considerado indefeso.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d4.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="dodonpa">Técnica Dodonpa</a>
+      <section>
+        <h3>Dodonpa</h3>
+
+        <p>Uma técnica poderosa que usa o dedo indicador, disparando um raio com
+          um grande poder de penetração adicionando +1 na margem crítica.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d6.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="kikoho">Técnica Kikoho</a>
+      <section>
+        <h3>Kikoho</h3>
+
+        <p>Uma técnica letal, tanto para o oponente quanto ao usuário, útil até
+          mesmo contra adversários muito mais poderosos ao custo da vida de quem
+          a utiliza. Forma-se um triângulo com as mãos, focando no alvo e
+          disparando um feixe massivo de energia.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d8.
+        </p>
+
+        <p><span class="highlighted-text">Custo de PV:</span> 1 ponto.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <a href="#" class="anchor" id="neo-kikoho">Técnica Neo Kikoho</a>
+      <section>
+        <h3>Neo Kikoho</h3>
+
+        <p>Versão aprimorada de Kikoho. Devido a um intenso treinamento,
+          torna-se possível aplicar mais dano conforme a vontade do usuário,
+          aumentando o dano em +1 por ponto de PV utilizado. É necessário ter
+          aprendido Kikoho para aprender Neo Kikoho.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="four-copies-technique">Técnica das 4
+        Cópias</a>
+      <section>
+        <h3>Técnica das 4 Cópias</h3>
+
+        <p>Técnica criada pelos Ciclopes. Consiste em criar 4 réplicas do
+          usuário, dividindo seu poder em 4 frações. O jogador pode controlar as
+          4 cópias durante o seu turno, ou seja, fazer 4 movimentos e ações.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="four-arms-technique">Técnica dos 4
+        Braços</a>
+      <section>
+        <h3>Técnica dos 4 Braços</h3>
+
+        <p>Técnica criada pelos Ciclopes. Consiste em criar dois braços
+          adicionais temporariamente, aumentando a intensidade de seus golpes.
+        </p>
+
+        <p><span class="highlighted-text">Bônus (Arbitrário):</span> +2 em
+          Força.</p>
+
+        <p><span class="highlighted-text">Custo de Fôlego:</span> 2 pontos por
+          turno.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="taiyouken">Técnica Taiyouken</a>
+      <section>
+        <h3>Taiyouken</h3>
+
+        <p>Técnica defensiva. Permite que o usuário ofusque a visão de seus
+          adverśarios por até 2 turnos (50% de chance).
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="makankosappo">Técnica Makankosappo</a>
+      <section>
+        <h3>Makankosappo</h3>
+
+        <p>Técnica extremamente poderosa, com um alto poder de perfuração e
+          destruição. É necessário carregar a técnica para que ela realmente
+          funcione. A cada turno carregado, adicione +2 na margem crítica e no
+          dano final.
+        </p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d8.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos por
+          turno.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 3 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="hell-grenade-zone">Técnica Zona de Granadas
+        Infernais</a>
+      <section>
+        <h3>Zona de Granadas Infernais</h3>
+
+        <p>Técnica que consiste em lançar diversas esferas de energia ao redor
+          do oponente, deixando-o cercado. Se o oponente se mover, ele será
+          atingido sem que o usuário da técnica exploda as granadas. Basta um
+          simples gesto com os braços para que cada granada de energia se lançe
+          ao oponente.</p>
+
+        <p><span class="highlighted-text">Dano:</span> 1d4 por granada.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 1 ponto por
+          turno.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="burning-attack">Técnica Burning
+        Attack</a>
+      <section>
+        <h3>Burning Attack</h3>
+
+        <p>Técnica que consiste em canalizar uma quantidade considerável de
+          energia por meio de gestos realizados com os braços e mãos. A energia
+          é então disparada em uma esfera de energia extremamente quente. O
+          disparo é rápido, porém não muito destrutivo.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d4.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 1 ponto.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="heat-dome-attack">Técnica Heat Dome
+        Attack</a>
+      <section>
+        <h3>Heat Dome Attack</h3>
+
+        <p>Técnica que consiste em arremessar o alvo para o ar, deixando-o
+          indefeso. Em seguida, uma quantidade massiva de energia é disparada em
+          direção ao oponente, como finalização. Caso o usuário da técnica
+          obtenha sucesso em arremessar o oponente, o alvo deverá realizar um
+          Teste de Resistência para estabilizar-se e tentar defender a onda
+          finalizadora.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d4.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 1 ponto.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="bomber-dx">Técnica Bomber DX</a>
+      <section>
+        <h3>Bomber DX</h3>
+
+        <p>Técnica que consiste em canalizar uma grande quantidade de energia no
+          braço e, em seguida, disparar a energia canalizada em direção ao alvo.
+          Pode causar dano mesmo que não acerte diretamente o oponente. Precisa
+          de um turno para canalizar totalmente o ataque, com 2m de raio de
+          alcance.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d4
+          (-50% caso não acerte diretamente o alvo).</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="giant-storm">Técnica Giant Storm</a>
+      <section>
+        <h3>Giant Storm</h3>
+
+        <p>Técnica que consiste em canalizar uma grande quantidade de energia na
+          palma da mão e, em seguida, descarregar a energia canalizada no solo,
+          causando uma explosão de baixo para cima. Abrange uma área com 4m de
+          raio, causando pouco dano enquanto arremessa os oponentes para longe.
+        </p>
+
+        <p><span class="highlighted-text">Dano:</span> 1d4.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="kill-driver">Técnica Kill Driver</a>
+      <section>
+        <h3>Kill Driver</h3>
+
+        <p>Técnica que consiste em canalizar uma corrente elétrica circular
+          utilizando as mãos e, em seguida, disparar contra o oponente, tendo
+          20% de chance de atordoá-lo por um turno. Role 1d100 após o cálculo de
+          dano.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d4.
+        </p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="calamity-blaster">Técnica Calamity
+        Blaster</a>
+      <section>
+        <h3>Calamity Blaster</h3>
+
+        <p>Um combo de ataques físicos e de Ki. Consiste em desferir um ou dois
+          golpes físicos, e por fim disparar uma esfera de energia em direção ao
+          alvo.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque + Ataque Especial
+          + 1d4.</p>
+
+        <p><span class="highlighted-text">Custo de Ki e Fôlego:</span> 4 pontos.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="sleepy-boy-technique">Técnica Sleepy Boy
+        Technique</a>
+      <section>
+        <h3>Sleepy Boy Technique</h3>
+
+        <p>Técnica que consiste em controlar o oponente sem causar dano,
+          colocando-o em sono profundo Caso obtenha sucesso, o oponente deverá
+          rolar um Teste de Resistência a cada turno para tentar acordar. Role
+          1d20 + total de Inteligência + Ataque Especial. A quantidade de turnos
+          que o oponente permanece em sono profundo é igual ao seu total de
+          Inteligência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="bankoku-bikkuri-sho">Técnica Bankoku
+        Bikkuri Shō</a>
+      <section>
+        <h3>Bankoku Bikkuri Shō</h3>
+
+        <p>Técnica que consiste em descarregar uma corrente elétrica no alvo,
+          incapacitando-o até que o usuário não consiga mais manter a corrente,
+          ou até que o oponente obtenha êxito num Teste de Resistência.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos por
+          turno.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="zanzoken">Técnica Zanzoken</a>
+      <section>
+        <h3>Zanzoken</h3>
+
+        <p>Técnica que consiste em enganar o alvo, mais rápido do que os olhos
+          inimigos conseguem acompanhar. O usuário deverá declarar que usará
+          esta técnica, podendo criar ilusões de acordo com seu total de
+          Destreza. O oponente deverá realizar um teste de Inteligência para
+          tentar descobrir qual das imagens é a verdadeira.</p>
+
+        <p><span class="highlighted-text">Custo de Fôlego:</span> 1 ponto por
+          ilusão.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="masenko">Técnica Masenko</a>
+      <section>
+        <h3>Masenko</h3>
+
+        <p>Técnica que consiste em canalizar energia na palma das mãos, frente à
+          testa do usuário e, após canalizar energia suficiente, descarregar a
+          energia numa explosão em direção ao oponente. Quanto mais próximo do
+          oponente, maior o dano causado e mais fácil de acertar com total
+          precisão.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque Especial + 1d6 (+2
+          de dano se estiver a menos de 2m do oponente).</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 3 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 1 ponto.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="masendan">Técnica Masendan</a>
+      <section>
+        <h3>Masendan</h3>
+
+        <p>Versão aprimorada do Masenko. Consiste em canalizar a energia em uma
+          mão só, e então arremessá-la em direção ao usuário, aumentando o
+          potencial destrutivo da técnica, tendo 10% de chance de atordoar o
+          oponente. É necessário ter aprendido Masenko para aprender Masendan.
+        </p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="super-masenko">Técnica Super Masenko</a>
+      <section>
+        <h3>Super Masenko</h3>
+
+        <p>Versão aprimorada do Masendan. Esperando um turno para canalizar a
+          energia e gastando 2 pontos de Ki, garante um bônus de +2 no dano
+          final.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="impulse-fist">Técnica Impulse Fist</a>
+      <section>
+        <h3>Impulse Fist</h3>
+
+        <p>Técnica que consiste em canalizar Ki nos punhos, descarregando a
+          energia em um combo letal. Para aumentar o dano em +1, gaste 2 pontos
+          de Ki em um turno adicional. Para somar +1 no dano total após
+          canalizar totalmente, gaste mais 2 pontos de Ki.</p>
+
+        <p><span class="highlighted-text">Dano:</span> 1+.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="vortex-crusher">Técnica Vortex Crusher</a>
+      <section>
+        <h3>Vortex Crusher</h3>
+
+        <p>Técnica que pode ser utilizada tanto ofensiva quanto defensivamente.
+          Consiste em contornar o oponente como no entorno de um vortex e
+          atacá-lo com um golpe destruidor. Caso utilizada defensivamente,
+          realize um Teste de Destreza para tentar esquivar do ataque inimigo e
+          então realizar um contra-ataque, arremessando o oponente para longe,
+          com 10% de chance de atordoá-lo no fim. Caso utilizada ofensivamente,
+          realize um Teste de Força e, caso obtenha êxito, acrescente +2 no dano
+          final.</p>
+
+        <p><span class="highlighted-text">Dano:</span> Ataque + 1d4(somente
+          ofensivamente).</p>
+
+        <p><span class="highlighted-text">Custo de Fôlego:</span> 3 pontos.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+
+      <hr>
+
+      <a href="#" class="anchor" id="death-beam">Técnica Death Beam</a>
+      <section>
+        <h3>Death Beam</h3>
+
+        <p>Uma técnica que consiste em disparar um raio de energia concentrada
+          pela ponta dos dedos, em direção ao oponente. Limita-se a disparar uma
+          quantidade de raios equivalente ao total de Destreza do usuário num
+          mesmo turno, por ser extremamente rápida de canalizar.</p>
+
+        <p><span class="highlighted-text">Dano:</span> 1d4 para cada raio
+          disparado.</p>
+
+        <p><span class="highlighted-text">Custo de Ki:</span> 2 pontos por raio
+          disparado.</p>
+
+        <p><span class="highlighted-text">Custo de P.A:</span> 2 pontos.</p>
+      </section>
+    </article>
+  </main>
+
+  <script src="../js/modules/handleManual.js" charset="utf-8"></script>
+</body>
+
+</html>
