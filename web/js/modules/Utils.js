@@ -112,7 +112,7 @@ export const timeChamberItems = {
       canBeRemoved: true,
 
       getDescription() {
-        const description = `Você é admirado por todos, seja por sua perícia em combate, aparência, estilo ou mesmo uma única luta marcante. De qualquer forma, você é famoso, admirado e temido. Ser famoso pode trazer vantagens em algumas ocasiões, mas também desvantagens. Será mais difícil passar agir com furtividade, e se você tiver um ponto fraco, será mais fácil de descobrir. Custo: ${this.cost} P.A.`
+        const description = `Você é admirado por todos, seja por sua perícia em combate, aparência, estilo ou mesmo uma única luta marcante. De qualquer forma, você é famoso, admirado e temido. Ser famoso pode trazer vantagens em algumas ocasiões, mas também desvantagens. Será mais difícil agir com furtividade, e se você tiver um ponto fraco, será mais fácil de descobrir. Custo: ${this.cost} P.A.`
 
         return description
       },
@@ -653,7 +653,7 @@ export const timeChamberItems = {
       bonus: 1,
 
       getDescription() {
-        const description = `Você passa a seguir um código de honra que o implica a fazer ou deixar de fazer determinadas ações - o voto é escolhido aleatoriamente, leia o manual para ver cada um. Bônus de P.A: ${this.bonus}`;
+        const description = `Você passa a seguir um código de honra que o implica a fazer ou deixar de fazer determinadas ações - o voto é escolhido aleatoriamente, leia o manual para ver cada um. Bônus de P.A: ${this.bonus}.`;
 
         return description
       },
@@ -1009,7 +1009,7 @@ export const timeChamberItems = {
       canBeRemoved: true,
 
       getDescription() {
-        const description = `Técnica rápida que pode ser carregada a cada dois turnos , acrescentando 1d6. Dano: Ataque Especial + 1d6. Custo de Ki: 3. Custo de P.A: ${this.cost}.`;
+        const description = `Técnica rápida que pode ser carregada a cada dois turnos, acrescentando 1d6. Dano: Ataque Especial + 1d6. Custo de Ki: 3. Custo de P.A: ${this.cost}.`;
 
         return description
       },
@@ -1038,7 +1038,7 @@ export const timeChamberItems = {
 
 
       getDescription() {
-        const description = `Versão aprimorada  do Kamehameha. Diminui o tempo para carregar. Custo de P.A: ${this.cost}.`;
+        const description = `Versão aprimorada do Kamehameha. Diminui o tempo para carregar. Custo de P.A: ${this.cost}.`;
 
         return description
       },
@@ -1069,7 +1069,7 @@ export const timeChamberItems = {
       canBeRemoved: true,
 
       getDescription() {
-        const description = `Técnica Extremamente poderosa se carregada devidamente. Cada turno carregando utiliza 1 ponto de Ki para gerar um ponto de dano, que será multiplicado com seu total de Ataque Especial para gerar o dano final. Dano: Ataque * pontos utilizados. Custo de Ki: 1 ponto/turno. Custo de P.A: ${this.cost}.`;
+        const description = `Técnica Extremamente poderosa se carregada devidamente. Cada turno carregando utiliza 1 ponto de Ki para gerar um ponto de dano, que será multiplicado com seu total de Ataque Especial para gerar o dano final. Dano: Ataque x pontos utilizados. Custo de Ki: 1 ponto/turno. Custo de P.A: ${this.cost}.`;
 
         return description
       },
@@ -1380,7 +1380,7 @@ export const timeChamberItems = {
       canBeRemoved: true,
 
       getDescription() {
-        const description = `A transformação de Super Saiyajin de um Super Saiyajin Deus, ou simplesmente Super Saiyajin Blue. Para aprender Super Saiyajin Deus é necessário ter aprendido Super Saiyajin Deus e satisfazer um requisito à critério do mestre. Bônus (Arbitrário): +10 em Força, Destreza, Ki e Resistência. Custo de Ki: 10 pontos por turno. Custo de P.A: ${this.cost}.`;
+        const description = `A transformação de Super Saiyajin de um Super Saiyajin Deus, ou simplesmente Super Saiyajin Blue. Para aprender Super Saiyajin Blue (SSGSS) é necessário ter aprendido Super Saiyajin Deus e satisfazer um requisito à critério do mestre. Bônus (Arbitrário): +10 em Força, Destreza, Ki e Resistência. Custo de Ki: 10 pontos por turno. Custo de P.A: ${this.cost}.`;
 
         return description
       },
@@ -1667,7 +1667,6 @@ export const timeChamberItems = {
     // Kienzan Combo
     {
       name: 'Kienzan Combo',
-      description: 'Versão aprimorada de Kienzan. É necessário aprender Kienzan para adquirir Kienzan Combo. Custo de P.A: 1.',
       cost: 1,
       needCheck: true,
       canBeRemoved: true,
