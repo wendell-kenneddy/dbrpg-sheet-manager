@@ -86,12 +86,14 @@
         </p>
 
         <p>Com seu personagem em mãos, você terá acesso a sua ficha. Nela
-          existem as seções Atributos, onde todos os pontos de atributos são
-          listados; Status, onde seus status (PV, Ki, EXP, Fôlego e P.A) são
-          exibidos, Habilidades, onde suas técnicas e habilidades são listadas,
-          Vantagens, onde todas as suas vantagens são listadas, Desvantagens,
-          onde todas as suas desvantagens são listadas, e a seção Itens, onde
-          todos os seus itens e equipamentos são listados. </p>
+          existem as seções Atributos Primários, onde todos os pontos de
+          atributos são listados; Atributos Secundários, onde todos os atributos
+          de ataque e defesa são listados; Status, onde seus status (PV, Ki,
+          EXP, Fôlego e P.A) são exibidos; Técnicas e habilidades, onde suas
+          técnicas e habilidades são listadas; Vantagens, onde todas as suas
+          vantagens são listadas; Desvantagens, onde todas as suas desvantagens
+          são listadas, e a seção Itens, onde todos os seus itens e equipamentos
+          são listados. </p>
       </section>
 
       <hr>
@@ -108,9 +110,10 @@
           <h4>Excluir personagem</h4>
 
           <p>Esta ação é irreversível. Uma vez excluído, seu personagem não
-            poderá ser recuperado, então pense nesta. Você será parado por uma
-            caixa de diálogo alertando sobre esta ação, e se quiser mesmo
-            excluir permanentemente seu personagem, clique em Confirmar.</p>
+            poderá ser recuperado, então pense bem antes de ir em frente. Você
+            será parado por uma caixa de diálogo alertando sobre esta ação, e se
+            quiser mesmo excluir permanentemente seu personagem, clique em
+            Confirmar.</p>
         </section>
 
         <section>
@@ -139,6 +142,24 @@
             o que irá influenciar diretamente os valores de status máximo a qual
             se referirem, mas <span class="highlighted-text"><em>não
                 influenciarão os valores atuais</em></span>.</p>
+        </section>
+
+        <section>
+          <h4>Atributos Arbitrários</h4>
+
+          <p>Esta ação abrirá um formulário onde você poderá editar seus <span
+              class="highlighted-text">Atributos Arbitrários</span>, podendo dar
+            como valor um número negativo ou positivo, mas sempre inteiro.</p>
+
+          <p>Atributos Arbitrários são agregados ao seu personagem quando algum
+            evento na aventura exige uma mudança arbitrária de seus atributos,
+            sejam eles primários ou secundários. Por exemplo: ao utilizar uma
+            técnica de transformação, naturalmente você ganhará alguns bônus em
+            seus atributos, mas estes bônus duram apenas enquanto a
+            transformação durar. Este é um caso em que você deve utilizar
+            atributos arbitrários.</p>
+
+          <p>Atributos Arbitrários influenciam diretamente seus status.</p>
         </section>
 
         <section>
@@ -174,31 +195,24 @@
           <h4>Sala do Tempo</h4>
 
           <p>Esta ação te levará à Sala do Tempo, onde você poderá comprar
-            Vantagens e/ou Desvantagens para seu personagem.</p>
+            Vantagens, Desvantagens e Técnicas para seu personagem.</p>
 
-          <p>Vantagens terão um custo de P.A para serem adquiridas, e esse custo
-            pode ser reduzido comprando Desvantagens, que lhe darão P.A em troca
-            do efeito negativo que agregarem.</p>
+          <p>Vantagens e Técnicas terão um custo de P.A para serem adquiridas.
+            Caso não possua P.A suficiente para adquirir o que deseja no
+            momento, dê uma olhada nas Desvantagens.</p>
+
+          <p>Desvantagens concedem P.A para seu personagem, em troca de agregar
+            um efeito negativo ao seu personagem.</p>
         </section>
 
         <section>
-          <h4>Árvore de Habilidades</h4>
+          <h4>Remover Característica</h4>
 
-          <p>Esta ação te levará à Árvore de Habilidades, onde você poderá
-            adquirir as habilidades dos mais formidáveis guerreiros no universo
-            de Dragon Ball.</p>
-
-          <p>Selecione o tutor desejado, e verifique suas habilidades
-            disponíveis. Então dê o nome do tutor e sua habilidade, e caso
-            satisfaça os requisitos impostos pela habilidade, o tutor lhe
-            ensinará a habilidade.</p>
-
-          <p>Cada habilidade possui um requisito, que é composto por um custo de
-            P.A e uma habilidade do mesmo tutor que você precisa ter aprendido
-            para adquirir a habilidade desejada. Por exemplo: para adquirir
-            Super Kamehameha, você deve antes ter aprendido Kamehameha, e ter 1
-            P.A disponível.
-          </p>
+          <p>Esta ação abrirá um modal onde você deverá especificar o tipo da
+            característica que deseja remover (Vantagem, Desvantagem ou
+            Técnica), e o nome. Considerando que o nome e tipo dados são
+            válidos, os P.A ganhos/perdidos serão recuperados/removidos, e a
+            característica será removida do seu personagem.</p>
         </section>
       </section>
 
