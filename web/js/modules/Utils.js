@@ -374,8 +374,7 @@ export const timeChamberItems = {
         if (handleChar.char.status[3].actual < this.cost) {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
-
-        handleChar.addCharAdvantage(this.name)
+        
         handleChar.char.primaryAttributes[2].base += 1
         handleChar.updateCharActualStatus('P.A', -this.cost)
         handleChar.updateCharMaxStatus('Ki')
@@ -402,7 +401,6 @@ export const timeChamberItems = {
           throw new Error(`P.A insuficientes para comprar ${this.name}.`)
         }
 
-        handleChar.addCharAdvantage(this.name)
         handleChar.char.primaryAttributes[4].base += 1;
         handleChar.updateCharActualStatus('P.A', -this.cost)
         handleChar.updateCharMaxStatus('PV')
